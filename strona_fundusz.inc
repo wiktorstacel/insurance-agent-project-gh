@@ -75,7 +75,7 @@ class Strona1
       echo '       <meta name="robots" content="index, follow">
                   <meta name="language" content="pl">
                   <meta http-equiv="Content-Language" content="pl">
-                  <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-2"/>
+                  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 
                   <meta name="author" content="wiktor st±cel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />

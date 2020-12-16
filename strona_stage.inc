@@ -7,19 +7,19 @@ class Strona2
     public $keywords;
     public $description;
     public $metas;
-    public $przyciski_poz = array('Strona G³ówna' => 'index.html',
-                                  'zapisz siê do OFE on-line' => 'formularzofe.htm',
-                                  'umów spotkanie' => 'umowsp.htm'
+    public $przyciski_poz = array('Strona Gï¿½ï¿½wna' => 'index.html',
+                                  'zapisz siï¿½ do OFE on-line' => 'formularzofe.htm',
+                                  'umï¿½w spotkanie' => 'umowsp.htm'
                               );
     public $przyciski_pion = array('Fundusz Emerytalny OFE' => 'commercial_union_ofe.htm',
-                                   'Ubezpieczenia Na ¯ycie' => 'ubezpieczenia_na_zycie.htm',
+                                   'Ubezpieczenia Na ï¿½ycie' => 'ubezpieczenia_na_zycie.htm',
                                    'Ubezpieczenia Komunikacyjne' => 'ubezpieczenia_komunikacyjne.htm',
                                    'Oferta' => 'oferta.htm',
                                    'Kim Jestem' => 'o_mnie.htm',
                                    'Kontakt' => 'kontakt.htm',
                                    'Ciekawe Linki' => 'linki.htm'
                               );
-    public $stopka = 'Janina St&#261;cel Doradca Ubezpieczeniowy. &#169; 2003 - 2009. Wszelkie prawa zastrze¿one.';
+    public $stopka = 'Janina St&#261;cel Doradca Ubezpieczeniowy. &#169; 2003 - 2009. Wszelkie prawa zastrzeï¿½one.';
 
     public function _set($nazwa, $wartosc)
     {
@@ -63,7 +63,7 @@ class Strona2
 
     public function WyswietlSlowaKluczowe()
     {
-      print ("<meta name=\"keywords\" content=\"$this->keywords\" />\n");//Funkcja htmlentities powoduje zast±pienie niedozwolonych znaków HTML-a na odpowiednie warto¶ci, tzw. entities. Np. znak < zamienia na &lt; znak > na &gt; itd. Dziêki temu po dodaniu tekstu zawieraj±cego takie znaki bêd± one widoczne na wygenerowanej stronie.
+      print ("<meta name=\"keywords\" content=\"$this->keywords\" />\n");//Funkcja htmlentities powoduje zastï¿½pienie niedozwolonych znakï¿½w HTML-a na odpowiednie wartoï¿½ci, tzw. entities. Np. znak < zamienia na &lt; znak > na &gt; itd. Dziï¿½ki temu po dodaniu tekstu zawierajï¿½cego takie znaki bï¿½dï¿½ one widoczne na wygenerowanej stronie.
     }
 
     public function WyswietlOpis()
@@ -76,11 +76,11 @@ class Strona2
       echo '       <meta name="robots" content="index, follow">
                   <meta name="language" content="pl">
                   <meta http-equiv="Content-Language" content="pl">
-                  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2" />
+                  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 
-                  <meta name="author" content="wiktor st±cel" />
+                  <meta name="author" content="wiktor stï¿½cel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
-                  <meta name="copyright" content="Wiktor St±cel" />
+                  <meta name="copyright" content="Wiktor Stï¿½cel" />
 
                   <meta http-equiv="Content-Script-Type" content="text/javascript">';
     }
@@ -100,13 +100,13 @@ class Strona2
       echo '<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
-		<h1><a href="#">Janina St±cel</a></h1>
+		<h1><a href="#">Janina Stï¿½cel</a></h1>
 		<h2><a href="#">Doradca Aviva</a></h2>
 	</div>
 	<div id="menu">
 		<ul>';
 			print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=1'),swiec('1');\">OFE</a></li>");
-			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=2'),swiec('2');\">¯ycie</a></li>");
+			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=2'),swiec('2');\">ï¿½ycie</a></li>");
 			print("<li id=\"m3\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=3'),swiec('3');\">Mieszkanie</a></li>");
 			print("<li id=\"m4\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=4'),swiec('4');\">Firma</a></li>");
 			print("<li id=\"m5\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=5'),swiec('5');\">Auto</a></li>");
@@ -126,12 +126,12 @@ class Strona2
 			
 
   
-          require('config_db.php');
+          require_once 'config_db.php';
   
   
-              $result = mysql_query("SELECT * FROM pages WHERE id_strona='1'");
-              if($result != TRUE){echo 'B³ad zapytania MySQL, odpowied¼ serwera: '.mysql_error();}
-              $row = mysql_fetch_array($result, MYSQL_NUM);
+              $result = mysqli_query($conn, "SELECT * FROM pages WHERE id_strona='1'");
+              if($result != TRUE){echo 'BÅ‚ad zapytania MySQL, odpowiedÅº serwera: '.mysqli_error($conn);}
+              $row = mysqli_fetch_array($result, MYSQLI_NUM);
 
         
                 print("<h1 class=\"title\">$row[1]</h1>");
@@ -153,12 +153,12 @@ class Strona2
 				<p><a href="#">Read more&hellip;</a></p>
 			</div>
 			<div class="col2">
-				<h3 class="title">CA£A OFERTA</h3>
+				<h3 class="title">CAï¿½A OFERTA</h3>
 				<ul class="list">
-					<li><a href="#">Ubezpieczenia na ¿ycie</a></li>
+					<li><a href="#">Ubezpieczenia na ï¿½ycie</a></li>
 					<li><a href="#">Fundusz Emerytalny</a></li>
-					<li><a href="#">Ubezpieczenia maj±tkowe</a></li>
-					<li><a href="#">Ubezpieczenia wyjazdów zagranicznych</a></li>
+					<li><a href="#">Ubezpieczenia majï¿½tkowe</a></li>
+					<li><a href="#">Ubezpieczenia wyjazdï¿½w zagranicznych</a></li>
 					<li><a href="#">Ubezpieczenia dla firm</a></li>
 				</ul>
 			</div>
@@ -181,7 +181,7 @@ class Strona2
 			</div>
 		</div>
 		<div id="news" class="boxed">
-			<h2 class="title">Artyku³y &amp; Promocje</h2>
+			<h2 class="title">Artykuï¿½y &amp; Promocje</h2>
 			<div class="content">
 				<ul>
 					<li class="first">
@@ -219,7 +219,7 @@ class Strona2
     {
       echo '<div id="footer">
 	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
-	<p id="links">Janina St±cel. Wszelkie prawa zastrze¿one.</p>
+	<p id="links">Janina Stï¿½cel. Wszelkie prawa zastrzeï¿½one.</p>
 	
 	<div id="flash3">Aviva CU OFE</div>
                                <script type="text/javascript">
@@ -301,53 +301,53 @@ class Strona2
              <form action="http://fundusz-cu.comuf.com/kont.php" method="post" onsubmit="if (sprawdz1(this)) return true; return false">
                                 <fieldset>
                                <legend>Zostaw kontakt -<strong>oddzwonie</strong></legend>
-                               <p>imiê i nazwisko: <input type="text" name="imiek" value="Jan Kowalski" size="12" maxlength="50" style="position: absolute; left: 129px; background-color: cornsilk; font-style: italic; color: gray "></p>
+                               <p>imiï¿½ i nazwisko: <input type="text" name="imiek" value="Jan Kowalski" size="12" maxlength="50" style="position: absolute; left: 129px; background-color: cornsilk; font-style: italic; color: gray "></p>
                                 <p>nr telefonu: <input type="text" name="kontaktk" value size="12" maxlength="40" style="position: absolute; left:129px; background-color: cornsilk; font-style: italic; color: gray "></p>
                                 <p align="left"><input type="submit" value="wy&#347;lij"/></p>
                                 </fieldset>
              </form>
              </div>
              <div id="SMS">
-             <a href="ubezpieczenia_lancut.htm" taget="">Ubezpieczenia £añcut</a>
+             <a href="ubezpieczenia_lancut.htm" taget="">Ubezpieczenia ï¿½aï¿½cut</a>
              <a href="ubezpieczenia_przeworsk.htm" taget="">Ubezpieczenia Przeworsk</a>
-             <a href="ubezpieczenia_jaroslaw.htm" taget="">Ubezpieczenia Jaros³aw</a>
-             <a href="ubezpieczenia_lezajsk.htm" taget="">Ubezpieczenia Le¿ajsk</a>
-             <a href="ubezpieczenia_sokolow_malopolski.htm" taget="">Soko³ów Ma³opolski</a>
+             <a href="ubezpieczenia_jaroslaw.htm" taget="">Ubezpieczenia Jarosï¿½aw</a>
+             <a href="ubezpieczenia_lezajsk.htm" taget="">Ubezpieczenia Leï¿½ajsk</a>
+             <a href="ubezpieczenia_sokolow_malopolski.htm" taget="">Sokoï¿½ï¿½w Maï¿½opolski</a>
              <a href="ubezpieczenia_kolbuszowa.htm" taget="">Kolbuszowa</a>
-             <a href="ubezpieczenia_zolynia.htm" taget="">Ubezpieczenia ¯o³ynia</a>
-             <a href="ubezpieczenia_wola_zarczycka.htm" taget="">Wola ¯arczycka</a>
+             <a href="ubezpieczenia_zolynia.htm" taget="">Ubezpieczenia ï¿½oï¿½ynia</a>
+             <a href="ubezpieczenia_wola_zarczycka.htm" taget="">Wola ï¿½arczycka</a>
              <a href="ubezpieczenia_nowa_sarzyna.htm" taget="">Nowa Sarzyna</a>
              <a href="ubezpieczenia_sieniawa.htm" taget="">Sieniawa</a>
              <a href="ubezpieczenia_markowa.htm" taget="">Markowa</a>
              <a href="ubezpieczenia_tyczyn.htm" taget="">Tyczyn</a>
-             <a href="ubezpieczenia_dynow.htm" taget="">Dynów</a>
-             <a href="ubezpieczenia_strzyzow.htm" taget="">Strzy¿ów</a>
+             <a href="ubezpieczenia_dynow.htm" taget="">Dynï¿½w</a>
+             <a href="ubezpieczenia_strzyzow.htm" taget="">Strzyï¿½ï¿½w</a>
              <a href="ubezpieczenia_bratkowice.htm" taget="">Bratkowice</a>
              <a href="ubezpieczenia_rakszawa.htm" taget="">Ubezpieczenia Rakszawa</a>
              <a href="ubezpieczenia_kosina.htm" taget="">Ubezpieczenia Kosina</a>
              <a href="ubezpieczenia_krasne.htm" taget="">Ubezpieczenia Krasne</a>
-             <a href="ubezpieczenia_swilcza.htm" taget="">Ubezpieczenia ¦wilcza</a>
-             <a href="ubezpieczenia_debica.htm" taget="">Ubezpieczenia Dêbica</a>
-             <a href="ubezpieczenia_sedziszow_malopolski.htm" taget="">Sedziszów Ma³opolski</a>
+             <a href="ubezpieczenia_swilcza.htm" taget="">Ubezpieczenia ï¿½wilcza</a>
+             <a href="ubezpieczenia_debica.htm" taget="">Ubezpieczenia Dï¿½bica</a>
+             <a href="ubezpieczenia_sedziszow_malopolski.htm" taget="">Sedziszï¿½w Maï¿½opolski</a>
              <a href="ubezpieczenia_ropczyce.htm" taget="">Ubezpieczenia Ropczyce</a>
-             <a href="ubezpieczenia_boguchwala.htm" taget="">Boguchwa³a</a>
-             <a href="aviva_rzeszow.htm" taget="">Aviva Rzeszów</a>
+             <a href="ubezpieczenia_boguchwala.htm" taget="">Boguchwaï¿½a</a>
+             <a href="aviva_rzeszow.htm" taget="">Aviva Rzeszï¿½w</a>
 
-             Losowanie OFE<br />Zapisy do CU OFE<br />Wy&#347;lij sms o tre&#347;ci "OFE" na numer 607 577 457  Podkarpackie,Fundusz Emerytalny Rzeszów, £añcut, Przeworsk, Le¿ajsk, Jaros³aw i okolice. II filar, III filar, pierwsza praca, pierwsza wyp³ata, ranking funduszy emerytalnych 2009, najlepszy. stabilny, najwiêkszy, umowa, zapis, zapisy,<acronym>ZUS</acronym> Rzeszów CU. Biuro Commercial Union Rzeszów.
-             <p><p align="justify">Nazywam siê Janina St&#261;cel i jestem doradc&#261; Commercial Union oddzia³ w Rzeszowie.
-             Mój obszar dzia³ania to ca³y kraj a w szczególno¶ci województwo <b>Podkarpackie</b> - miasta miêdzy innymi takie jak <b>Rzeszów</b>, £añcut, Przeworsk, Jaros³aw, Le¿ajsk oraz okolice.
-             Jeste&#347; zainteresowany - skontaktuj siê.</p>
+             Losowanie OFE<br />Zapisy do CU OFE<br />Wy&#347;lij sms o tre&#347;ci "OFE" na numer 607 577 457  Podkarpackie,Fundusz Emerytalny Rzeszï¿½w, ï¿½aï¿½cut, Przeworsk, Leï¿½ajsk, Jarosï¿½aw i okolice. II filar, III filar, pierwsza praca, pierwsza wypï¿½ata, ranking funduszy emerytalnych 2009, najlepszy. stabilny, najwiï¿½kszy, umowa, zapis, zapisy,<acronym>ZUS</acronym> Rzeszï¿½w CU. Biuro Commercial Union Rzeszï¿½w.
+             <p><p align="justify">Nazywam siï¿½ Janina St&#261;cel i jestem doradc&#261; Commercial Union oddziaï¿½ w Rzeszowie.
+             Mï¿½j obszar dziaï¿½ania to caï¿½y kraj a w szczegï¿½lnoï¿½ci wojewï¿½dztwo <b>Podkarpackie</b> - miasta miï¿½dzy innymi takie jak <b>Rzeszï¿½w</b>, ï¿½aï¿½cut, Przeworsk, Jarosï¿½aw, Leï¿½ajsk oraz okolice.
+             Jeste&#347; zainteresowany - skontaktuj siï¿½.</p>
                <div>
                              <br /><br />
-             <p>Podj&#261;³e&#347; pierwsz&#261; pracê, DOSTA£E&#346; PIERWSZ&#260; WYP£ATÊ.
-              Przyst±pienie do funduszu jest <u>obowi±zkowe</u> i <u>bezp³atne</u>.</p>
+             <p>Podj&#261;ï¿½e&#347; pierwsz&#261; pracï¿½, DOSTAï¿½E&#346; PIERWSZ&#260; WYPï¿½ATï¿½.
+              Przystï¿½pienie do funduszu jest <u>obowiï¿½zkowe</u> i <u>bezpï¿½atne</u>.</p>
 
                         </div>
              </div>
 
              <div>
 
-             <h1>commercial union rzeszów</h1>
+             <h1>commercial union rzeszï¿½w</h1>
 
              </div>
 
@@ -372,16 +372,16 @@ class Strona2
     public function WyswietlInformacje()
     {
       echo '<div id="INFORMACJE">
-                        <div><img height="400" alt="Janina St±cel kontakt telefon komórkowy gg" src="dane.jpg" width="200"></div>
+                        <div><img height="400" alt="Janina Stï¿½cel kontakt telefon komï¿½rkowy gg" src="dane.jpg" width="200"></div>
                         <div id="OFERTA1">
-                            <u>Aviva Commercial Union Rzeszów</u>
+                            <u>Aviva Commercial Union Rzeszï¿½w</u>
 
 
 
                         </div>
 
                         <div>
-                             <p><u>zapytaj doradców przez gg:</u></p>
+                             <p><u>zapytaj doradcï¿½w przez gg:</u></p>
                             <p><img src="http://status.gadu-gadu.pl/users/status.asp?id=10306775&amp;styl=0"><a href="gg:10306775">doradca ubez.</a><small>10306775</small></p>
                             <p><img src="http://status.gadu-gadu.pl/users/status.asp?id=10306775&amp;styl=0"><a href="gg:1925707">asystent OFE</a> <small>1925707</small></p>
                             <p><img src="http://status.gadu-gadu.pl/users/status.asp?id=10306775&amp;styl=0"><a href="gg:6299995">asystent OFE</a> <small>6299995</small></p></font>
@@ -400,7 +400,7 @@ class Strona2
                 </div>';
     }
 
-    public function skaluj($szerokosc, $cel)        //je¿eli szerokosc zdj jest mniejsza od maksymalnej, to zostawia oryginalny rozmiar
+    public function skaluj($szerokosc, $cel)        //jeï¿½eli szerokosc zdj jest mniejsza od maksymalnej, to zostawia oryginalny rozmiar
      {
 
          if($szerokosc > $cel)
@@ -413,28 +413,28 @@ class Strona2
     public function WyswietlTresc()
     {
       echo '<div id="TRESC">
-                <div id="OBRAZKI"><img src="motyl.jpg" width="200" height="125" alt="Fundusz Emerytalny Rzeszów OFE" /><img src="life.jpg" width="220" height="125" alt="Ubezpieczenia na ¿ycie maj±tkowe oraz Fundusz emerytalny Commercial Union OFE" /></div>
-                <p><u>Dlaczego...</b> ?</u></p>Dlaczego jeste¶ na tej stronie? Czy dlatego, ¿e chcesz natychmiast zapisaæ siê do konkretnego funduszu?
-                Czy dlatego, ¿e cenisz okre¶lon± markê? Podejrzewam, ¿e nie...</p>
-                <br /><p>Po prostu szukasz <b>pomys³u</b>, w miarê obiektywnej, ciekawej informacji o funduszach emerytalnych, aby przyst±piæ do takiego,
-                któremu mo¿na zaufaæ. Chcesz ominaæ ca³± komercje, sprzeczne informacje i medialne sensacje oceiaj±ce OFE b±d¼ negatywnie, b±d¼ te¿
-                pozytywnie w zale¿no¶ci od pory dnia... </p>
-                <br /><p>Jakby to by³o, byæ w takim funduszu, którym pieni±dze by³yby bezpieczene jak w zaufanym banku. Kiedy kompetencja,
-                umiejêtno¶ci i do¶wiadczenie decyduj± o dobrym zarz±dzaniu.</p>
-                <p>Ka¿dy lubi mieæ tak± ¶wiadomo¶æ, ¿e kiedy na co dzieñ wykonuje
-                dobrze swoj± ciê¿k± pracê, to równocze¶nie gdzie¶ jest stabilne miejsce, gdzie jego pieni±dze, maj± zapewniony bezpieczny
-                wzrost. Ka¿dy ceni jasn±, przejrzyt± i klarown± sytuacjê, kiedy mo¿e zaufaæ doradcy, byæ spokojnym i skupiæ siê na swoich zadaniach.</p>
-                <br /><p><i>Oczywi¶cie taka sytuacja jest bardzo, bardzo po¿±dana i przez ostro¿no¶æ nie wierzymy w takie opowie¶ci. A co by by³o, gdyby
-                takie rozwi±zania nie by³y dostêpne tylko dla nielicznych.</i></p>
-                <br /><p>Inne fundusze te¿ maj± bardzo dobr± ofertê, ale skoro masz t± stronê pod rêk± to znajd¼ dla siebie przydatne informacje.
-                Jak bêdziesz mia³ czas to powiniene¶ tak¿e spróbowaæ poszukaæ oferty innych firm i doradców.</p>
-                <p>Chcesz wiêcej informacji: uwa¿nie czytaj dalej!
+                <div id="OBRAZKI"><img src="motyl.jpg" width="200" height="125" alt="Fundusz Emerytalny Rzeszï¿½w OFE" /><img src="life.jpg" width="220" height="125" alt="Ubezpieczenia na ï¿½ycie majï¿½tkowe oraz Fundusz emerytalny Commercial Union OFE" /></div>
+                <p><u>Dlaczego...</b> ?</u></p>Dlaczego jesteï¿½ na tej stronie? Czy dlatego, ï¿½e chcesz natychmiast zapisaï¿½ siï¿½ do konkretnego funduszu?
+                Czy dlatego, ï¿½e cenisz okreï¿½lonï¿½ markï¿½? Podejrzewam, ï¿½e nie...</p>
+                <br /><p>Po prostu szukasz <b>pomysï¿½u</b>, w miarï¿½ obiektywnej, ciekawej informacji o funduszach emerytalnych, aby przystï¿½piï¿½ do takiego,
+                ktï¿½remu moï¿½na zaufaï¿½. Chcesz ominaï¿½ caï¿½ï¿½ komercje, sprzeczne informacje i medialne sensacje oceiajï¿½ce OFE bï¿½dï¿½ negatywnie, bï¿½dï¿½ teï¿½
+                pozytywnie w zaleï¿½noï¿½ci od pory dnia... </p>
+                <br /><p>Jakby to byï¿½o, byï¿½ w takim funduszu, ktï¿½rym pieniï¿½dze byï¿½yby bezpieczene jak w zaufanym banku. Kiedy kompetencja,
+                umiejï¿½tnoï¿½ci i doï¿½wiadczenie decydujï¿½ o dobrym zarzï¿½dzaniu.</p>
+                <p>Kaï¿½dy lubi mieï¿½ takï¿½ ï¿½wiadomoï¿½ï¿½, ï¿½e kiedy na co dzieï¿½ wykonuje
+                dobrze swojï¿½ ciï¿½kï¿½ pracï¿½, to rï¿½wnoczeï¿½nie gdzieï¿½ jest stabilne miejsce, gdzie jego pieniï¿½dze, majï¿½ zapewniony bezpieczny
+                wzrost. Kaï¿½dy ceni jasnï¿½, przejrzytï¿½ i klarownï¿½ sytuacjï¿½, kiedy moï¿½e zaufaï¿½ doradcy, byï¿½ spokojnym i skupiï¿½ siï¿½ na swoich zadaniach.</p>
+                <br /><p><i>Oczywiï¿½cie taka sytuacja jest bardzo, bardzo poï¿½ï¿½dana i przez ostroï¿½noï¿½ï¿½ nie wierzymy w takie opowieï¿½ci. A co by byï¿½o, gdyby
+                takie rozwiï¿½zania nie byï¿½y dostï¿½pne tylko dla nielicznych.</i></p>
+                <br /><p>Inne fundusze teï¿½ majï¿½ bardzo dobrï¿½ ofertï¿½, ale skoro masz tï¿½ stronï¿½ pod rï¿½kï¿½ to znajdï¿½ dla siebie przydatne informacje.
+                Jak bï¿½dziesz miaï¿½ czas to powinieneï¿½ takï¿½e sprï¿½bowaï¿½ poszukaï¿½ oferty innych firm i doradcï¿½w.</p>
+                <p>Chcesz wiï¿½cej informacji: uwaï¿½nie czytaj dalej!
                 <br /></p>
 
 
 
 
-             <p><a href="commercial_union_ofe.htm">Wiêcej informacji o OFE</a><br />
+             <p><a href="commercial_union_ofe.htm">Wiï¿½cej informacji o OFE</a><br />
              <a href="formularzofe.htm">Formularz przyst&#261;piena do Aviva OFE</a></p>
 
                 </div>';
@@ -459,7 +459,7 @@ class Strona2
              $szerokosc = round($szerokosc * $procent);
              $wysokosc = round($wysokosc * $procent);
 
-             //zwrócenie kawalka kodu html z nowymi rozmiarami zdjecia
+             //zwrï¿½cenie kawalka kodu html z nowymi rozmiarami zdjecia
 
              echo "width=\"$szerokosc\" height=\"$wysokosc\"";
      }
@@ -485,7 +485,7 @@ class Strona2
        echo'                        </div>
 
 
-                <a href="http://www.rzeszow.pl/">Rzeszów</a>
+                <a href="http://www.rzeszow.pl/">Rzeszï¿½w</a>
 
                 <a href="http://www.hosting.osemka.pl/">Darmowy hosting</a>';
 

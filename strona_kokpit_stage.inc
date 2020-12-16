@@ -41,7 +41,7 @@ class kokpit_stage
 
     public function WyswietlSlowaKluczowe()
     {
-      print ("<meta name=\"keywords\" content=\"$this->keywords\" />\n");//Funkcja htmlentities powoduje zast¹pienie niedozwolonych znaków HTML-a na odpowiednie wartoœci, tzw. entities. Np. znak < zamienia na &lt; znak > na &gt; itd. Dziêki temu po dodaniu tekstu zawieraj¹cego takie znaki bêd¹ one widoczne na wygenerowanej stronie.
+      print ("<meta name=\"keywords\" content=\"$this->keywords\" />\n");//Funkcja htmlentities powoduje zastï¿½pienie niedozwolonych znakï¿½w HTML-a na odpowiednie wartoï¿½ci, tzw. entities. Np. znak < zamienia na &lt; znak > na &gt; itd. Dziï¿½ki temu po dodaniu tekstu zawierajï¿½cego takie znaki bï¿½dï¿½ one widoczne na wygenerowanej stronie.
     }
 
     public function WyswietlOpis()
@@ -54,11 +54,11 @@ class kokpit_stage
       echo '       <meta name="robots" content="index, follow">
                   <meta name="language" content="pl">
                   <meta http-equiv="Content-Language" content="pl">
-                  <meta http-equiv="Content-type" content="text/html; charset=ISO-8859-2"/>
+                  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 
-                  <meta name="author" content="wiktor st¹cel" />
+                  <meta name="author" content="wiktor stï¿½cel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
-                  <meta name="copyright" content="Wiktor St¹cel" />
+                  <meta name="copyright" content="Wiktor Stï¿½cel" />
 
                   <meta http-equiv="Content-Script-Type" content="text/javascript">';
     }
@@ -82,7 +82,7 @@ class kokpit_stage
 	</div>
 	<div id="menu">
 		<ul>
-			<li class="active"><a href="index.html">Strona g³ówna</a></li>
+			<li class="active"><a href="index.html">Strona gï¿½ï¿½wna</a></li>
 		</ul>
 	</div>
      </div>';
@@ -99,19 +99,20 @@ class kokpit_stage
         echo '<br>';
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
-        print("<td class=\"tytul\">Tytu³</td>");
+        print("<td class=\"tytul\">Tytuï¿½</td>");
         print("<td class=\"data\">Data dodania</td>");
         print("<td class=\"stan\">Stan</td>");
-        echo '<td>Podgl¹d</td>';
+        echo '<td>Podglï¿½d</td>';
         echo '<td>Edycja</td>';
-        echo '<td>Usuñ</td>';
+        echo '<td>Usuï¿½</td>';
         echo '</tr>';
-        require 'config_db.php';
-        $result = mysql_query("SELECT * FROM articles ORDER BY id DESC");
-        while($row = mysql_fetch_array($result, MYSQL_NUM))
+        require_once 'config_db.php';
+        $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY article_id DESC");
+        if($result != TRUE){echo 'BÅ‚ad zapytania MySQL, odpowiedÅº serwera: '.mysqli_error($conn);} 
+        while($row = mysqli_fetch_array($result, MYSQLI_NUM))
         {
 
-                if($row[4] == 1)      //sprawdzanie czy wpis ma byæ wyswietlany jako aktywny
+                if($row[4] == 1)      //sprawdzanie czy wpis ma byï¿½ wyswietlany jako aktywny
                     {
                     print("<tr class=\"linia\">");
                     }
@@ -145,11 +146,11 @@ class kokpit_stage
 	
         echo'<div id="sidebar_kokpit">
 		<div id="extra" class="boxed">
-			<h2 class="title">Artyku³y</h2>
+			<h2 class="title">Artykuï¿½y</h2>
 			<div class="content">
 				<ul class="list">
-					<li class="first"><a href="kokpit_stage.php">Lista artyku³ów</a></li>
-					<li><a href="freerte/examples/edycja.php?id=new">Dodaj artyku³</a></li>
+					<li class="first"><a href="kokpit_stage.php">Lista artykuï¿½ï¿½w</a></li>
+					<li><a href="freerte/examples/edycja.php?id=new">Dodaj artykuï¿½</a></li>
 				</ul>
 			</div>
 		</div>
@@ -158,7 +159,7 @@ class kokpit_stage
 			<div class="content">
 				<ul class="list">
 					<li class="first"><a href="pages_list.php">Lista Stron</a></li>
-					<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronê</a></li>
+					<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronï¿½</a></li>
 				</ul>
 			</div>
 		</div>
@@ -172,7 +173,7 @@ class kokpit_stage
     {
       echo '<div id="footer">
 	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
-	<p id="links">Janina St¹cel. Wszelkie prawa zastrze¿one.</p>
+	<p id="links">Janina Stï¿½cel. Wszelkie prawa zastrzeï¿½one.</p>
 	
 		<div id="flash3">Aviva CU OFE</div>
                                <script type="text/javascript">
