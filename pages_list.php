@@ -16,16 +16,17 @@ class pages_list extends kokpit_stage
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
         print("<td class=\"id\">Id</td>");
-        print("<td class=\"tytul\">Tytu³</td>");
-        echo '<td>Podgl¹d</td>';
+        print("<td class=\"tytul\">Tytuï¿½</td>");
+        echo '<td>PodglÄ…d</td>';
         echo '<td>Edycja</td>';
-        echo '<td>Usuñ</td>';
+        echo '<td>UsuÅ„</td>';
         echo '</tr>';
-        require 'config_db.php';
-        $result = mysql_query("SELECT * FROM pages ORDER BY id_strona DESC");if($result != TRUE){echo 'B³ad zapytania MySQL, odpowiedŸ serwera: '.mysql_error();}
-        while($row = mysql_fetch_array($result, MYSQL_NUM))
+        require_once 'config_db.php';
+        $result = mysqli_query($conn, "SELECT * FROM pages ORDER BY page_id DESC");
+        if($result != TRUE){echo 'Bï¿½ad zapytania MySQL, odpowiedï¿½ serwera: '.mysqli_error($conn);}
+        while($row = mysqli_fetch_array($result, MYSQLI_NUM))
         {
-                print("<tr class=\"linia\">");              //wpis ma byæ wyswietlany jako aktywny
+                print("<tr class=\"linia\">");              //wpis ma byï¿½ wyswietlany jako aktywny
                 print("<td class=\"id\">$row[0]</td>");
                 print("<td class=\"tytul\">$row[1]</td>");
                 print("<td><a href=\"tekst.php?id=$row[0]\">+</a></td>");

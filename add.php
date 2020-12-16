@@ -15,13 +15,13 @@ class add extends kokpit_stage
 
     $content = $_POST['freeRTE_content'];
     
-    require 'config_db.php';
-    $zapytanie = "INSERT INTO `articles` ( `id` , `title` , `content`,`date`, `stan`) VALUES ( '','$title','$content','2010-01-09','1')" ;
-    $result = mysql_query($zapytanie);
-    if($result != TRUE){echo 'B≥ad zapytania MySQL, odpowiedü serwera: '.mysql_error();}
+    require_once 'config_db.php';
+    $zapytanie = "INSERT INTO `articles` ( `article_id` , `title` , `content`,`date`, `stan`) VALUES (DEFAULT,'$title','$content','2010-01-09','1')" ;
+    $result = mysql_query($conn, $zapytanie);
+    if($result != TRUE){echo 'B≈Çad zapytania MySQL, odpowied≈∫ serwera: '.mysqli_error($conn);}
     else
     {
-    print("Artyku≥ zosta≥ dodany");
+    print("Artyku≈Ç zosta≈Ç dodany");
     }
 
 

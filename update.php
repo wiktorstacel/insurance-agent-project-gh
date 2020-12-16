@@ -18,12 +18,12 @@ class update extends kokpit_stage
     $content = $_POST['freeRTE_content'];
 
     require 'config_db.php';
-    $result1 = mysql_query("UPDATE `articles` SET `title` = '$title' WHERE `id` = '$parametr' LIMIT 1")
-    or die("B³¹d w articles.title: " . mysql_error());
-    $result2 = mysql_query("UPDATE `articles` SET `content` = '$content' WHERE `id` = '$parametr' LIMIT 1")
-    or die("B³¹d w articles.content: " . mysql_error());
+    $result1 = mysqli_query($conn, "UPDATE `articles` SET `title` = '$title' WHERE `article_id` = '$parametr' LIMIT 1")
+    or die("BÅ‚Ä…d w articles.title: " . mysqli_error($conn));
+    $result2 = mysqli_query($conn, "UPDATE `articles` SET `content` = '$content' WHERE `article_id` = '$parametr' LIMIT 1")
+    or die("BÅ‚Ä…d w articles.content: " . mysqli_error($conn));
 
-    print("Artyku³ zosta³ zaktualizowany");
+    print("ArtykuÅ‚ zostaÅ‚ zaktualizowany");
 
 
 

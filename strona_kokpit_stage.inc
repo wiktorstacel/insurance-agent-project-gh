@@ -99,12 +99,12 @@ class kokpit_stage
         echo '<br>';
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
-        print("<td class=\"tytul\">Tytu�</td>");
+        print("<td class=\"tytul\">Tytuł</td>");
         print("<td class=\"data\">Data dodania</td>");
         print("<td class=\"stan\">Stan</td>");
-        echo '<td>Podgl�d</td>';
+        echo '<td>Podgląd</td>';
         echo '<td>Edycja</td>';
-        echo '<td>Usu�</td>';
+        echo '<td>Usuń</td>';
         echo '</tr>';
         require_once 'config_db.php';
         $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY article_id DESC");

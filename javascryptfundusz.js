@@ -1,21 +1,11 @@
-function sprawdz1(formularz)
+var XMLHttpRequestObject = false;
+if (window.XMLHttpRequest)
 {
-	i=2;
-	
-		var pole = formularz.elements[i];
-		if (!pole.disabled && !pole.readonly && (pole.type == "text" || pole.type == "password" || pole.type == "textarea") && pole.value == "")
-		{
-			alert("Podaj dane kontaktowe!");
-			return false;
-		}
-	
-	return true;
+  XMLHttpRequestObject = new XMLHttpRequest();
 }
-
-function flash(id, kolor, czas, kolor2, czas2)
+else if (window.ActiveXObject)
 {
-	document.getElementById(id).style.color = kolor;
-	setTimeout('flash("' + id + '","' + kolor2 + '",' + czas2 + ',"' + kolor + '",' + czas + ')', czas);
+  XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
 }
 
 var xmlHttp;
@@ -34,7 +24,7 @@ function give_content(adres)
 
       };
       xmlHttp.open("POST", adres); //ustawiamy metodę i adres żądania
-	  XMLHttpRequestObject.setRequestHeader('Content-Type' ,'application/x-www-form-urlencode');
+	  //XMLHttpRequestObject.setRequestHeader('Content-Type' ,'application/x-www-form-urlencode');//!!! po zakomentowaniu zadziało, funcja tego nie znana
       xmlHttp.send(null); //wysyłamy żądanie
 	  xmlHttp.overrideMimeType('text/html; charset=utf-8');
 }
@@ -46,4 +36,24 @@ function swiec(a)
            document.getElementById("m"+ir).className = "noactive";
          }
         document.getElementById("m"+a).className = "active";
+}
+
+function sprawdz1(formularz)
+{
+	i=2;
+	
+		var pole = formularz.elements[i];
+		if (!pole.disabled && !pole.readonly && (pole.type == "text" || pole.type == "password" || pole.type == "textarea") && pole.value == "")
+		{
+			alert("Podaj dane kontaktowe!");
+			return false;
+		}
+	
+	return true;
+}
+
+function flash(id, kolor, czas, kolor2, czas2)
+{
+	document.getElementById(id).style.color = kolor;
+	setTimeout('flash("' + id + '","' + kolor2 + '",' + czas2 + ',"' + kolor + '",' + czas + ')', czas);
 }

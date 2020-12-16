@@ -15,13 +15,13 @@ class add_pages extends kokpit_stage
 
     $content = $_POST['freeRTE_content'];
 
-    require 'config_db.php';
-    $zapytanie = "INSERT INTO `pages` ( `id_strona` , `title` , `content`) VALUES ( '','$title','$content')" ;
-    $result = mysql_query($zapytanie);
-    if($result != TRUE){echo 'B≥ad zapytania MySQL, odpowiedü serwera: '.mysql_error();}
+    require_once 'config_db.php';
+    $zapytanie = "INSERT INTO `pages` ( `page_id` , `title` , `content`) VALUES (DEFAULT,'$title','$content')" ;
+    $result = mysqli_query($conn, $zapytanie);
+    if($result != TRUE){echo 'B≈Çad zapytania MySQL, odpowied≈∫ serwera: '.mysqli_error($conn);}
     else
     {
-    print("Strona zosta≥a dodana");
+    print("Strona zosta≈Ça dodana");
     }
 
 

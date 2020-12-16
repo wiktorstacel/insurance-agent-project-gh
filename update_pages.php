@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_kokpit_stage.inc');
+require_once ('strona_kokpit_stage.inc');
 
 class update extends kokpit_stage
 {
@@ -17,13 +17,13 @@ class update extends kokpit_stage
 
     $content = $_POST['freeRTE_content'];
 
-    require 'config_db.php';
-    $result1 = mysql_query("UPDATE `pages` SET `title` = '$title' WHERE `id_strona` = '$parametr' LIMIT 1")
-    or die("B³¹d w articles.title: " . mysql_error());
-    $result2 = mysql_query("UPDATE `pages` SET `content` = '$content' WHERE `id_strona` = '$parametr' LIMIT 1")
-    or die("B³¹d w articles.content: " . mysql_error());
+    require_once 'config_db.php';
+    $result1 = mysqli_query($conn, "UPDATE `pages` SET `title` = '$title' WHERE `page_id` = '$parametr' LIMIT 1")
+    or die("BÅ‚Ä…d w articles.title: " . mysqli_error($conn));
+    $result2 = mysqli_query($conn, "UPDATE `pages` SET `content` = '$content' WHERE `page_id` = '$parametr' LIMIT 1")
+    or die("BÅ‚Ä…d w articles.content: " . mysqli_error($conn));
 
-    print("Strona zosta³a zaktualizowana");
+    print("Strona zostaÅ‚a zaktualizowana");
 
 
 

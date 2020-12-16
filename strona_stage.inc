@@ -45,7 +45,7 @@ class Strona2
 //      $this -> WyswietlSearch();
 //      $this -> WyswietlMenuPion($this->przyciski_pion);
 //      $this -> WyswietlInformacje();
-//      $this -> WyswietlTresc();
+//            $this -> WyswietlTresc();
 //      echo $this->tresc;
 //     $this -> WyswietlStopke();
 //      $this -> WyswietlZastopke();
@@ -100,13 +100,13 @@ class Strona2
       echo '<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
-		<h1><a href="#">Janina St�cel</a></h1>
+		<h1><a href="#">Janina Stącel</a></h1>
 		<h2><a href="#">Doradca Aviva</a></h2>
 	</div>
 	<div id="menu">
 		<ul>';
 			print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=1'),swiec('1');\">OFE</a></li>");
-			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=2'),swiec('2');\">�ycie</a></li>");
+			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=2'),swiec('2');\">Życie</a></li>");
 			print("<li id=\"m3\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=3'),swiec('3');\">Mieszkanie</a></li>");
 			print("<li id=\"m4\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=4'),swiec('4');\">Firma</a></li>");
 			print("<li id=\"m5\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=5'),swiec('5');\">Auto</a></li>");
@@ -129,14 +129,17 @@ class Strona2
           require_once 'config_db.php';
   
   
-              $result = mysqli_query($conn, "SELECT * FROM pages WHERE id_strona='1'");
+              $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC");
               if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-              $row = mysqli_fetch_array($result, MYSQLI_NUM);
-
+              //$row = mysqli_fetch_array($result, MYSQLI_NUM);
+                while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                {
         
                 print("<h1 class=\"title\">$row[1]</h1>");
+                echo '<br />';
                 print("$row[2]");
-            		
+                echo '<br /><br />';
+                }	
 			
 		echo'	<p><strong>Center Stage</strong> is a free template from <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
 			<h2>Praesent Scelerisque</h2>
@@ -155,10 +158,10 @@ class Strona2
 			<div class="col2">
 				<h3 class="title">CA�A OFERTA</h3>
 				<ul class="list">
-					<li><a href="#">Ubezpieczenia na �ycie</a></li>
+					<li><a href="#">Ubezpieczenia na Życie</a></li>
 					<li><a href="#">Fundusz Emerytalny</a></li>
-					<li><a href="#">Ubezpieczenia maj�tkowe</a></li>
-					<li><a href="#">Ubezpieczenia wyjazd�w zagranicznych</a></li>
+					<li><a href="#">Ubezpieczenia majątkowe</a></li>
+					<li><a href="#">Ubezpieczenia wyjazdów zagranicznych</a></li>
 					<li><a href="#">Ubezpieczenia dla firm</a></li>
 				</ul>
 			</div>
