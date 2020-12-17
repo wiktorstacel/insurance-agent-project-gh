@@ -2,5 +2,8 @@ nbproject/
 images/
 config_db.php
 Agent_CMS.clpprj
-freerte/
 
+!freerte/
+
+freerte/*
+!freerte/examples/

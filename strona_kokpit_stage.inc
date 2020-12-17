@@ -151,7 +151,7 @@ class kokpit_stage
 			<div class="content">
 				<ul class="list">
 					<li class="first"><a href="kokpit_stage.php">Lista artykułów</a></li>
-					<li><a href="freerte/examples/edycja.php?id=new">Dodaj artykuł</a></li>
+					<li><a href="freerte/examples/edycja_articles.php?id=new">Dodaj artykuł</a></li>
 				</ul>
 			</div>
 		</div>

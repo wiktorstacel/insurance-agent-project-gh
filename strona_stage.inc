@@ -182,6 +182,7 @@ class Strona2
 					<input id="searchsubmit" type="submit" value="Szukaj" />
 					</fieldset>
 				</form>
+                                <div id="suggestion_answer"></div>
 			</div>
 		</div>
 		<div id="news" class="boxed">
