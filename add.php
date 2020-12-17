@@ -16,8 +16,8 @@ class add extends kokpit_stage
     $content = $_POST['freeRTE_content'];
     
     require_once 'config_db.php';
-    $zapytanie = "INSERT INTO `articles` ( `article_id` , `title` , `content`,`date`, `stan`) VALUES (DEFAULT,'$title','$content','2010-01-09','1')" ;
-    $result = mysql_query($conn, $zapytanie);
+    $zapytanie = "INSERT INTO `articles` ( `article_id` , `title` , `content`,`date`, `stan`) VALUES (DEFAULT,'$title','$content',CURDATE(),'1')" ;
+    $result = mysqli_query($conn, $zapytanie);
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     else
     {

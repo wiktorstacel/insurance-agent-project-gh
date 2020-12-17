@@ -70,7 +70,8 @@ class kokpit_stage
 
     public function WyswietlSkrypty()
     {
-      echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
+        echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
     }
 
    public function WyswietlHeader()
@@ -82,7 +83,7 @@ class kokpit_stage
 	</div>
 	<div id="menu">
 		<ul>
-			<li class="active"><a href="index.html">Strona g��wna</a></li>
+			<li class="active"><a href="index.html">Zarządzanie treścią witryny</a></li>
 		</ul>
 	</div>
      </div>';
@@ -99,7 +100,7 @@ class kokpit_stage
         echo '<br>';
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
-        print("<td class=\"tytul\">Tytuł</td>");
+        print("<td class=\"tytul\">Tytuł artykułu</td>");
         print("<td class=\"data\">Data dodania</td>");
         print("<td class=\"stan\">Stan</td>");
         echo '<td>Podgląd</td>';
@@ -107,7 +108,7 @@ class kokpit_stage
         echo '<td>Usuń</td>';
         echo '</tr>';
         require_once 'config_db.php';
-        $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY article_id DESC");
+        $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC");
         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);} 
         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
         {
@@ -125,7 +126,7 @@ class kokpit_stage
                 print("<td class=\"stan_linia\"><a href=\"aktywacja_wpisu.php?id=$row[0]\">+</a></td>");
 
                 print("<td><a href=\"tekst.php?id=$row[0]\">+</a></td>");
-                print("<td><a href=\"freerte/examples/edycja.php?id=$row[0]\">+</a></td>");
+                print("<td><a href=\"freerte/examples/edycja_articles.php?id=$row[0]\">+</a></td>");
                 print("<td><a href=\"del.php?id=$row[0]\">+</a></td>");
                 echo '</tr>';
         }
@@ -146,11 +147,11 @@ class kokpit_stage
 	
         echo'<div id="sidebar_kokpit">
 		<div id="extra" class="boxed">
-			<h2 class="title">Artyku�y</h2>
+			<h2 class="title">Artykuły</h2>
 			<div class="content">
 				<ul class="list">
-					<li class="first"><a href="kokpit_stage.php">Lista artyku��w</a></li>
-					<li><a href="freerte/examples/edycja.php?id=new">Dodaj artyku�</a></li>
+					<li class="first"><a href="kokpit_stage.php">Lista artykułów</a></li>
+					<li><a href="freerte/examples/edycja.php?id=new">Dodaj artykuł</a></li>
 				</ul>
 			</div>
 		</div>
@@ -159,7 +160,7 @@ class kokpit_stage
 			<div class="content">
 				<ul class="list">
 					<li class="first"><a href="pages_list.php">Lista Stron</a></li>
-					<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stron�</a></li>
+					<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronę</a></li>
 				</ul>
 			</div>
 		</div>
@@ -173,9 +174,9 @@ class kokpit_stage
     {
       echo '<div id="footer">
 	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
-	<p id="links">Janina St�cel. Wszelkie prawa zastrze�one.</p>
+	<p id="links">Agent ubezpieczeniowy. Wszelkie prawa zastrzeżone.</p>
 	
-		<div id="flash3">Aviva CU OFE</div>
+		<div id="flash3"></div>
                                <script type="text/javascript">
                                // <![CDATA[
                                window.scrollBy(0, 210);

@@ -16,14 +16,14 @@ class pages_list extends kokpit_stage
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
         print("<td class=\"id\">Id</td>");
-        print("<td class=\"tytul\">Tytu�</td>");
+        print("<td class=\"tytul\">Tytuł - nazwa przycisku</td>");
         echo '<td>Podgląd</td>';
         echo '<td>Edycja</td>';
         echo '<td>Usuń</td>';
         echo '</tr>';
         require_once 'config_db.php';
-        $result = mysqli_query($conn, "SELECT * FROM pages ORDER BY page_id DESC");
-        if($result != TRUE){echo 'B�ad zapytania MySQL, odpowied� serwera: '.mysqli_error($conn);}
+        $result = mysqli_query($conn, "SELECT * FROM pages ORDER BY page_id ASC");
+        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
         {
                 print("<tr class=\"linia\">");              //wpis ma by� wyswietlany jako aktywny

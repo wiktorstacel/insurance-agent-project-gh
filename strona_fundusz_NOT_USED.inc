@@ -91,7 +91,8 @@ class Strona1
 
     public function WyswietlSkrypty()
     {
-      echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
+        echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
     }
 
     public function WyswietlNaglowek()

@@ -92,7 +92,8 @@ class Strona2
 
     public function WyswietlSkrypty()
     {
-      echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
+        echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
     }
 
     public function WyswietlHeader()
@@ -100,7 +101,7 @@ class Strona2
       echo '<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
-		<h1><a href="#">Janina Stącel</a></h1>
+		<h1><a href="#">Imię Nazwisko</a></h1>
 		<h2><a href="#">Doradca Aviva</a></h2>
 	</div>
 	<div id="menu">
@@ -156,7 +157,7 @@ class Strona2
 				<p><a href="#">Read more&hellip;</a></p>
 			</div>
 			<div class="col2">
-				<h3 class="title">CA�A OFERTA</h3>
+				<h3 class="title">CAŁA OFERTA</h3>
 				<ul class="list">
 					<li><a href="#">Ubezpieczenia na Życie</a></li>
 					<li><a href="#">Fundusz Emerytalny</a></li>
@@ -184,7 +185,7 @@ class Strona2
 			</div>
 		</div>
 		<div id="news" class="boxed">
-			<h2 class="title">Artyku�y &amp; Promocje</h2>
+			<h2 class="title">Artykuły &amp; Promocje</h2>
 			<div class="content">
 				<ul>
 					<li class="first">
@@ -221,10 +222,10 @@ class Strona2
     public function WyswietlFooter()
     {
       echo '<div id="footer">
-	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
-	<p id="links">Janina St�cel. Wszelkie prawa zastrze�one.</p>
+	<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+	<p id="links">Agent Ubezpieczeniowy. Wszelkie prawa zastrzeżone.</p>
 	
-	<div id="flash3">Aviva CU OFE</div>
+	<div id="flash3"></div>
                                <script type="text/javascript">
                                // <![CDATA[
                                window.scrollBy(0, 210);
@@ -304,7 +305,7 @@ class Strona2
              <form action="http://fundusz-cu.comuf.com/kont.php" method="post" onsubmit="if (sprawdz1(this)) return true; return false">
                                 <fieldset>
                                <legend>Zostaw kontakt -<strong>oddzwonie</strong></legend>
-                               <p>imi� i nazwisko: <input type="text" name="imiek" value="Jan Kowalski" size="12" maxlength="50" style="position: absolute; left: 129px; background-color: cornsilk; font-style: italic; color: gray "></p>
+                               <p>imię i nazwisko: <input type="text" name="imiek" value="Jan Kowalski" size="12" maxlength="50" style="position: absolute; left: 129px; background-color: cornsilk; font-style: italic; color: gray "></p>
                                 <p>nr telefonu: <input type="text" name="kontaktk" value size="12" maxlength="40" style="position: absolute; left:129px; background-color: cornsilk; font-style: italic; color: gray "></p>
                                 <p align="left"><input type="submit" value="wy&#347;lij"/></p>
                                 </fieldset>

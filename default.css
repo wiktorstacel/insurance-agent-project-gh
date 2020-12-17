@@ -95,11 +95,11 @@ hr {
 /* Header */
 
 #header_parent {
-	background: #FFFFFF url(images/img01.gif) repeat-x;     //to jest ten baca ground u góry
+	background: #FFFFFF url(images/img01.gif) repeat-x;     
 }
 
 #header {
-	width: 700px;        /*to jest tylko prostok±t w szarym kolorze - ca³y zastawiony obrazkiem img02.jpg*/
+	width: 700px;        /*to jest tylko prostokï¿½t w szarym kolorze - caï¿½y zastawiony obrazkiem img02.jpg*/
 	height: 235px;
 	margin: 0 auto;
 	background: #A4C0C8 url(images/img02.jpg) no-repeat;
@@ -126,7 +126,7 @@ hr {
 
 #logo a {
 	text-decoration: none;
-	color: #3F586B;/*kolor napisu-kolor linku w logo (janina st±cel doradca aviva)*/
+	color: #3F586B;/*kolor napisu-kolor linku w logo (janina stï¿½cel doradca aviva)*/
 }
 
 /* Menu */
@@ -347,7 +347,7 @@ table.lista_art tr.listwa{
        background-color: #A4C0C8;
        color:#000;
        font-weight: bold;
-       font-size: ;
+       
 }
 
 td.tytul{
@@ -362,14 +362,14 @@ td.cena{
         width:90px;
 }
 td.stan{
-        width:;
+        
         text-decoration: none;
 
 
 }
 
 td.stan_linia{
-        width:;
+        ;
         text-decoration: none;
         /*font-family: calibri;  */
 
