@@ -49,14 +49,14 @@ class pages_list extends kokpit_stage
 
 }
 
-$stronaglowna = new pages_list();
+$pages_list = new pages_list();
 
-$stronaglowna -> title = 'Kokpit';
+$pages_list -> title = 'Kokpit';
 
-$stronaglowna -> keywords = 'kokpit';
+$pages_list -> keywords = 'kokpit';
 
-$stronaglowna -> description = 'kokpit';
+$pages_list -> description = 'kokpit';
 
-$stronaglowna -> Wyswietl();
+$pages_list -> Wyswietl();
 
 ?>

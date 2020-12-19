@@ -2,14 +2,14 @@
 
 require ('strona_stage.inc');
 
-$stronaglowna = new Strona2();
+$index = new Strona2();
 
-$stronaglowna -> title = 'Ubezpieczenia komunikacyjne Rzeszów';
+$index -> title = 'Ubezpieczenia komunikacyjne Rzeszów';
 
-$stronaglowna -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
+$index -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
 
-$stronaglowna -> description = '...Zwrócić uwagę na wylicznenie składki ubezpiecznia kominukacyjnego...';
+$index -> description = '...Zwrócić uwagę na wylicznenie składki ubezpiecznia kominukacyjnego...';
 
-$stronaglowna -> Wyswietl();
+$index -> Wyswietl();
 
 ?>

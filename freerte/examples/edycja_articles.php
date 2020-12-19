@@ -3,7 +3,7 @@
 
 require '../../strona_kokpit_stage.inc';
 
-class edycja extends kokpit_stage
+class edycja_articles extends kokpit_stage
 {
    function freeRTE_Preload($content)
     {         //moze ta funkcaja jest do wyswietlania sformatowanego tekstu
@@ -128,14 +128,14 @@ class edycja extends kokpit_stage
 }
 
 
-$stronaglowna = new edycja();
+$edycja_articles = new edycja_articles();
 
-$stronaglowna -> title = 'Kokpit';
+$edycja_articles -> title = 'Kokpit';
 
-$stronaglowna -> keywords = 'kokpit';
+$edycja_articles -> keywords = 'kokpit';
 
-$stronaglowna -> description = 'kokpit';
+$edycja_articles -> description = 'kokpit';
 
-$stronaglowna -> Wyswietl();
+$edycja_articles -> Wyswietl();
 
 ?>

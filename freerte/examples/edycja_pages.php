@@ -117,14 +117,14 @@ class edycja_pages extends kokpit_stage
 }
 
 
-$stronaglowna = new edycja_pages();
+$edycja_pages = new edycja_pages();
 
-$stronaglowna -> title = 'Kokpit';
+$edycja_pages -> title = 'Kokpit';
 
-$stronaglowna -> keywords = 'kokpit';
+$edycja_pages -> keywords = 'kokpit';
 
-$stronaglowna -> description = 'kokpit';
+$edycja_pages -> description = 'kokpit';
 
-$stronaglowna -> Wyswietl();
+$edycja_pages -> Wyswietl();
 
 ?>

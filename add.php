@@ -36,14 +36,14 @@ class add extends kokpit_stage
 }
 
 
-$stronaglowna = new add();
+$pages_list = new add();
 
-$stronaglowna -> title = 'Kokpit';
+$pages_list -> title = 'Kokpit';
 
-$stronaglowna -> keywords = 'kokpit';
+$pages_list -> keywords = 'kokpit';
 
-$stronaglowna -> description = 'kokpit';
+$pages_list -> description = 'kokpit';
 
-$stronaglowna -> Wyswietl();
+$pages_list -> Wyswietl();
 
 ?>
