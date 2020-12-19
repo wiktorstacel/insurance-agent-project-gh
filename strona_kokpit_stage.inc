@@ -71,7 +71,8 @@ class kokpit_stage
     public function WyswietlSkrypty()
     {
         echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
-        echo '<script language="JavaScript" type="text/javascript" src="javascryptfundusz.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="js/js_agent.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="js/jquery_agent.js"></script>';
     }
 
    public function WyswietlHeader()
