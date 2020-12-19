@@ -7,12 +7,12 @@ class Strona2
     public $keywords;
     public $description;
     public $metas;
-    public $przyciski_poz = array('Strona G��wna' => 'index.html',
-                                  'zapisz si� do OFE on-line' => 'formularzofe.htm',
-                                  'um�w spotkanie' => 'umowsp.htm'
+    public $przyciski_poz = array('Strona Główna' => 'index.html',
+                                  'zapisz się do OFE on-line' => 'formularzofe.htm',
+                                  'umów spotkanie' => 'umowsp.htm'
                               );
     public $przyciski_pion = array('Fundusz Emerytalny OFE' => 'commercial_union_ofe.htm',
-                                   'Ubezpieczenia Na �ycie' => 'ubezpieczenia_na_zycie.htm',
+                                   'Ubezpieczenia Na życie' => 'ubezpieczenia_na_zycie.htm',
                                    'Ubezpieczenia Komunikacyjne' => 'ubezpieczenia_komunikacyjne.htm',
                                    'Oferta' => 'oferta.htm',
                                    'Kim Jestem' => 'o_mnie.htm',
@@ -87,7 +87,7 @@ class Strona2
 
     public function WyswietlStyle()
     {
-      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"default.css\" />\n";
+      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"css/css_agent.css\" />\n";
     }
 
     public function WyswietlSkrypty()
@@ -174,6 +174,8 @@ class Strona2
 	public function WyswietlSidebar()
 	{
 	echo'<div id="sidebar">
+                <a href="logowanie.php">Logowanie </a>
+                <a href="Rejestracja.php">Rejestracja </a>
 		<div id="search" class="boxed">
 			<h2 class="title">Wyszukaj</h2>
 			<div class="content">

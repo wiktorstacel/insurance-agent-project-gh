@@ -34,7 +34,7 @@ class logowanie extends Strona2
     public function WyswietlPage()
     {
         echo '<div id="page">
-        <div id="content">
+        <div id="content" style="float:right;">
             <div style="margin-bottom: 20px;">
             
                 <!-- write content here -->
@@ -45,14 +45,19 @@ class logowanie extends Strona2
     
     public function WyswietlSidebar()
     {
-	echo'<div id="sidebar">
+	echo'<div id="sidebar" style="float:left;">
 		<div id="search" class="boxed">
-			<h2 class="title">Zaloguj</h2>
+			<h2 class="title">Logowanie</h2>
 			<div class="content">
-				<form id="searchform" method="get" action="">
+				<form id="searchform" method="POST" action="">
 					<fieldset>
-					<input id="searchinput" type="text" name="searchinput" value="" />
-					<input id="searchsubmit" type="submit" value="Szukaj" />
+                                        <label for="login">Login: </label>
+					<input id="login" type="text" name="login" value="" />
+                                        <br /><br />
+                                        <label for="haslo">Hasło: </label>
+                                        <input id="haslo" type="password" name="haslo" value="" />
+                                        <br /><br />
+					<input id="searchsubmit" type="submit" value="Zaloguj" />
 					</fieldset>
 				</form>
                                 <div id="suggestion_answer"></div>

@@ -58,14 +58,14 @@ class kokpit_stage
 
                   <meta name="author" content="wiktor st�cel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
-                  <meta name="copyright" content="Wiktor St�cel" />
+                  <meta name="copyright" content="Wiktor Stącel" />
 
                   <meta http-equiv="Content-Script-Type" content="text/javascript">';
     }
 
     public function WyswietlStyle()
     {
-      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"default.css\" />\n";
+      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"css/css_agent.css\" />\n";
     }
 
     public function WyswietlSkrypty()

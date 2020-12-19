@@ -172,7 +172,7 @@ hr {
 /* Page */
 
 #page {
-	width: 730px;
+	width: 750px;
 	margin: 0 auto;
 	padding: 30px 0;
 }
@@ -204,7 +204,7 @@ hr {
 
 #content {
 	float: left;
-	width: 420px;
+	width: 450px;
 	padding-top: 8px;
 }
 
@@ -217,7 +217,7 @@ hr {
 }
 
 .twocols .col1, .twocols .col2 {
-	width: 190px;
+	width: 200px;
 }
 
 .twocols .col1 {
@@ -390,4 +390,37 @@ table.lista_art tr.linia2 td{
         border-color: #fff;
         height: 36px;
         color: #c7c7c7;
+}
+
+/* Rejestracja */
+
+#rejestra_field{
+        margin: 0 120px;
+}
+
+#rejestra_field h1{
+        text-align: center;
+}
+
+#rejestra_div{
+        width: 400px;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+#rejestra_div form {
+        margin-left: 56px; /* Tym marginesem ustawiać wycentrowanie całego formularze w #rejestra_div */
+	padding: 0;
+        display: inline-block;
+        text-align: center;
+
+}
+
+#rejestra_div fieldset {
+        margin: 0;
+ 
+	padding: 20;
+        
+	/*border: none;*/
 }
