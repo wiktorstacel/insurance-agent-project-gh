@@ -32,27 +32,28 @@ class rejestracja extends Strona2
     }
     
     public function WyswietlPage()
-    {
+    {//
         echo '<div id="page">
                 <div id="rejestra_field">
                     <h1 class="title">Utwórz konto</h1>
                     <div id="rejestra_div">
-                    <form id="rejestra_form" method="POST" action="">
+                    <form id="rejestra_form" method="POST" action="rejestracja.php">
                             <fieldset>
-                            <label for="login">Login: </label>
-                            <input id="login" type="text" name="login" value="" />
+                            <label for="rej_login">Login: </label>
+                            <input id="rej_login" type="text" name="rej_login" value="" />
                             <br /><br />
-                            <label for="email">E-mail: </label>
-                            <input id="email" type="text" name="email" value="" />
+                            <label for="rej_email">E-mail: </label>
+                            <input id="rej_email" type="text" name="rej_email" value="" />
                             <br /><br />
-                            <label for="haslo">Twoje Hasło: </label>
-                            <input id="haslo" type="password" name="haslo" value="" />
+                            <label for="rej_haslo">Twoje Hasło: </label>
+                            <input id="rej_haslo" type="password" name="rej_haslo" value="" />
                             <br /><br />
-                            <label for="haslo2">Powtórz Hasło: </label>
-                            <input id="haslo2" type="password" name="haslo2" value="" />
+                            <label for="rej_haslo2">Powtórz Hasło: </label>
+                            <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
                             <br /><br />                        
-                            <input id="rejestra" type="submit" value="Utwórz konto" />
+                            <input id="rejestra_submit" type="submit" value="Utwórz konto" />
                             <br />
+                            <p id="rejestra_message"></p>
                             </fieldset>
                     </form>
                     </div>

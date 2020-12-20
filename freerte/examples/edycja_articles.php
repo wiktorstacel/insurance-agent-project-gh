@@ -55,7 +55,7 @@ class edycja_articles extends kokpit_stage
         $content = freeRTE_Preload($content);
         
         ?>
-        <form enctype="multipart/form-data" name="new" method="post" action="../../add.php">
+        <form enctype="multipart/form-data" name="new" method="post" action="../../add_article.php">
         Tytuł: <input name="title" type="text" size="60" maxlength="200" style="text-align:left; color: black">
         <br /><br />
         <!-- Include the Free Rich Text Editor Runtime -->

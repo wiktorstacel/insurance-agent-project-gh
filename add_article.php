@@ -2,7 +2,7 @@
 
 require ('strona_kokpit_stage.inc');
 
-class add_pages extends kokpit_stage
+class add_article extends kokpit_stage
 {
    public function WyswietlPage()
     {
@@ -14,14 +14,14 @@ class add_pages extends kokpit_stage
     $title = $_POST['title'];
 
     $content = $_POST['freeRTE_content'];
-
+    
     require_once 'config_db.php';
-    $zapytanie = "INSERT INTO `pages` ( `page_id` , `title` , `content`) VALUES (DEFAULT,'$title','$content')" ;
+    $zapytanie = "INSERT INTO `articles` ( `article_id` , `title` , `content`,`date`, `stan`) VALUES (DEFAULT,'$title','$content',CURDATE(),'1')" ;
     $result = mysqli_query($conn, $zapytanie);
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     else
     {
-    print("Strona została dodana");
+    print("Artykuł został dodany");
     }
 
 
@@ -36,14 +36,14 @@ class add_pages extends kokpit_stage
 }
 
 
-$pages_list = new add_pages();
+$add_article = new add_article();
 
-$pages_list -> title = 'Kokpit';
+$add_article -> title = 'Kokpit';
 
-$pages_list -> keywords = 'kokpit';
+$add_article -> keywords = 'kokpit';
 
-$pages_list -> description = 'kokpit';
+$add_article -> description = 'kokpit';
 
-$pages_list -> Wyswietl();
+$add_article -> Wyswietl();
 
 ?>

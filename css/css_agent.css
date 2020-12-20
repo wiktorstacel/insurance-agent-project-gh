@@ -420,7 +420,21 @@ table.lista_art tr.linia2 td{
 #rejestra_div fieldset {
         margin: 0;
  
-	padding: 20;
+	padding: 0;
         
 	/*border: none;*/
+}
+
+.form-error {
+        color: red;
+        font-weight: bold;
+}
+
+.form-success {
+        color: green;
+        font-weight: bold;
+}
+
+.input-error {
+        box-shadow: 0 0 5px red;
 }
