@@ -28,7 +28,7 @@ class Strona2
 
     public function Wyswietl()
     {
-      session_start();
+      $this -> ObsluzSesje();
       echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">';
       echo "<html>\n<head>\n";
       $this -> WyswietlTytul();
@@ -52,6 +52,11 @@ class Strona2
 //      $this -> WyswietlZastopke();
       echo "</body>\n</html>\n";
 
+    }
+    
+    public function ObsluzSesje()
+    {
+        session_start();
     }
 
     public function WyswietlTytul()
@@ -174,9 +179,16 @@ class Strona2
 	}
 	public function WyswietlSidebar()
 	{
-	echo'<div id="sidebar">
-                <a href="logowanie.php">Logowanie </a>
-                <a href="Rejestracja.php">Rejestracja </a>
+	echo'<div id="sidebar">';
+            if(isset($_SESSION['zalogowany']))
+            {
+                echo 'Zalogowany: '.$_SESSION['user'].' [<a href="log_out.php">Wyloguj</a>]';
+            }
+            else                                
+            {
+                echo'<a href="logowanie.php">Logowanie </a><a href="Rejestracja.php">Rejestracja </a>';
+            }
+            echo'
 		<div id="search" class="boxed">
 			<h2 class="title">Wyszukaj</h2>
 			<div class="content">
@@ -231,13 +243,13 @@ class Strona2
 	<p id="links">Agent Ubezpieczeniowy. Wszelkie prawa zastrzeżone.</p>
 	
 	<div id="flash3"></div>
-                               <script type="text/javascript">
+                               <!-- <script type="text/javascript">
                                // <![CDATA[
                                window.scrollBy(0, 210);
                                flash("flash3", "blue", 20000, "aqua", 50);
 
                                // ]]>
-                               </script>
+                               </script> --!>
 	
      </div>';
     }

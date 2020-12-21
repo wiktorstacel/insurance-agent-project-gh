@@ -4,42 +4,27 @@ require ('strona_stage.inc');
 
 class logowanie extends Strona2
 {
-    public function Wyswietl()
+   
+    public function ObsluzSesje()
     {
-      echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">';
-      echo "<html>\n<head>\n";
-      $this -> WyswietlTytul();
-      $this -> WyswietlSlowaKluczowe();
-      $this -> WyswietlOpis();
-      $this -> WyswietlMeta();
-      $this -> WyswietlStyle();
-      $this -> WyswietlSkrypty();
-      echo "</head>\n<body>\n";
-      $this -> WyswietlHeader();
-      $this -> WyswietlPage();
-      $this -> WyswietlSidebar();
-      $this -> WyswietlFooter();
-//      $this -> WyswietlMenuPoziom($this->przyciski_poz);
-//      $this -> WyswietlSearch();
-//      $this -> WyswietlMenuPion($this->przyciski_pion);
-//      $this -> WyswietlInformacje();
-//            $this -> WyswietlTresc();
-//      echo $this->tresc;
-//     $this -> WyswietlStopke();
-//      $this -> WyswietlZastopke();
-      echo "</body>\n</html>\n";
-
+        session_start();
+        if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany'] == TRUE))
+        {
+            header('location: kokpit_stage.php');
+            exit();
+        }
     }
     
     public function WyswietlPage()
     {
-        echo '<div id="page">
+      echo '<div id="page">
         <div id="content" style="float:right;">
-            <div style="margin-bottom: 20px;">
+            <div style="margin-bottom: 20px;">';
             
-                <!-- write content here -->
+                //<!-- write content here -->
+                echo $_SESSION['user1'];
         
-            </div>
+            echo'</div>
         </div>';
     }
     
@@ -58,7 +43,9 @@ class logowanie extends Strona2
                                         <input id="log_haslo" type="password" name="log_haslo" value="" />
                                         <br /><br />
 					<input id="log_submit" type="submit" value="Zaloguj" />
-                                        <p id="log_message"></p>
+                                        <p id="log_message">';
+                                            if(isset($_SESSION['blad'])){echo $_SESSION['blad'];}
+                                   echo'</p>
 					</fieldset>
 				</form>
 			</div>

@@ -6,7 +6,7 @@ class kokpit_stage
 
    public function Wyswietl()
     {
-      session_start();
+      $this -> ObsluzSesje();
       echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">';
       echo "<html>\n<head>\n";
       $this -> WyswietlTytul();
@@ -21,18 +21,27 @@ class kokpit_stage
       $this -> WyswietlSidebar();
       $this -> WyswietlFooter();
 //      $this -> WyswietlMenuPoziom($this->przyciski_poz);
- /*     $this -> WyswietlSearch();
+ /*   $this -> WyswietlSearch();
       $this -> WyswietlMenuPion($this->przyciski_pion);
       $this -> WyswietlInformacje();
       $this -> WyswietlTresc();
-//      echo $this->tresc;
+      echo $this->tresc;
       $this -> WyswietlStopke();
       $this -> WyswietlZastopke();*/
       echo "</body>\n</html>\n";
-
+    }
+    
+    public function ObsluzSesje()
+    {
+        session_start();
+        if(!isset($_SESSION['zalogowany']))
+        {
+            header('location: logowanie.php');
+            exit();
+        }
     }
 
-        public function WyswietlTytul()
+    public function WyswietlTytul()
     {
       echo '<meta name="verify-v1" content="TNJHeoK61VQS0o5RHL6ATlM5xAQS1jdwD34gtOl0LpI=" />
                    <meta name="y_key" content="d53f09aab117dc53">
@@ -148,9 +157,15 @@ class kokpit_stage
 	{
 	
         echo'<div id="sidebar_kokpit">';
-            echo 'Użytkownik: '.$_SESSION['user'];
-            echo'<a href="logowanie.php"> Logowanie </a>
-                <a href="Rejestracja.php">Rejestracja </a>
+            if(isset($_SESSION['zalogowany']))
+            {
+                echo 'Zalogowany: '.$_SESSION['user'].' [<a href="log_out.php">Wyloguj</a>]';
+            }
+            else                                
+            {
+                echo'<a href="logowanie.php">Logowanie </a><a href="Rejestracja.php">Rejestracja </a>';
+            }
+            echo'
 		<div id="extra" class="boxed">
 			<h2 class="title">Artykuły</h2>
 			<div class="content">
