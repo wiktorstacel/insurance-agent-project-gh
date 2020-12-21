@@ -22,7 +22,6 @@ class logowanie extends Strona2
             <div style="margin-bottom: 20px;">';
             
                 //<!-- write content here -->
-                echo $_SESSION['user1'];
         
             echo'</div>
         </div>';
