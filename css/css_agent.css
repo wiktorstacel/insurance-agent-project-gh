@@ -438,3 +438,9 @@ table.lista_art tr.linia2 td{
 .input-error {
         box-shadow: 0 0 5px red;
 }
+
+/*Logowanie*/
+
+#log_submit {
+	float: right;
+}

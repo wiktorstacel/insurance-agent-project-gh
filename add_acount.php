@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+session_start();
+
 if(isset($_POST['submit']))
 {
     $login = $_POST['login'];
@@ -29,6 +31,7 @@ if(isset($_POST['submit']))
     else
     {
         echo '<span class="form-success">Success!</span>';
+        echo $login;
     }
 }
 else

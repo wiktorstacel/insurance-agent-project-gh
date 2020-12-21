@@ -1,5 +1,6 @@
 //JQUERY
 
+//sugestia przy wyszukiwarce artykułów na stronie głównej
 $(document).ready(function(){
     
     $("#searchinput").keyup(function(){
@@ -13,6 +14,7 @@ $(document).ready(function(){
     
 });
 
+//asynchroniczne przesyłanie danych z formularza rejestracji nowego konta
 $(document).ready(function(){
     
     $("#rejestra_form").submit(function(event){

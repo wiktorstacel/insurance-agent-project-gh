@@ -49,18 +49,18 @@ class logowanie extends Strona2
 		<div id="search" class="boxed">
 			<h2 class="title">Logowanie</h2>
 			<div class="content">
-				<form id="searchform" method="POST" action="">
+				<form id="log_form" method="POST" action="log_in.php">
 					<fieldset>
-                                        <label for="login">Login: </label>
-					<input id="login" type="text" name="login" value="" />
+                                        <label for="log_login">Login: </label>
+					<input id="log_login" type="text" name="log_login" value="" />
                                         <br /><br />
-                                        <label for="haslo">Hasło: </label>
-                                        <input id="haslo" type="password" name="haslo" value="" />
+                                        <label for="log_haslo">Hasło: </label>
+                                        <input id="log_haslo" type="password" name="log_haslo" value="" />
                                         <br /><br />
-					<input id="searchsubmit" type="submit" value="Zaloguj" />
+					<input id="log_submit" type="submit" value="Zaloguj" />
+                                        <p id="log_message"></p>
 					</fieldset>
 				</form>
-                                <div id="suggestion_answer"></div>
 			</div>
 		</div>
 	</div>

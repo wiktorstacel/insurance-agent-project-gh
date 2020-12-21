@@ -6,6 +6,7 @@ class kokpit_stage
 
    public function Wyswietl()
     {
+      session_start();
       echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">';
       echo "<html>\n<head>\n";
       $this -> WyswietlTytul();
@@ -80,11 +81,11 @@ class kokpit_stage
       echo '<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
-		<h1><a href="#">Kokpit</a></h1>
+		<h1><a href="#">Zarządzanie treścią witryny</a></h1>
 	</div>
 	<div id="menu">
 		<ul>
-			<li class="active"><a href="index.html">Zarządzanie treścią witryny</a></li>
+			<li class="active"><a href="index.php">Powrót na stronę główną</a></li>
 		</ul>
 	</div>
      </div>';
@@ -146,7 +147,10 @@ class kokpit_stage
 	public function WyswietlSidebar()
 	{
 	
-        echo'<div id="sidebar_kokpit">
+        echo'<div id="sidebar_kokpit">';
+            echo 'Użytkownik: '.$_SESSION['user'];
+            echo'<a href="logowanie.php"> Logowanie </a>
+                <a href="Rejestracja.php">Rejestracja </a>
 		<div id="extra" class="boxed">
 			<h2 class="title">Artykuły</h2>
 			<div class="content">
