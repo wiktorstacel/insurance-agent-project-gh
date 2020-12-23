@@ -108,8 +108,8 @@ class Strona2
       echo '<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
-		<h1><a href="#">Imię Nazwisko</a></h1>
-		<h2><a href="#">Doradca Aviva</a></h2>
+		<h1><a href="index.php">Imię Nazwisko</a></h1>
+		<h2><a href="index.php">Doradca Aviva</a></h2>
 	</div>
 	<div id="menu">
 		<ul>';

@@ -23,6 +23,10 @@ class rejestracja extends Strona2
                             <br /><br />
                             <label for="rej_haslo2">Powtórz Hasło: </label>
                             <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
+                            <br /><br />
+                            <label>
+                            <input id="rej_checkbox" type="checkbox" name="rej_checkbox" />Akceptuję regulamin
+                            </label>
                             <br /><br />                        
                             <input id="rejestra_submit" type="submit" value="Utwórz konto" />
                             <br />

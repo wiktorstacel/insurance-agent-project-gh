@@ -16,7 +16,7 @@ class pages_list extends kokpit_stage
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
         print("<td class=\"id\">Id</td>");
-        print("<td class=\"tytul\">Tytuł - nazwa przycisku</td>");
+        print("<td class=\"tytul\">Tytuł - nazwa przycisku w menu głównym</td>");
         echo '<td>Podgląd</td>';
         echo '<td>Edycja</td>';
         echo '<td>Usuń</td>';
