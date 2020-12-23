@@ -25,7 +25,7 @@ class rejestracja extends Strona2
                             <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
                             <br /><br />
                             <label>
-                            <input id="rej_checkbox" type="checkbox" name="rej_checkbox" />Akceptuję regulamin
+                            <input id="rej_regulamin" type="checkbox" name="rej_regulamin" />Akceptuję regulamin
                             </label>
                             <br /><br />                        
                             <input id="rejestra_submit" type="submit" value="Utwórz konto" />

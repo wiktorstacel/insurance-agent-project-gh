@@ -23,12 +23,15 @@ $(document).ready(function(){
         var email = $("#rej_email").val();
         var haslo = $("#rej_haslo").val();
         var haslo2 = $("#rej_haslo2").val();
+        var regulamin = $("#rej_regulamin").prop('checked'); //checkbox
+        //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
         var submit = $("#rejestra_submit").val();
         $("#rejestra_message").load("add_acount.php", {
             login: login,
             email: email,
             haslo: haslo,
             haslo2: haslo2,
+            regulamin: regulamin,
             submit: submit
         });
     });
