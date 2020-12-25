@@ -23,20 +23,22 @@ class rejestracja extends Strona2
                             <br /><br />
                             <label for="rej_haslo2">Powtórz Hasło: </label>
                             <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
-                            <br /><br />Płeć*: 
-                            <label><input type="radio" name="gender" value="male">M</label> 
-                            <label><input type="radio" name="gender" value="female">K</label>
-                            <br /><br />
+                            <br /><br />Płeć: 
+                            <label id="rej_male" style="padding: 3px 4px 0 0;"><input type="radio" name="gender" value="male">M</label> 
+                            <label id="rej_female" style="padding: 3px 4px 0 0;"><input type="radio" name="gender" value="female">K</label>
+                            <br /><br /><br />
                             <label for="rej_haslo2">Znajomość języków obcych*: </label>
                             <br />
                             <label><input type="checkbox" name="language" id="language1" value="angielski" >angielski</label>
                             <label><input type="checkbox" name="language" id="language2" value="niemiecki" >niemiecki</label>
                             <label><input type="checkbox" name="language" id="language3" value="francuski" >francuski</label>
                             <label><input type="checkbox" name="language" id="language4" value="ukrainski" >ukraiński</label><br/>
-                            <label>
+                            <label><input type="checkbox" name="language" id="language5" value="hiszpanski" >hiszpański</label>
+                            <label><input type="checkbox" name="language" id="language6" value="wloski">włoski</label>
+                            <label><input type="checkbox" name="language" id="language7" value="rosyjski" >rosyjski</label>
                             <br /><br /> 
-                            <input id="rej_regulamin" type="checkbox" name="rej_regulamin" />Akceptuję regulamin
-                            </label>
+                            <label><input id="rej_regulamin" type="checkbox" name="rej_regulamin" />Akceptuję </label>
+                            <a href="regulamin.php">regulamin</a>
                             <br /><br />                        
                             <input id="rejestra_submit" type="submit" value="Utwórz konto" />
                             <br />

@@ -18,23 +18,20 @@ $(document).ready(function(){
 $(document).ready(function(){
     
     $("#rejestra_form").submit(function(event){
-        event.preventDefault(); //wyłącza domyślne action i method
+        event.preventDefault();                                     //wyłącza domyślne action i method
         var login = $("#rej_login").val();
         var email = $("#rej_email").val();
         var haslo = $("#rej_haslo").val();
         var haslo2 = $("#rej_haslo2").val();
-        //grup of type"radio"
-        var gender = $("input[name='gender']:checked").val();
-        //if(radioValue){alert("Your are a - " + radioValue);}
-        //kilka checkboxów, gdzie może być zaznaczone od 0 do n
+        var gender = $("input[name='gender']:checked").val();        //grup of type"radio"
+        //if(gender){alert("Your are a - " + gender);}
         var selectedLanguage = new Array();
-        $('input[name="language"]:checked').each(function() {
+        $('input[name="language"]:checked').each(function() {       //kilka checkboxów, gdzie może być zaznaczone od 0 do n
             selectedLanguage.push(this.value);
         });
         var languages = selectedLanguage.toString();
-        alert("Number of selected Languages: "+selectedLanguage.length+"\n"+"And, they are: "+selectedLanguage);
-        //checkbox pojedyńczy
-        var regulamin = $("#rej_regulamin").prop('checked'); 
+        //alert("Number of selected Languages: "+selectedLanguage.length+"\n"+"And, they are: "+selectedLanguage);
+        var regulamin = $("#rej_regulamin").prop('checked');         //checkbox pojedyńczy
         //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
         var submit = $("#rejestra_submit").val();
         $("#rejestra_message").load("add_acount.php", {

@@ -14,7 +14,7 @@ if(isset($_POST['submit']))
     $email = htmlentities($_POST['email'], ENT_QUOTES, "UTF-8");
     $haslo = htmlentities($_POST['haslo'], ENT_QUOTES, "UTF-8");
     $haslo2 = htmlentities($_POST['haslo2'], ENT_QUOTES, "UTF-8");
-    $gender = htmlentities($_POST['gender'], ENT_QUOTES, "UTF-8");
+//    $gender = htmlentities($_POST['gender'], ENT_QUOTES, "UTF-8");
     $languages = htmlentities($_POST['languages'], ENT_QUOTES, "UTF-8");
 
     $regulamin = filter_var($_POST['regulamin'], FILTER_VALIDATE_BOOLEAN);
@@ -25,6 +25,8 @@ if(isset($_POST['submit']))
     $errorLogin = false;
     $errorEmail = false;
     $errorHaslo = false;
+    $errorHaslo2 = false;
+    $errorGender = false;
     $errorRegulamin = false;
     
 
@@ -56,8 +58,13 @@ if(isset($_POST['submit']))
     }
     elseif($haslo != $haslo2)//sprawdz zgodność 2 haseł
     {
-        $errorHaslo = true;
+        $errorHaslo2 = true;
         echo '<span class="form-error">Podane hasła nie są identyczne!</span>';
+    }
+    elseif(!isset($_POST['gender']))//sprawdz zgodność 2 haseł
+    {
+        $errorGender = true;
+        echo '<span class="form-error">Zaznacz pole płeć!</span>';
     }
     elseif($regulamin != 1)//czy zaakceptowano regulamin
     {
@@ -109,16 +116,36 @@ else
 ?>
 
 <script>
-    $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2").removeClass("input-error");
+    $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female, #rej_regulamin").removeClass("input-error");
     
     var errorEmpty = "<?php echo $errorEmpty; ?>";
+    var errorLogin = "<?php echo $errorLogin; ?>";
     var errorEmail = "<?php echo $errorEmail; ?>";
+    var errorHaslo = "<?php echo $errorHaslo; ?>";
+    var errorHaslo2 = "<?php echo $errorHaslo2; ?>";
+    var errorGender = "<?php echo $errorGender; ?>";
+    var errorRegulamin = "<?php echo $errorRegulamin; ?>";
     
     if(errorEmpty == true){
         $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2").addClass("input-error");
     }
+    if(errorLogin == true){
+        $("#rej_login").addClass("input-error");
+    }
     if(errorEmail == true){
         $("#rej_email").addClass("input-error");
+    }
+    if(errorHaslo == true){
+        $("#rej_haslo").addClass("input-error");
+    }
+    if(errorHaslo2 == true){
+        $("#rej_haslo2").addClass("input-error");
+    }
+    if(errorGender == true){
+        $("#rej_male, #rej_female").addClass("input-error");
+    }
+    if(errorRegulamin == true){
+        $("#rej_regulamin").addClass("input-error");
     }
     if((errorEmpty == false) && (errorEmail == false))
     {
