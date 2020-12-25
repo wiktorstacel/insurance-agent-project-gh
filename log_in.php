@@ -16,15 +16,14 @@ if(!isset($_POST['log_login']) || !isset($_POST['log_haslo']))
 else
 {
     $login = htmlentities($_POST['log_login'], ENT_QUOTES, "UTF-8");
-//    $haslo = htmlentities($_POST['log_haslo'], ENT_QUOTES, "UTF-8");//niepotrzebne bo hashujemy
-    $haslo = $_POST['log_haslo'];
+    $haslo = $_POST['log_haslo'];// htmlentities niepotrzebne bo hashujemy
 
     require_once 'config_db.php';
 
     $result = mysqli_query($conn, 
             sprintf("SELECT * FROM users WHERE login='%s'",
-            mysqli_real_escape_string($conn, $login)));
-//            mysqli_real_escape_string($conn, $haslo)));
+            mysqli_real_escape_string($conn, $login))
+                            );
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     else 
     {
@@ -47,7 +46,7 @@ else
             }
             else //jest login, nieprawidłowe hasło
             {
-                $_SESSION['blad'] = '<span style="color: red">Nieprawidłowy login lub hasło!</span>';
+                $_SESSION['blad'] = '<span style="color: red">Nieprawidłowy login lub ->hasło!</span>';
                 header('location: logowanie.php');
             }
         }
