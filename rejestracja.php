@@ -23,8 +23,18 @@ class rejestracja extends Strona2
                             <br /><br />
                             <label for="rej_haslo2">Powtórz Hasło: </label>
                             <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
+                            <br /><br />Płeć*: 
+                            <label><input type="radio" name="gender" value="male">M</label> 
+                            <label><input type="radio" name="gender" value="female">K</label>
                             <br /><br />
+                            <label for="rej_haslo2">Znajomość języków obcych*: </label>
+                            <br />
+                            <label><input type="checkbox" name="language" id="language1" value="angielski" >angielski</label>
+                            <label><input type="checkbox" name="language" id="language2" value="niemiecki" >niemiecki</label>
+                            <label><input type="checkbox" name="language" id="language3" value="francuski" >francuski</label>
+                            <label><input type="checkbox" name="language" id="language4" value="ukrainski" >ukraiński</label><br/>
                             <label>
+                            <br /><br /> 
                             <input id="rej_regulamin" type="checkbox" name="rej_regulamin" />Akceptuję regulamin
                             </label>
                             <br /><br />                        

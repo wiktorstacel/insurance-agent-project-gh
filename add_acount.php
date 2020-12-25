@@ -14,9 +14,12 @@ if(isset($_POST['submit']))
     $email = htmlentities($_POST['email'], ENT_QUOTES, "UTF-8");
     $haslo = htmlentities($_POST['haslo'], ENT_QUOTES, "UTF-8");
     $haslo2 = htmlentities($_POST['haslo2'], ENT_QUOTES, "UTF-8");
- 
-    $emailB = filter_var($email, FILTER_SANITIZE_EMAIL);//zwraca string usuwając (np) polskie znaki
+    $gender = htmlentities($_POST['gender'], ENT_QUOTES, "UTF-8");
+    $languages = htmlentities($_POST['languages'], ENT_QUOTES, "UTF-8");
+
     $regulamin = filter_var($_POST['regulamin'], FILTER_VALIDATE_BOOLEAN);
+    $emailB = filter_var($email, FILTER_SANITIZE_EMAIL);//zwraca string usuwając (np) polskie znaki
+ 
     
     $errorEmpty = false;
     $errorLogin = false;
