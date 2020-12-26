@@ -157,14 +157,16 @@ class kokpit_stage
 	{
 	
         echo'<div id="sidebar_kokpit">';
+            echo'<div id="log_box">';
             if(isset($_SESSION['zalogowany']))
             {
-                echo 'Zalogowany: '.$_SESSION['user'].' [<a href="log_out.php">Wyloguj</a>]';
+                echo 'Zalogowany: '.$_SESSION['user'].' <br><a href="log_out.php">Wyloguj</a> - <a href="index.php"> Strona główna</a>';
             }
             else                                
             {
                 echo'<a href="logowanie.php">Logowanie </a><a href="Rejestracja.php">Rejestracja </a>';
             }
+            echo'</div><div style="clear: both;"></div>'; //end of log_box
             echo'
 		<div id="extra" class="boxed">
 			<h2 class="title">Artykuły</h2>
@@ -194,9 +196,9 @@ class kokpit_stage
     {
       echo '<div id="footer">
 	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
-	<p id="links">Agent ubezpieczeniowy. Wszelkie prawa zastrzeżone.</p>
+	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
 	
-		<div id="flash3"></div>
+		/*echo'<div id="flash3"></div>
                                <script type="text/javascript">
                                // <![CDATA[
                                window.scrollBy(0, 210);
@@ -205,7 +207,7 @@ class kokpit_stage
                                // ]]>
                                </script>
 	
-     </div>';
+     </div>';*/
     }
      
     }

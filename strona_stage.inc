@@ -180,14 +180,16 @@ class Strona2
 	public function WyswietlSidebar()
 	{
 	echo'<div id="sidebar">';
+            echo'<div id="log_box">';
             if(isset($_SESSION['zalogowany']))
             {
-                echo 'Zalogowany: '.$_SESSION['user'].' [<a href="log_out.php">Wyloguj</a>]';
+                echo 'Zalogowany: '.$_SESSION['user'].' <br><a href="log_out.php">Wyloguj</a> - <a href="kokpit_stage.php"> Tryb edycji</a>';
             }
             else                                
             {
-                echo'<a href="logowanie.php">Logowanie </a><a href="Rejestracja.php">Rejestracja </a>';
+                echo'<a href="logowanie.php">Logowanie</a> - <a href="Rejestracja.php">Rejestracja </a>';
             }
+            echo'</div><div style="clear: both;"></div>'; //end of log_box
             echo'
 		<div id="search" class="boxed">
 			<h2 class="title">Wyszukaj</h2>
@@ -239,10 +241,10 @@ class Strona2
     public function WyswietlFooter()
     {
       echo '<div id="footer">
-	<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
-	<p id="links">Agent Ubezpieczeniowy. Wszelkie prawa zastrzeżone.</p>
+	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
 	
-	<div id="flash3"></div>
+	/*echo'<div id="flash3"></div>
                                <!-- <script type="text/javascript">
                                // <![CDATA[
                                window.scrollBy(0, 210);
@@ -251,7 +253,7 @@ class Strona2
                                // ]]>
                                </script> --!>
 	
-     </div>';
+     </div>';*/
     }
 
     public function WyswietlMenuPoziom($przyciski_poz)

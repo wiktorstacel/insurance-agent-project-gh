@@ -290,6 +290,15 @@ hr {
 	border: none;
 }
 
+/* Registration, Log in, Log out, Main routing */
+
+#log_box {
+	float: left;
+        padding: 2px;
+        width: 256px;
+        text-align: center;
+}
+
 /* Search */
 
 #search {
