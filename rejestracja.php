@@ -24,8 +24,8 @@ class rejestracja extends Strona2
                             <label for="rej_haslo2">Powtórz Hasło: </label>
                             <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
                             <br /><br />Płeć: 
-                            <label id="rej_male" style="padding: 3px 4px 0 0;"><input type="radio" name="gender" value="male">M</label> 
-                            <label id="rej_female" style="padding: 3px 4px 0 0;"><input type="radio" name="gender" value="female">K</label>
+                            <label id="rej_male" style="padding: 3px 4px 0 0;"><input id="rej_male_inp" type="radio" name="gender" value="male">M</label> 
+                            <label id="rej_female" style="padding: 3px 4px 0 0;"><input id="rej_female_inp" type="radio" name="gender" value="female">K</label>
                             <br /><br /><br />
                             <label for="rej_haslo2">Znajomość języków obcych*: </label>
                             <br />

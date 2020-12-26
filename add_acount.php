@@ -43,7 +43,7 @@ if(isset($_POST['submit']))
     elseif(ctype_alnum($login) == false)//sprawdź odpowiednie znaki login
     {
         $errorLogin = true;
-        echo '<span class="form-error">Login może składać się tylko z liter i cyfr (bez polskich znaków)!</span>';
+        echo '<span class="form-error">Login może składać się tylko z <br>liter i cyfr (bez polskich znaków)!</span>';
     }
     elseif ((!filter_var($emailB, FILTER_VALIDATE_EMAIL)) || $email != $emailB) //sprawdz poprawnosc email
     {
@@ -53,7 +53,7 @@ if(isset($_POST['submit']))
     elseif((strlen($haslo) < 8) || (strlen($haslo) > 20))//sprawdz poprawność hasla
     {
         $errorHaslo = true;
-        echo '<span class="form-error">Hasło musi posiadać od 8 do 20 znaków!</span>';
+        echo '<span class="form-error">Hasło musi posiadać<br> od 8 do 20 znaków!</span>';
     }
     elseif (!preg_match("#[0-9]+#", $haslo)) 
     {
@@ -142,7 +142,8 @@ if(isset($_POST['submit']))
                             ));
                     if($result)
                     {
-                        echo '<span class="form-success">Success! Nowe konto utworzone.</span>';
+                        echo '<span class="form-success">Nowe konto utworzone.<br> '
+                        . 'Przejdź do strony <a href="logowanie.php">logowania</a>.</span>';
                     }
                     else
                     {
@@ -201,9 +202,11 @@ else
     if(errorRegulamin == true){
         $("#rej_regulamin").addClass("input-error");
     }
-    if((errorEmpty == false) && (errorEmail == false))
+    if(errorEmpty == false && errorLogin == false && errorEmail == false && errorHaslo == false && errorHaslo2 == false && errorGender == false && errorRegulamin == false)
     {
-        $("#rej_login", "#rej_email", "#rej_haslo", "#rej_haslo2").val("");
+        $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female").val("");
+        $("#language1, #language2, #language3, #language4, \n\
+#language5, #language6, #language7, #rej_male_inp, #rej_female_inp, #rej_regulamin").prop('checked', false);
     }
     
 </script>
