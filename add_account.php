@@ -158,7 +158,7 @@ if(isset($_POST['submit']))
                         $mail->Body = "
                             Kliknij link w celu weryfikacji adresu e-mail:<br><br>
                             
-                            <a href='http://manager.test/verify_acount.php?email=$email&token=$token'>Weryfikacja</a>
+                            <a href='http://manager.test/verify_account.php?email=$email&token=$token'>Weryfikacja</a>
                         ";
                         if($mail->send())
                         {

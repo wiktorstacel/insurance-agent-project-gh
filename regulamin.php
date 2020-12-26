@@ -22,7 +22,7 @@ class regulamin extends Strona2
              7. Niniejsza strona internetowa/witryna ma charakter wyłącznie informacyjny. Odwiedzający ponosi odpowiedzlaność za wykorzystanie informacji tu zdobytych i to w jaki sposób 
              pokierował się tymi informacjami w podjętych przez siebie działaniach inwestycyjno-ubezpieczeniowych.<br>
              
-             * Pole nieobowiązkowe do zaznaczenia w rejestracji nowego konta.
+             <br>* Pole nieobowiązkowe do zaznaczenia w rejestracji nowego konta.
              </div>';
         
             echo'</div>

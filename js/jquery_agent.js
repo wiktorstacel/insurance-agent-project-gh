@@ -34,7 +34,7 @@ $(document).ready(function(){
         var regulamin = $("#rej_regulamin").prop('checked');         //checkbox pojedyńczy
         //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
         var submit = $("#rejestra_submit").val();
-        $("#rejestra_message").load("add_acount.php", {
+        $("#rejestra_message").load("add_account.php", {
             login: login,
             email: email,
             haslo: haslo,
