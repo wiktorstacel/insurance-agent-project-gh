@@ -8,6 +8,8 @@
 
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 if(isset($_POST['submit']))
 {
     $login = htmlentities($_POST['login'], ENT_QUOTES, "UTF-8");
@@ -35,15 +37,15 @@ if(isset($_POST['submit']))
         echo '<span class="form-error">Wypełnij wszystkie pola!</span>';
         $errorEmpty = true;
     }
-    elseif(strlen($login) < 3 || strlen($login) > 20)//sprawdz długość login
-    {
-        $errorLogin = true;
-        echo '<span class="form-error">Login musi posiadać od 3 do 20 znaków!</span>';
-    }
     elseif(ctype_alnum($login) == false)//sprawdź odpowiednie znaki login
     {
         $errorLogin = true;
         echo '<span class="form-error">Login może składać się tylko z <br>liter i cyfr (bez polskich znaków)!</span>';
+    }
+    elseif(strlen($login) < 3 || strlen($login) > 20)//sprawdz długość login
+    {
+        $errorLogin = true;
+        echo '<span class="form-error">Login musi posiadać od 3 do 20 znaków!</span>';
     }
     elseif ((!filter_var($emailB, FILTER_VALIDATE_EMAIL)) || $email != $emailB) //sprawdz poprawnosc email
     {
@@ -129,26 +131,62 @@ if(isset($_POST['submit']))
                 
                 if($errorLogin == false && $errorEmail == false)
                 {
-                    //wszystkie testy zaliczone, dodajemy gracza do bazy
-                    $gender = htmlentities($_POST['gender'], ENT_QUOTES, "UTF-8");//tu jest pewność, że ustawiona zmienna POST
-                    $result = mysqli_query($conn, 
-                    sprintf("INSERT INTO users (`user_id`, `login`, `pass`, `email`, `gender`, `languages`) "
-                            . "VALUES (DEFAULT, '%s', '%s', '%s', '%s', '%s')",
-                    mysqli_real_escape_string($conn, $login),
-                    mysqli_real_escape_string($conn, $haslo_hash),
-                    mysqli_real_escape_string($conn, $email),
-                    mysqli_real_escape_string($conn, $gender),
-                    mysqli_real_escape_string($conn, $languages)
-                            ));
-                    if($result)
-                    {
-                        echo '<span class="form-success">Nowe konto utworzone.<br> '
-                        . 'Przejdź do strony <a href="logowanie.php">logowania</a>.</span>';
-                    }
-                    else
-                    {
-                        throw new Exception(mysqli_error($conn));
-                    }
+                        //Tworzenie tokena do weryfikacji e-maila
+                        $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789!/)(*';
+                        $token = str_shuffle($token);
+                        $token = substr($token, 0, 20);
+
+                        //Wysłanie email do użytkownika w celu weryfikacji
+                        include_once "PHPMailer/PHPMailer.php";
+                        include_once "PHPMailer/SMTP.php";
+                        include_once "PHPMailer/Exception.php";
+                        //SMTP Settings
+                        $mail = new PHPMailer();
+                        $mail->isSMTP();
+                        $mail->Host = "smtp.gmail.com";
+                        $mail->SMTPAuth = true;
+                        $mail->Username = "stawik964@gmail.com";
+                        $mail->Password = "www1234#";
+                        $mail->Port = 465; //587
+                        $mail->SMTPSecure = 'ssl'; //tls
+                        
+                        //Email Settings
+                        $mail->isHTML(true);
+                        $mail->setFrom('confirm@ubezpieczenia-stawik964.com');
+                        $mail->addAddress($email);
+                        $mail->Subject = "Weryfikacja adresu e-mail";
+                        $mail->Body = "
+                            Kliknij link w celu weryfikacji adresu e-mail:<br><br>
+                            
+                            <a href='http://manager.test/verify_acount.php?email=$email&token=$token'>Weryfikacja</a>
+                        ";
+                        if($mail->send())
+                        {
+                            //wszystkie testy zaliczone, dodajemy usera do bazy - dopiero po poprawnym wysłaniu email
+                            $gender = htmlentities($_POST['gender'], ENT_QUOTES, "UTF-8");//tu jest pewność, że ustawiona zmienna POST
+                            
+                            $result = mysqli_query($conn, 
+                            sprintf("INSERT INTO users (`user_id`, `login`, `pass`, `email`, `gender`, `languages`, `token`) "
+                                    . "VALUES (DEFAULT, '%s', '%s', '%s', '%s', '%s', '%s')",
+                            mysqli_real_escape_string($conn, $login),
+                            mysqli_real_escape_string($conn, $haslo_hash),
+                            mysqli_real_escape_string($conn, $email),
+                            mysqli_real_escape_string($conn, $gender),
+                            mysqli_real_escape_string($conn, $languages),
+                            mysqli_real_escape_string($conn, $token)
+                                    ));
+                            
+                            if($result){echo '<span class="form-success">Nowe konto utworzone. '
+                            . 'Sprawdź<br>skrzynkę pocztową i potwierdź rejestrację.<br>'
+                                    . '<a href="logowanie.php">Logowanie</a></span>';}
+                            else {throw new Exception(mysqli_error($conn));}
+                        }
+                        else
+                        {
+                            throw new Exception($mail->ErrorInfo);
+                            $errorEmail = true;
+                            echo '<span class="form-error">Błąd serwera - wysłania e-mail, spróbuj ponownie.</span>';
+                        }
                 }
                         
                 
