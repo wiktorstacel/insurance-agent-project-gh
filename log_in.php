@@ -46,7 +46,7 @@ else
             }
             else //jest login, nieprawidłowe hasło
             {
-                $_SESSION['blad'] = '<span style="color: red">Nieprawidłowy login lub ->hasło!</span>';
+                $_SESSION['blad'] = '<span style="color: red">Nieprawidłowy login lub hasło!</span>';
                 header('location: logowanie.php');
             }
         }

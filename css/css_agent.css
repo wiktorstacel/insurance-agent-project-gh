@@ -410,7 +410,7 @@ table.lista_art tr.linia2 td{
 }
 
 #rejestra_div form {
-        margin-left: 56px; /* Tym marginesem ustawiać wycentrowanie całego formularze w #rejestra_div */
+        margin-left: 50px; /* Tym marginesem ustawiać wycentrowanie całego formularze w #rejestra_div */
 	padding: 0;
         display: inline-block;
         text-align: center;
@@ -422,7 +422,7 @@ table.lista_art tr.linia2 td{
  
 	padding: 0;
         
-	/*border: none;*/
+	border: none;
 }
 
 .form-error {

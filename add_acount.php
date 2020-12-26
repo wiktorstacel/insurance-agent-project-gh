@@ -55,6 +55,16 @@ if(isset($_POST['submit']))
         $errorHaslo = true;
         echo '<span class="form-error">Hasło musi posiadać od 8 do 20 znaków!</span>';
     }
+    elseif (!preg_match("#[0-9]+#", $haslo)) 
+    {
+        $errorHaslo = true;
+        echo '<span class="form-error">Hasło musi posiadać co najmniej jedną cyfrę!</span>';
+    }
+    elseif (!preg_match("#[a-zA-Z]+#", $haslo)) 
+    {
+        $errorHaslo = true;
+        echo '<span class="form-error">Hasło musi posiadać co najmniej jedną literę!</span>';
+    }
     elseif($haslo != $haslo2)//sprawdz zgodność 2 haseł
     {
         $errorHaslo2 = true;
@@ -73,7 +83,7 @@ if(isset($_POST['submit']))
     //reCapcha do wstawienia jak już będzie wrzucane na serwer, v3 sprawdzającą content strony np artykuły
     else
     {       
-        echo '<span class="form-success">Jeszcze SQL check... </span>';
+        //echo '<span class="form-success">Jeszcze SQL check... </span>';
     }
     
     

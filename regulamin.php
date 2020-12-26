@@ -13,13 +13,16 @@ class regulamin extends Strona2
             
              echo'<h1>Regulamin</h2><br>
              <div>
-             1. Zakaz używania przekleństw i publikowania obraźliwych treści.<br>
-             2. Nakaz stosowania przepisów o ochronie danych osobowych RODO.<br>
-             3. Za treści rasistowskie grozi odpowiedzialność karna.<br>
-             4. Niniejsza strona internetowa/witryna ma charakter wyłącznie informacyjny.<br>
-             5. Odwiedzający ponosi odpowiedzlaność za wykorzystanie informacji tu zdobytych i to w jaki sposób 
+             1. Zarejstrowany użytkownik ma prawo dodać 1 artykuł dziennie.<br>
+             2. Artykuły podlegają moderacji przez administratora.<br>
+             3. Tylko użytkownik ze statusem administratora ma uprawnienia do edytowania treści podstron z menu głównego.<br>
+             4. Zakaz używania przekleństw i publikowania obraźliwych treści.<br>
+             5. Nakaz stosowania przepisów o ochronie danych osobowych RODO.<br>
+             6. Za treści rasistowskie grozi odpowiedzialność karna.<br>
+             7. Niniejsza strona internetowa/witryna ma charakter wyłącznie informacyjny. Odwiedzający ponosi odpowiedzlaność za wykorzystanie informacji tu zdobytych i to w jaki sposób 
              pokierował się tymi informacjami w podjętych przez siebie działaniach inwestycyjno-ubezpieczeniowych.<br>
              
+             * Pole nieobowiązkowe do zaznaczenia w rejestracji nowego konta.
              </div>';
         
             echo'</div>
