@@ -12,8 +12,8 @@ class reset_psw extends Strona2
                     <div id="res_psw_div">
                     <form id="res_psw_form" method="POST" action="reset_psw.php">
                             <fieldset>
-                            <label for="res_email">E-mail: </label>
-                            <input id="res_email" type="text" name="res_email" value="" />
+                            <label for="res_psw_email">E-mail: </label>
+                            <input id="res_psw_email" type="text" name="res_psw_email" value="" />
                             <br /><br />                        
                             <input id="res_psw_submit" type="submit" value="Wyślij" />
                             <br />

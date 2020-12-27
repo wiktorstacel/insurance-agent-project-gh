@@ -47,3 +47,18 @@ $(document).ready(function(){
     });
     
 });
+
+//asynchroniczne przesyłanie danych z formularza odzyskiwania hasła
+$(document).ready(function(){
+    
+    $("#res_psw_form").submit(function(event){
+        event.preventDefault();                                     //wyłącza domyślne action i method
+        var email = $("#res_psw_email").val();
+        var submit = $("#res_psw_submit").val();
+        $("#res_psw_message").load("reset_psw_rqst.php", {
+            email: email,
+            submit: submit
+        });
+    });
+    
+});
