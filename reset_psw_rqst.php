@@ -84,7 +84,7 @@ if(isset($_POST['submit']))
                 $mail->Body = "
                     Kliknij link w celu utworzenia nowego hasla:<br><br>
 
-                    <a href='http://manager.test/verify_account.php?selector=$selector&token=$hexToken'>Link</a>
+                    <a href='http://manager.test/reset_psw_new.php?selector=$selector&validator=$hexToken'>Link</a>
                 ";
                 if($mail->send())
                 {
@@ -155,5 +155,6 @@ else
     if(errorEmpty == false && errorEmail == false)
     {
         $("#res_psw_email").val("");
+        $("#res_psw_email, #res_psw_submit").prop( "disabled", true );
     }
 </script>

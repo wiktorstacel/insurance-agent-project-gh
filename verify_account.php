@@ -24,10 +24,12 @@ class verify_account extends Strona2
             
             $email = htmlentities($_GET['email'], ENT_QUOTES, "UTF-8");
             $token = htmlentities($_GET['token'], ENT_QUOTES, "UTF-8");
-            $email = $conn->real_escape_string($email);
-            $token = $conn->real_escape_string($token);
 
-            $result = $conn->query("SELECT * FROM users WHERE email='$email' AND token='$token' AND verifed=0");
+            $result = $conn->query(
+                    sprintf("SELECT * FROM users WHERE email='%s' AND token='%s' AND verifed=0",
+                    $conn->real_escape_string($email),
+                    $conn->real_escape_string($token)        
+                            ));           
             if(!$result){echo "MySQL Error: ".mysqli_error($conn);}
             else
             {
@@ -38,7 +40,7 @@ class verify_account extends Strona2
                     else
                     {
                         echo 'Werefikacja poprawna, '
-                        . ' <a href="logowanie.php">strona logowania.</a></span>';
+                        . ' <a href="logowanie.php">strona logowania.</a>';
                     }
                 }
                 else

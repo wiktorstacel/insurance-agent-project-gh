@@ -140,7 +140,7 @@ if(isset($_POST['submit']))
                     require_once 'config_smtp.php';
                     //Email Settings
                     $mail->isHTML(true);
-                    $mail->setFrom('confirm@ubezpieczenia-stawik964.com');
+                    $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
                     $mail->addAddress($email);
                     $mail->Subject = "Weryfikacja adresu e-mail - portal ubezpieczenia i odszkodowania";
                     $mail->Body = "

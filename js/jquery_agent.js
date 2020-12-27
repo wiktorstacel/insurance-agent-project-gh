@@ -62,3 +62,24 @@ $(document).ready(function(){
     });
     
 });
+
+//asynchroniczne przesyłanie danych z formularza tworzenia nowego hasla
+$(document).ready(function(){
+    
+    $("#new_psw_form").submit(function(event){
+        event.preventDefault();                                     //wyłącza domyślne action i method
+        var selector = $("#new_psw_selector").val();
+        var validator = $("#new_psw_validator").val();
+        var haslo = $("#new_psw_haslo").val();
+        var haslo2 = $("#new_psw_haslo2").val();
+        var submit = $("#new_psw_submit").val();
+        $("#new_psw_message").load("reset_psw_action.php", {
+            selector: selector,
+            validator: validator,
+            haslo: haslo,
+            haslo2: haslo2,
+            submit: submit
+        });
+    });
+    
+});
