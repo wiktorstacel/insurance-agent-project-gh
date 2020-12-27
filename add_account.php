@@ -40,7 +40,7 @@ if(isset($_POST['submit']))
     elseif(ctype_alnum($login) == false)//sprawdź odpowiednie znaki login
     {
         $errorLogin = true;
-        echo '<span class="form-error">Login może składać się tylko z <br>liter i cyfr (bez polskich znaków)!</span>';
+        echo '<span class="form-error">Login może składać się tylko z liter i cyfr (bez polskich znaków)!</span>';
     }
     elseif(strlen($login) < 3 || strlen($login) > 20)//sprawdz długość login
     {
@@ -55,7 +55,7 @@ if(isset($_POST['submit']))
     elseif((strlen($haslo) < 8) || (strlen($haslo) > 20))//sprawdz poprawność hasla
     {
         $errorHaslo = true;
-        echo '<span class="form-error">Hasło musi posiadać<br> od 8 do 20 znaków!</span>';
+        echo '<span class="form-error">Hasło musi posiadać od 8 do 20 znaków!</span>';
     }
     elseif (!preg_match("#[0-9]+#", $haslo)) 
     {
@@ -140,21 +140,13 @@ if(isset($_POST['submit']))
                         include_once "PHPMailer/PHPMailer.php";
                         include_once "PHPMailer/SMTP.php";
                         include_once "PHPMailer/Exception.php";
-                        //SMTP Settings
-                        $mail = new PHPMailer();
-                        $mail->isSMTP();
-                        $mail->Host = "smtp.gmail.com";
-                        $mail->SMTPAuth = true;
-                        $mail->Username = "stawik964@gmail.com";
-                        $mail->Password = "www1234#";
-                        $mail->Port = 465; //587
-                        $mail->SMTPSecure = 'ssl'; //tls
                         
+                        require_once 'config_smtp.php';
                         //Email Settings
                         $mail->isHTML(true);
                         $mail->setFrom('confirm@ubezpieczenia-stawik964.com');
                         $mail->addAddress($email);
-                        $mail->Subject = "Weryfikacja adresu e-mail";
+                        $mail->Subject = "Weryfikacja adresu e-mail - portal ubezpieczenia i odszkodowania";
                         $mail->Body = "
                             Kliknij link w celu weryfikacji adresu e-mail:<br><br>
                             
@@ -177,7 +169,7 @@ if(isset($_POST['submit']))
                                     ));
                             
                             if($result){echo '<span class="form-success">Nowe konto utworzone. '
-                            . 'Sprawdź<br>skrzynkę pocztową i potwierdź rejestrację.<br>'
+                            . 'Sprawdź skrzynkę pocztową i potwierdź rejestrację.<br>'
                                     . '<a href="logowanie.php">Logowanie</a></span>';}
                             else {throw new Exception(mysqli_error($conn));}
                         }

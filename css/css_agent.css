@@ -401,7 +401,7 @@ table.lista_art tr.linia2 td{
         color: #c7c7c7;
 }
 
-/* Rejestracja */
+/* Rejestracja & Odzyskiwania hasła */
 
 #rejestra_field{
         margin: 0 120px;
@@ -411,26 +411,38 @@ table.lista_art tr.linia2 td{
         text-align: center;
 }
 
-#rejestra_div{
-        width: 400px;
+#rejestra_div, #res_psw_div{
+        width: 340px;
         margin-top: 20px;
         margin-left: auto;
         margin-right: auto;
 }
 
 #rejestra_div form {
-        margin-left: 50px; /* Tym marginesem ustawiać wycentrowanie całego formularze w #rejestra_div */
+        width: 340px;
+        /*margin-left: 50px; /* Tym marginesem ustawiać wycentrowanie całego formularze w #rejestra_div */
 	padding: 0;
         display: inline-block;
         text-align: center;
-
 }
 
 #rejestra_div fieldset {
-        margin: 0;
- 
+        margin: 0; 
+	padding: 0;        
+	border: none;
+}
+
+#res_psw_div form {
+        width: 340px;
+        /*margin-left: 88px; /* Tym marginesem ustawiać wycentrowanie całego formularze w #res_psw_div */
 	padding: 0;
-        
+        display: inline-block;
+        text-align: center;
+}
+
+#res_psw_div fieldset {
+        margin: 0; 
+	padding: 0;        
 	border: none;
 }
 

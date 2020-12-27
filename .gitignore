@@ -2,6 +2,7 @@ nbproject/
 images/
 PHPMailer/
 config_db.php
+config_smtp.php
 Agent_CMS.clpprj
 
 !freerte/

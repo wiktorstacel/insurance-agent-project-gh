@@ -31,7 +31,7 @@ else
         if($user_number > 0)
         {
             $row = mysqli_fetch_assoc($result);
-            if(password_verify($haslo, $row['pass']))
+            if(password_verify($haslo, $row['pass']) && $row['verifed'] == 1)
             {
                 $_SESSION['zalogowany'] = true;
 

@@ -45,6 +45,8 @@ class logowanie extends Strona2
                                         <p id="log_message">';
                                             if(isset($_SESSION['blad'])){echo $_SESSION['blad'];}
                                    echo'</p>
+                                        <br /><br /><br />
+                                        <label><a href="reset_psw.php">Nie pamiętam hasła.</a></label>
 					</fieldset>
 				</form>
 			</div>
