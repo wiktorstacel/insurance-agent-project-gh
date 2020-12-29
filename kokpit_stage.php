@@ -2,14 +2,14 @@
 
 require ('strona_kokpit_stage.inc');
 
-$pages_list = new kokpit_stage();
+$kokpit_stage = new kokpit_stage();
 
-$pages_list -> title = 'Kokpit';
+$kokpit_stage -> title = 'Kokpit';
 
-$pages_list -> keywords = 'kokpit';
+$kokpit_stage -> keywords = 'kokpit';
 
-$pages_list -> description = 'kokpit';
+$kokpit_stage -> description = 'kokpit';
 
-$pages_list -> Wyswietl();
+$kokpit_stage -> Wyswietl();
 
 ?>

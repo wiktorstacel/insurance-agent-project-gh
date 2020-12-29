@@ -36,7 +36,7 @@ class kokpit_stage
         session_start();
         if(!isset($_SESSION['zalogowany']))
         {
-            header('location: logowanie.php');
+            header('location: login.php');
             exit();
         }
     }
@@ -181,8 +181,18 @@ class kokpit_stage
 			<h2 class="title">Strony</h2>
 			<div class="content">
 				<ul class="list">
-					<li class="first"><a href="pages_list.php">Lista Stron</a></li>
+					<li class="first"><a href="kokpit_pagesList.php">Lista Stron</a></li>
 					<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronę</a></li>
+				</ul>
+			</div>
+		</div>
+                <div id="extra" class="boxed">
+			<h2 class="title">Profil użytkownika</h2>
+			<div class="content">
+				<ul class="list">
+					<li class="first"><a href="kokpit_userProfile.php">Wyświetl</a></li>
+					<li><a href="">Edytuj</a></li>
+                                        <li><a href="">Zmiana hasła</a></li>
 				</ul>
 			</div>
 		</div>
@@ -198,16 +208,16 @@ class kokpit_stage
 	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
 	
-		/*echo'<div id="flash3"></div>
+		echo'<div id="flash3"></div>
                                <script type="text/javascript">
                                // <![CDATA[
-                               window.scrollBy(0, 210);
+                               window.scrollBy(0, 200);
                                flash("flash3", "blue", 20000, "aqua", 50);
 
                                // ]]>
                                </script>
 	
-     </div>';*/
+     </div>';
     }
      
     }

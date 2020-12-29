@@ -465,3 +465,43 @@ table.lista_art tr.linia2 td{
 #log_submit {
 	float: right;
 }
+
+/*Kokpit - User Profile*/
+
+.user_profile_left_title{
+        float: left;
+        width: 179px;
+        margin-top: 18px;
+        border-right: 1px solid #97C984;
+        text-align: right;
+        padding: 0 10px;
+        background-color: #A4C0C8;
+        color:#000;
+        font-weight: bold;
+}
+
+.user_profile_right_title{
+        float: left;
+        width: 380px;
+        margin-top: 18px;
+        padding: 0 10px;
+        background-color: #A4C0C8;
+        color:#000;
+        font-weight: bold;
+}
+
+.user_profile_left{
+        float: left;
+        width: 179px;
+        min-height: 50px;
+        border-right: 1px solid #97C984;
+        text-align: right;
+        padding: 10px;
+}
+
+.user_profile_right{
+        float: left;
+        width: 380px;
+        min-height: 50px;
+        padding: 10px;
+}
