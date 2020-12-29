@@ -34,7 +34,7 @@ $(document).ready(function(){
         var regulamin = $("#rej_regulamin").prop('checked');         //checkbox pojedyńczy
         //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
         var submit = $("#rejestra_submit").val();
-        $("#rejestra_message").load("add_account.php", {
+        $("#rejestra_message").load("register_add_accAction.php", {
             login: login,
             email: email,
             haslo: haslo,
@@ -55,7 +55,7 @@ $(document).ready(function(){
         event.preventDefault();                                     //wyłącza domyślne action i method
         var email = $("#res_psw_email").val();
         var submit = $("#res_psw_submit").val();
-        $("#res_psw_message").load("reset_psw_rqst.php", {
+        $("#res_psw_message").load("reset_psw_rqstAction.php", {
             email: email,
             submit: submit
         });
@@ -73,7 +73,7 @@ $(document).ready(function(){
         var haslo = $("#new_psw_haslo").val();
         var haslo2 = $("#new_psw_haslo2").val();
         var submit = $("#new_psw_submit").val();
-        $("#new_psw_message").load("reset_psw_action.php", {
+        $("#new_psw_message").load("reset_psw_newAction.php", {
             selector: selector,
             validator: validator,
             haslo: haslo,

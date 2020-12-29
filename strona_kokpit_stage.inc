@@ -164,7 +164,7 @@ class kokpit_stage
             }
             else                                
             {
-                echo'<a href="logowanie.php">Logowanie </a><a href="Rejestracja.php">Rejestracja </a>';
+                echo'<a href="login.php">Logowanie </a> / <a href="register.php">Rejestracja </a>';
             }
             echo'</div><div style="clear: both;"></div>'; //end of log_box
             echo'

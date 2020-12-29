@@ -9,7 +9,7 @@ class reset_psw_new extends Strona2
         //logika
         if(!isset($_GET['selector']) || !isset($_GET['validator']))
         {
-            header('location: logowanie.php');
+            header('location: login.php');
             exit();
         }
         else
@@ -54,7 +54,7 @@ class reset_psw_new extends Strona2
                             <label for="new_psw_haslo2">Powtórz Hasło: </label>
                             <input id="new_psw_haslo2" type="password" name="new_psw_haslo2" value="" />
                              <br /><br />
-                            <input id="new_psw_submit" type="submit" value="Wyślij" />
+                            <input id="new_psw_submit" type="submit" value="Zatwierdź" />
                             <br />
                             <p id="new_psw_message">Wprowadź nowe hasło.</p>
                             </fieldset>

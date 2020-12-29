@@ -15,7 +15,7 @@ class verify_account extends Strona2
         //logika
         if(!isset($_GET['email']) || !isset($_GET['token']))
         {
-            header('location: rejestracja.php');
+            header('location: register.php');
             exit();
         }
         else
@@ -40,12 +40,12 @@ class verify_account extends Strona2
                     else
                     {
                         echo 'Werefikacja poprawna, '
-                        . ' <a href="logowanie.php">strona logowania.</a>';
+                        . ' <a href="login.php">strona logowania.</a>';
                     }
                 }
                 else
                 {
-                    header('location: rejestracja.php');
+                    header('location: register.php');
                     exit();            
                 }
             }

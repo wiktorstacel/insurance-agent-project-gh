@@ -2,7 +2,7 @@
 
 require ('strona_stage.inc');
 
-class rejestracja extends Strona2
+class register extends Strona2
 {   
     public function WyswietlPage()
     {
@@ -10,7 +10,7 @@ class rejestracja extends Strona2
                 <div id="rejestra_field">
                     <h1 class="title">Utwórz konto</h1>
                     <div id="rejestra_div">
-                    <form id="rejestra_form" method="POST" action="rejestracja.php">
+                    <form id="rejestra_form" method="POST" action="register.php">
                             <fieldset>
                             <label for="rej_login">Login: </label>
                             <input id="rej_login" type="text" name="rej_login" value="" />
@@ -58,14 +58,14 @@ class rejestracja extends Strona2
 
 }
 
-$rejestracja = new rejestracja();
+$register = new register();
 
-$rejestracja -> title = 'Rejestracja - utwórz konto';
+$register -> title = 'Rejestracja - utwórz konto';
 
-$rejestracja -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
+$register -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
 
-$rejestracja -> description = 'Rejestracja - utwórz konto';
+$register -> description = 'Rejestracja - utwórz konto';
 
-$rejestracja -> Wyswietl();
+$register -> Wyswietl();
 
 ?>

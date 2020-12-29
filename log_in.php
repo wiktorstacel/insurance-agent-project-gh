@@ -10,7 +10,7 @@ session_start();
 
 if(!isset($_POST['log_login']) || !isset($_POST['log_haslo']))
 {
-    header('location: logowanie.php');
+    header('location: login.php');
     exit();
 }
 else
@@ -47,13 +47,13 @@ else
             else //jest login, nieprawidłowe hasło
             {
                 $_SESSION['blad'] = '<span style="color: red">Nieprawidłowy login lub hasło!</span>';
-                header('location: logowanie.php');
+                header('location: login.php');
             }
         }
         else //nie znalazło żadnego użytkownika
         {
             $_SESSION['blad'] = '<span style="color: red">Nieprawidłowy login lub hasło!</span>';
-            header('location: logowanie.php');
+            header('location: login.php');
         }
     }
     mysqli_close($conn);

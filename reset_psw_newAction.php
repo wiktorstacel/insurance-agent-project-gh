@@ -108,7 +108,7 @@ if(isset($_POST['submit']))
                         if(!$result) throw new Exception(mysqli_error($conn));
                         
                         echo '<span class="form-success">Hasło zmienione. Przejdź do strony logowania.<br>'
-                            . '<a href="logowanie.php">Logowanie</a></span>';
+                            . '<a href="login.php">Logowanie</a></span>';
 
                         $result = mysqli_query($conn, 
                         sprintf("DELETE FROM pswReset WHERE pswResetEmail='%s'",

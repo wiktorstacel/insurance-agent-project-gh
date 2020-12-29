@@ -10,4 +10,4 @@ session_start();
 
 session_unset();
 
-header('location: logowanie.php');
+header('location: login.php');

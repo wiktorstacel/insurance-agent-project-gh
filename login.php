@@ -2,7 +2,7 @@
 
 require ('strona_stage.inc');
 
-class logowanie extends Strona2
+class login extends Strona2
 {
    
     public function ObsluzSesje()
@@ -46,7 +46,7 @@ class logowanie extends Strona2
                                             if(isset($_SESSION['blad'])){echo $_SESSION['blad'];}
                                    echo'</p>
                                         <br /><br /><br />
-                                        <label><a href="reset_psw.php">Nie pamiętam hasła.</a></label>
+                                        <label><a href="reset_psw_rqst.php">Nie pamiętam hasła.</a></label>
 					</fieldset>
 				</form>
 			</div>
@@ -59,14 +59,14 @@ class logowanie extends Strona2
 
 }
 
-$logowanie = new logowanie();
+$login = new login();
 
-$logowanie -> title = 'Logowanie';
+$login -> title = 'Logowanie';
 
-$logowanie -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
+$login -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
 
-$logowanie -> description = 'Logowanie do strony';
+$login -> description = 'Logowanie do strony';
 
-$logowanie -> Wyswietl();
+$login -> Wyswietl();
 
 ?>

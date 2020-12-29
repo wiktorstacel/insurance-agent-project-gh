@@ -146,7 +146,7 @@ if(isset($_POST['submit']))
                     $mail->Body = "
                         Kliknij link w celu weryfikacji adresu e-mail:<br><br>
 
-                        <a href='http://manager.test/verify_account.php?email=$email&token=$token'>Weryfikacja</a>
+                        <a href='http://manager.test/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
                     ";
                     if($mail->send())
                     {
@@ -166,7 +166,7 @@ if(isset($_POST['submit']))
 
                         if($result){echo '<span class="form-success">Nowe konto utworzone. '
                         . 'Sprawdź skrzynkę pocztową i potwierdź rejestrację.<br>'
-                                . '<a href="logowanie.php">Logowanie</a></span>';}
+                                . '<a href="login.php">Logowanie</a></span>';}
                         else {throw new Exception(mysqli_error($conn));}
                     }
                     else
