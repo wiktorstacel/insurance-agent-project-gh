@@ -470,9 +470,8 @@ table.lista_art tr.linia2 td{
 
 .user_profile_left_title{
         float: left;
-        width: 179px;
+        width: 180px;
         margin-top: 18px;
-        border-right: 1px solid #97C984;
         text-align: right;
         padding: 0 10px;
         background-color: #A4C0C8;
@@ -482,8 +481,9 @@ table.lista_art tr.linia2 td{
 
 .user_profile_right_title{
         float: left;
-        width: 380px;
+        width: 379px;
         margin-top: 18px;
+        border-left: 1px solid #97C984;
         padding: 0 10px;
         background-color: #A4C0C8;
         color:#000;
@@ -492,16 +492,20 @@ table.lista_art tr.linia2 td{
 
 .user_profile_left{
         float: left;
-        width: 179px;
+        width: 180px;
         min-height: 50px;
-        border-right: 1px solid #97C984;
         text-align: right;
         padding: 10px;
 }
 
 .user_profile_right{
         float: left;
-        width: 380px;
+        width: 379px;
         min-height: 50px;
+        border-left: 1px solid #97C984;
         padding: 10px;
+}
+
+.long_input{
+        width: 380px;
 }

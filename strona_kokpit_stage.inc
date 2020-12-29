@@ -191,8 +191,8 @@ class kokpit_stage
 			<div class="content">
 				<ul class="list">
 					<li class="first"><a href="kokpit_userProfile.php">Wyświetl</a></li>
-					<li><a href="">Edytuj</a></li>
-                                        <li><a href="">Zmiana hasła</a></li>
+					<li><a href="kokpit_editProfile.php">Edytuj</a></li>
+                                        <li><a href="">Zmień hasło</a></li>
 				</ul>
 			</div>
 		</div>

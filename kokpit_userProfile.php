@@ -5,7 +5,7 @@ require ('strona_kokpit_stage.inc');
 class pages_list extends kokpit_stage
 {
 
- public function WyswietlPage()
+    public function WyswietlPage()
     {
 
     echo '<div id="page_kokpit">
@@ -21,7 +21,7 @@ class pages_list extends kokpit_stage
                       . '<div class="user_profile_right_title">Użytkownika</div>';
                     echo'<div style="clear:both"></div>';
     
-                    echo'<div class="user_profile_left">Nazwa</div>'
+                    echo'<div class="user_profile_left">Nazwa użytkownika - login</div>'
                       . '<div class="user_profile_right">'.$row['login'].'</div>';
                     echo'<div style="clear:both"></div>';
 
@@ -29,6 +29,10 @@ class pages_list extends kokpit_stage
                       . '<div class="user_profile_right">'.$row['email'].'</div>';
                     echo'<div style="clear:both"></div>';
 
+                    echo'<div class="user_profile_left">Imię i Nazwisko</div>'
+                      . '<div class="user_profile_right">'.$row['gender'].'</div>';
+                    echo'<div style="clear:both"></div>';
+                    
                     echo'<div class="user_profile_left">Adres biura</div>'
                       . '<div class="user_profile_right">'.$row['gender'].'</div>';
                     echo'<div style="clear:both"></div>';
@@ -37,6 +41,10 @@ class pages_list extends kokpit_stage
                       . '<div class="user_profile_right">'.$row['gender'].'</div>';
                     echo'<div style="clear:both"></div>';
 
+                    echo'<div class="user_profile_left">Obszar działalności</div>'
+                      . '<div class="user_profile_right">'.$row['gender'].'</div>';
+                    echo'<div style="clear:both"></div>';                    
+                    
                     echo'<div class="user_profile_left">Płeć</div>'
                       . '<div class="user_profile_right">'.$row['gender'].'</div>';
                     echo'<div style="clear:both"></div>';
@@ -51,7 +59,7 @@ class pages_list extends kokpit_stage
 		
 	</div>
 	<!-- end content -->';
-	}
+    }
 
 }
 
