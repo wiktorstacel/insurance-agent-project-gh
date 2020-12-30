@@ -34,7 +34,7 @@ if(isset($_POST['email']))
     if(empty($email))//pole e-mail nie może być puste
     {
         $errorEmpty = true;
-        echo '<span class="form-error">E-mail muss sein!</span>';
+        echo '<span class="form-error">Pole "e-mail" nie może być puste!</span>';
     }
     elseif ((!filter_var($emailB, FILTER_VALIDATE_EMAIL)) || $email != $emailB) //sprawdz poprawnosc email
     {
@@ -46,10 +46,25 @@ if(isset($_POST['email']))
         $errorSurname = true;
         echo '<span class="form-error">Pole "Imię i nazwisko" może składać się tylko z liter(w tym polskich) oraz spacji, 0-40 znaków!</span>';            
     }
-    elseif(!preg_match("/^(_|-|ą| |ę|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]|[0-9]){0,150}$/", $address))//sprawdź odpowiednie znaki surname
+    elseif(strlen($address) > 150)//sprawdź odpowiednie znaki surname
     {
         $errorAddress = true;
-        echo '<span class="form-error">Pole "Adres" może składać się z cyfr, liter(w tym polskich), spacji, znaków specjalnych(-_.,()\/) 0-150 znaków!</span>';            
+        echo '<span class="form-error">Pole "Adres" może składać się z 0-150 znaków!</span>';            
+    }
+    elseif(!preg_match("/^(\-|\+|\)|\(|\ |[0-9]){0,20}$/", $tel_num))//sprawdź odpowiednie znaki surname
+    {
+        $errorTel_num = true;
+        echo '<span class="form-error">Pole "Numer Telefonu" może składać się tylko z cyfr i znaków +-() 0-20 znaków!</span>';            
+    }
+    elseif(strlen($busi_area) > 1000)//sprawdź odpowiednie znaki surname
+    {
+        $errorBusi_area = true;
+        echo '<span class="form-error">Pole "Obszar dzialności" może składać się z 0-1000 znaków!</span>';            
+    }
+    elseif(!preg_match("/^(ą|ę| |\,|\.|\;|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,40}$/", $languages))//sprawdź odpowiednie znaki surname
+    {
+        $errorLanguages = true;
+        echo '<span class="form-error">Pole "Języki obce" może składać się tylko z liter(w tym polskich) oraz spacji i znaków ,.; 0-40 znaków!</span>';            
     }
     else
     {       
@@ -88,7 +103,7 @@ if(isset($_POST['email']))
                 mysqli_real_escape_string($conn, $row['login'])                        
                         ));
 
-                if($result){echo '<span class="form-success">Zapisano</span>';}
+                if($result){echo '<span class="form-success">Zmiany zostały zapisane.</span>';}
                 else {throw new Exception(mysqli_error($conn));}
             }
 
@@ -100,7 +115,6 @@ if(isset($_POST['email']))
             echo '<br>Informacja deweloperska: '.$ex;
         }
     }
-
     
 }
 else
@@ -110,42 +124,39 @@ else
 ?>
 
 <script>
-    $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female, #rej_regulamin").removeClass("input-error");
+    $("#edit_email, #edit_surname, #edit_address, #edit_tel_num, #edit_busi_area, #edit_languages").removeClass("input-error");
     
     var errorEmpty = "<?php echo $errorEmpty; ?>";
     var errorEmail = "<?php echo $errorEmail; ?>";
     var errorSurname = "<?php echo $errorSurname; ?>";
     var errorAddress = "<?php echo $errorAddress; ?>";
-    var errorTel_Num = "<?php echo $errorTel_num; ?>";
-    var errorBusi_Area = "<?php echo $errorBusi_area; ?>";
+    var errorTel_num = "<?php echo $errorTel_num; ?>";
+    var errorBusi_area = "<?php echo $errorBusi_area; ?>";
     var errorLanguages = "<?php echo $errorLanguages; ?>";
     
     if(errorEmpty == true){
-        $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2").addClass("input-error");
-    }
-    if(errorLogin == true){
-        $("#rej_login").addClass("input-error");
+        $("#edit_email").addClass("input-error");
     }
     if(errorEmail == true){
-        $("#rej_email").addClass("input-error");
+        $("#edit_email").addClass("input-error");
     }
-    if(errorHaslo == true){
-        $("#rej_haslo").addClass("input-error");
+    if(errorSurname == true){
+        $("#edit_surname").addClass("input-error");
     }
-    if(errorHaslo2 == true){
-        $("#rej_haslo2").addClass("input-error");
+    if(errorAddress == true){
+        $("#edit_address").addClass("input-error");
     }
-    if(errorGender == true){
-        $("#rej_male, #rej_female").addClass("input-error");
+    if(errorTel_num == true){
+        $("#edit_tel_num").addClass("input-error");
     }
-    if(errorRegulamin == true){
-        $("#rej_regulamin").addClass("input-error");
+    if(errorBusi_area == true){
+        $("#edit_busi_area").addClass("input-error");
     }
-    if(errorEmpty == false && errorLogin == false && errorEmail == false && errorHaslo == false && errorHaslo2 == false && errorGender == false && errorRegulamin == false)
+    if(errorLanguages == true){
+        $("#edit_languages").addClass("input-error");
+    }
+    if(errorEmpty == false && errorEmail == false && errorSurname == false && errorAddress == false && errorTel_num == false && errorBusi_area == false && errorLanguages == false)
     {
-        $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female").val("");
-        $("#language1, #language2, #language3, #language4, \n\
-#language5, #language6, #language7, #rej_male_inp, #rej_female_inp, #rej_regulamin").prop('checked', false);
+        $("#edit_email, #edit_surname, #edit_address, #edit_tel_num, #edit_busi_area, #edit_gender, #edit_languages, #edit_submit").prop( "disabled", true );
     }
-    
 </script>
