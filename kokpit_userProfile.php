@@ -2,7 +2,7 @@
 
 require ('strona_kokpit_stage.inc');
 
-class pages_list extends kokpit_stage
+class kokpit_userProfile extends kokpit_stage
 {
 
     public function WyswietlPage()
@@ -30,19 +30,19 @@ class pages_list extends kokpit_stage
                     echo'<div style="clear:both"></div>';
 
                     echo'<div class="user_profile_left">Imię i Nazwisko</div>'
-                      . '<div class="user_profile_right">'.$row['gender'].'</div>';
+                      . '<div class="user_profile_right">'.$row['surname'].'</div>';
                     echo'<div style="clear:both"></div>';
                     
                     echo'<div class="user_profile_left">Adres biura</div>'
-                      . '<div class="user_profile_right">'.$row['gender'].'</div>';
+                      . '<div class="user_profile_right">'.$row['address'].'</div>';
                     echo'<div style="clear:both"></div>';
                     
                     echo'<div class="user_profile_left">Numer telefonu</div>'
-                      . '<div class="user_profile_right">'.$row['gender'].'</div>';
+                      . '<div class="user_profile_right">'.$row['tel_num'].'</div>';
                     echo'<div style="clear:both"></div>';
 
                     echo'<div class="user_profile_left">Obszar działalności</div>'
-                      . '<div class="user_profile_right">'.$row['gender'].'</div>';
+                      . '<div class="user_profile_right">'.$row['busi_area'].'</div>';
                     echo'<div style="clear:both"></div>';                    
                     
                     echo'<div class="user_profile_left">Płeć</div>'
@@ -63,14 +63,14 @@ class pages_list extends kokpit_stage
 
 }
 
-$pages_list = new pages_list();
+$kokpit_userProfile = new kokpit_userProfile();
 
-$pages_list -> title = 'Kokpit';
+$kokpit_userProfile -> title = 'Kokpit';
 
-$pages_list -> keywords = 'kokpit';
+$kokpit_userProfile -> keywords = 'kokpit';
 
-$pages_list -> description = 'kokpit';
+$kokpit_userProfile -> description = 'kokpit';
 
-$pages_list -> Wyswietl();
+$kokpit_userProfile -> Wyswietl();
 
 ?>

@@ -39,8 +39,8 @@ class verify_account extends Strona2
                     if(!$result){echo "MySQL Error: ".mysqli_error($conn);}
                     else
                     {
-                        echo 'Werefikacja poprawna, '
-                        . ' <a href="login.php">strona logowania.</a>';
+                        echo 'Werefikacja poprawna, zaloguj się i uzupełnij dane konta w profilu użytkownika.'
+                        . '<a href="login.php"> Strona logowania.</a>';
                     }
                 }
                 else

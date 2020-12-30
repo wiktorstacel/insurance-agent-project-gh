@@ -83,3 +83,31 @@ $(document).ready(function(){
     });
     
 });
+
+//asynchroniczny kontakt z plikiem obsługi edycji profilu użytkownika
+$(document).ready(function(){
+    
+    $("#edit_submit").click(function(){
+        var login = $("#edit_login").val();
+        var email = $("#edit_email").val();
+        var surname = $("#edit_surname").val();
+        var address = $("#edit_address").val();
+        var tel_num = $("#edit_tel_num").val();
+        var busi_area = $("#edit_busi_area").val();
+        var gender = $("#edit_gender").val();
+        var languages = $("#edit_languages").val();
+        $.post("kokpit_editProfileAction.php", {
+            login: login,
+            email: email,
+            surname: surname,
+            address: address,
+            tel_num: tel_num,
+            busi_area: busi_area,
+            gender: gender,
+            languages: languages
+        }, function(data, status){
+            $("#edit_message").html(data);
+        });
+    });
+    
+});

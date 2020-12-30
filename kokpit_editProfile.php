@@ -2,7 +2,7 @@
 
 require ('strona_kokpit_stage.inc');
 
-class pages_list extends kokpit_stage
+class kokpit_editProfile extends kokpit_stage
 {
 
     public function WyswietlPage()
@@ -68,7 +68,7 @@ class pages_list extends kokpit_stage
                     echo'<div style="clear:both"></div>';
                     
                     echo'<div class="user_profile_left">Zatwierdź zmianę danych</div>'
-                      . '<div class="user_profile_right"><button id="edit_submit" type="">Zapisz</button></div>';
+                      . '<div class="user_profile_right"><button id="edit_submit" type="">Zapisz</button>&nbsp;<span id="edit_message"></span></div>';
                     echo'<div style="clear:both"></div>';
     
                     mysqli_close($conn);
@@ -81,14 +81,14 @@ class pages_list extends kokpit_stage
 
 }
 
-$pages_list = new pages_list();
+$kokpit_editProfile = new kokpit_editProfile();
 
-$pages_list -> title = 'Kokpit';
+$kokpit_editProfile -> title = 'Kokpit';
 
-$pages_list -> keywords = 'kokpit';
+$kokpit_editProfile -> keywords = 'kokpit';
 
-$pages_list -> description = 'kokpit';
+$kokpit_editProfile -> description = 'kokpit';
 
-$pages_list -> Wyswietl();
+$kokpit_editProfile -> Wyswietl();
 
 ?>
