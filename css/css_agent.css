@@ -493,7 +493,7 @@ table.lista_art tr.linia2 td{
 .user_profile_left{
         float: left;
         width: 180px;
-        min-height: 50px;
+        min-height: 30px;
         text-align: right;
         padding: 10px;
 }
@@ -501,7 +501,7 @@ table.lista_art tr.linia2 td{
 .user_profile_right{
         float: left;
         width: 379px;
-        min-height: 50px;
+        min-height: 30px;
         border-left: 1px solid #97C984;
         padding: 10px;
 }

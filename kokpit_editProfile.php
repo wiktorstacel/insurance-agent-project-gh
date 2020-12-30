@@ -34,7 +34,7 @@ class kokpit_editProfile extends kokpit_stage
                     echo'<div style="clear:both"></div>';
                     
                     echo'<div class="user_profile_left">Adres biura</div>'
-                      . '<div class="user_profile_right"><textarea name="edit_address" cols="52" rows="3" type="text" value="" id="edit_address" class="">'.$row['address'].'</textarea></div>';
+                      . '<div class="user_profile_right"><textarea name="edit_address" cols="52" rows="2" type="text" value="" id="edit_address" class="">'.$row['address'].'</textarea></div>';
                     echo'<div style="clear:both"></div>';
                     
                     echo'<div class="user_profile_left">Numer telefonu</div>'
@@ -42,7 +42,7 @@ class kokpit_editProfile extends kokpit_stage
                     echo'<div style="clear:both"></div>';
 
                     echo'<div class="user_profile_left">Obszar działalności</div>'
-                      . '<div class="user_profile_right"><textarea name="edit_busi_area" cols="52" rows="6" type="text" value="" id="edit_busi_area" class="">'.$row['busi_area'].'</textarea></div>';
+                      . '<div class="user_profile_right"><textarea name="edit_busi_area" cols="52" rows="4" type="text" value="" id="edit_busi_area" class="">'.$row['busi_area'].'</textarea></div>';
                     echo'<div style="clear:both"></div>';                    
                     
                     echo'<div class="user_profile_left">Płeć</div>'

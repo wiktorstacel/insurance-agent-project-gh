@@ -192,7 +192,7 @@ class kokpit_stage
 				<ul class="list">
 					<li class="first"><a href="kokpit_userProfile.php">Wyświetl</a></li>
 					<li><a href="kokpit_editProfile.php">Edytuj</a></li>
-                                        <li><a href="">Zmień hasło</a></li>
+                                        <li><a href="kokpit_pswChange.php">Zmień hasło</a></li>
 				</ul>
 			</div>
 		</div>

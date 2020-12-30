@@ -111,3 +111,24 @@ $(document).ready(function(){
     });
     
 });
+
+//asynchroniczne przesyłanie danych z formularza zmiany hasła
+$(document).ready(function(){
+    
+    $("#cha_psw_form").submit(function(event){
+        event.preventDefault();                                     //wyłącza domyślne action i method
+        var login = $("#cha_psw_login").val();
+        var haslo0 = $("#cha_psw_haslo0").val();
+        var haslo = $("#cha_psw_haslo").val();
+        var haslo2 = $("#cha_psw_haslo2").val();
+        var submit = $("#cha_psw_submit").val();
+        $("#cha_psw_message").load("kokpit_pswChangeAction.php", {
+            login: login,
+            haslo0: haslo0,
+            haslo: haslo,
+            haslo2: haslo2,
+            submit: submit
+        });
+    });
+    
+});
