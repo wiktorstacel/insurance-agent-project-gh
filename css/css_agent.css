@@ -23,6 +23,11 @@ h1 {
 	font-size: 197%;
 }
 
+h1 a{
+        text-decoration: none;
+        color:inherit;
+}
+
 h2 {
 	font-size: 167%;
 }
@@ -360,15 +365,11 @@ table.lista_art tr.listwa{
 }
 
 td.tytul{
-        width:450px;
+        width:310px;
 }
 
 td.data{
-        width: 150px;
-}
-
-td.cena{
-        width:90px;
+        width: 102px;
 }
 
 td.plus{        

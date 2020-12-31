@@ -113,12 +113,12 @@ class Strona2
 	</div>
 	<div id="menu">
 		<ul>';
-			print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=1'),swiec('1');\">OFE</a></li>");
-			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=2'),swiec('2');\">Życie</a></li>");
-			print("<li id=\"m3\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=3'),swiec('3');\">Mieszkanie</a></li>");
-			print("<li id=\"m4\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=4'),swiec('4');\">Firma</a></li>");
-			print("<li id=\"m5\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=5'),swiec('5');\">Auto</a></li>");
-			print("<li id=\"m6\" class=\"noactive\"><a href=\"javascript:give_content('give_page.php?g=6'),swiec('6');\">Kontakt</a></li>");
+			print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=1'),swiec('1');\">OFE</a></li>");
+			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=2'),swiec('2');\">Życie</a></li>");
+			print("<li id=\"m3\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=3'),swiec('3');\">Mieszkanie</a></li>");
+			print("<li id=\"m4\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=4'),swiec('4');\">Firma</a></li>");
+			print("<li id=\"m5\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=5'),swiec('5');\">Auto</a></li>");
+			print("<li id=\"m6\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=6'),swiec('6');\">Kontakt</a></li>");
      echo'	</ul>
 	</div>
      </div>';
@@ -137,19 +137,20 @@ class Strona2
           require_once 'config_db.php';
   
   
-              $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC");
+              $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id ORDER BY a.date DESC");
               if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
               //$row = mysqli_fetch_array($result, MYSQLI_NUM);
                 while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                 {
         
-                print("<h1 class=\"title\">$row[1]</h1>");
+                echo'<h1 class="title"><a href="article_load.php?article_id='.$row[0].'">'.$row[1].'</a></h1>';
                 echo '<br />';
-                print("$row[2]");
-                echo '<br /><br />';
+                echo $row[2];
+                echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
+                echo '<br /><br /><br />';
                 }	
 			
-		echo'	<p><strong>Center Stage</strong> is a free template from <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
+		echo'	<br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym zarejstrowanym w <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
 			<h2>Praesent Scelerisque</h2>
 			<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat:</p>
 			<blockquote>
@@ -183,7 +184,7 @@ class Strona2
             echo'<div id="log_box">';
             if(isset($_SESSION['zalogowany']))
             {
-                echo 'Zalogowany: '.$_SESSION['user'].' <br><a href="log_out.php">Wyloguj</a> - <a href="kokpit_stage.php"> Tryb edycji</a>';
+                echo 'Zalogowany: '.$_SESSION['user'].' <br><a href="log_out.php">Wyloguj</a> - <a href="kokpit_articlesUser.php"> Tryb edycji</a>';
             }
             else                                
             {
@@ -235,7 +236,7 @@ class Strona2
 	</div>
 	<!-- end sidebar -->
 	<div style="clear: both;">&nbsp;</div>
-     </div>';
+     </div>';//<!-- end of page (from WyswietlPage()) -->
     }
     
     public function WyswietlFooter()

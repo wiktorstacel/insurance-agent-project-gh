@@ -9,7 +9,7 @@ else if (window.ActiveXObject)
 }
 
 var xmlHttp;
-function give_content(adres)
+function load_content(adres)
 {
       if(xmlHttp==null)
       { //w zależności od przeglądarki tworzymy obiekt XMLHTTP
