@@ -42,7 +42,7 @@ else
                 unset($_SESSION['blad']);
 
                 mysqli_free_result($result);
-                header('location: kokpit_stage.php');
+                header('location: kokpit_userProfile.php');
             }
             else //jest login, nieprawidłowe hasło
             {

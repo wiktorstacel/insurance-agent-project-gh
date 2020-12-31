@@ -111,10 +111,10 @@ class kokpit_stage
         echo '<br>';
         echo "<table class='lista_art'>";
         echo "<tr class='listwa'>";
-        print("<td class=\"tytul\">Tytuł artykułu</td>");
-        print("<td class=\"data\">Data dodania</td>");
-        print("<td class=\"stan\">Stan</td>");
+        echo'<td class="tytul">Tytuł artykułu</td>';
+        echo'<td class="data">Data dodania</td>';
         echo '<td>Podgląd</td>';
+        echo'<td class="stan">Stan</td>';
         echo '<td>Edycja</td>';
         echo '<td>Usuń</td>';
         echo '</tr>';
@@ -124,30 +124,38 @@ class kokpit_stage
         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
         {
 
-                if($row[4] == 1)      //sprawdzanie czy wpis ma by� wyswietlany jako aktywny
-                    {
-                    print("<tr class=\"linia\">");
-                    }
-                    else
-                    {
-                    print("<tr class=\"linia2\">");
-                    }
-                print("<td class=\"tytul\">$row[1]</td>");
-                print("<td class=\"data\">$row[3]</td>");
-                print("<td class=\"stan_linia\"><a href=\"aktywacja_wpisu.php?id=$row[0]\">+</a></td>");
-
-                print("<td><a href=\"tekst.php?id=$row[0]\">+</a></td>");
-                print("<td><a href=\"freerte/examples/edycja_articles.php?id=$row[0]\">+</a></td>");
-                print("<td><a href=\"del.php?id=$row[0]\">+</a></td>");
-                echo '</tr>';
+            if($row[4] == 1)      //sprawdzanie czy wpis ma być wyswietlany jako aktywny
+            {
+                echo'<tr class="linia">';
+            }
+            else
+            {
+                echo'<tr class="linia2">';
+            }
+            echo'<td class="tytul">'.$row[1].'</td>';
+            echo'<td class="data">'.$row[3].'</td>';
+            echo'<td class="plus"><a href="tekst.php?id='.$row[0].'">+</a></td>';
+            if($row[5] == $_SESSION['user_id'])
+            {
+                echo'<td class="plus"><a href="aktywacja_wpisu.php?id='.$row[0].'">+</a></td>';
+                echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?id='.$row[0].'">+</a></td>';
+                echo'<td class="plus"><a href="del.php?id='.$row[0].'">+</a></td>';
+            }
+            else
+            {
+                echo'<td class="plus"><u>+</u></td>';
+                echo'<td class="plus"><u>+</u></td>';
+                echo'<td class="plus"><u>+</u></td>';                
+            }
+            echo '</tr>';
         }
-         echo '</table>';
-         echo '<br>';
+        echo '</table>';
+        echo '<br>';
 
 
 
 
-		
+	mysqli_close($conn);	
 	echo'	</div>
 		
 	</div>
@@ -172,8 +180,9 @@ class kokpit_stage
 			<h2 class="title">Artykuły</h2>
 			<div class="content">
 				<ul class="list">
-					<li class="first"><a href="kokpit_stage.php">Lista artykułów</a></li>
-					<li><a href="freerte/examples/edycja_articles.php?id=new">Dodaj artykuł</a></li>
+					<li class="first"><a href="kokpit_articlesList.php">Lista artykułów</a></li>
+					<li><a href="kokpit_articlesUser.php">Moje artykuły</a></li>
+                                        <li><a href="freerte/examples/edycja_articles.php?id=new">Dodaj artykuł</a></li>
 				</ul>
 			</div>
 		</div>

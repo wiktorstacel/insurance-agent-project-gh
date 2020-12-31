@@ -360,28 +360,20 @@ table.lista_art tr.listwa{
 }
 
 td.tytul{
-       width:450px;
-
+        width:450px;
 }
+
 td.data{
-
-         width: 150px;
+        width: 150px;
 }
+
 td.cena{
         width:90px;
 }
-td.stan{
-        
+
+td.plus{        
         text-decoration: none;
-
-
-}
-
-td.stan_linia{
-        ;
-        text-decoration: none;
-        /*font-family: calibri;  */
-
+        text-align: center;
 }
 
 table.lista_art tr.linia td{
