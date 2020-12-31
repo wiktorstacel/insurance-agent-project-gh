@@ -137,7 +137,7 @@ class Strona2
           require_once 'config_db.php';
   
   
-              $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id ORDER BY a.date DESC");
+              $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.stan=1 ORDER BY a.date DESC");
               if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
               //$row = mysqli_fetch_array($result, MYSQLI_NUM);
                 while($row = mysqli_fetch_array($result, MYSQLI_NUM))

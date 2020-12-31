@@ -134,10 +134,10 @@ class kokpit_stage
             }
             echo'<td class="tytul">'.$row[1].'</td>';
             echo'<td class="data">'.$row[3].'</td>';
-            echo'<td class="plus"><a href="tekst.php?id='.$row[0].'">+</a></td>';
+            echo'<td class="plus"><a href="article_preview.php?article_id='.$row[0].'">+</a></td>';
             if($row[5] == $_SESSION['user_id'])
             {
-                echo'<td class="plus"><a href="aktywacja_wpisu.php?id='.$row[0].'">+</a></td>';
+                echo'<td class="plus"><a href="article_stanChange.php?article_id='.$row[0].'&from=1">+</a></td>';
                 echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?id='.$row[0].'">+</a></td>';
                 echo'<td class="plus"><a href="del.php?id='.$row[0].'">+</a></td>';
             }

@@ -24,6 +24,7 @@ class article_load extends Strona2
                 echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br />';
                 mysqli_close($conn);
+                //$this -> title = $row[1]; jak ustawić z tego miejsca title na poziomie klasy
                 
                 
                         echo'	<br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym zarejstrowanym w <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
@@ -62,7 +63,7 @@ class article_load extends Strona2
 
 $article_load = new article_load();
 
-$article_load -> title = '';
+$article_load -> title = 'Artykuł';
 
 $article_load -> keywords = 'ubezpieczenia, komunikacyjne, odszkodowania, rzeszów, podkarpackie';
 
