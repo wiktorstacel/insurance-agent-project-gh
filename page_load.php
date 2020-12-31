@@ -1,5 +1,5 @@
 <?php                            //zwraca content strony o id = parametr
-header('Content-Type: text/html; charset=utf-8');
+//header('Content-Type: text/html; charset=utf-8');
 require_once 'config_db.php';
 if($_GET["g"])
 {
