@@ -27,9 +27,11 @@ class page_preview extends Strona2
                 //echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br />';
                 mysqli_close($conn);
-                
-
-
+                ?>                
+                <script>
+                    swiec(<?php echo $page_id?>);
+                </script>
+                <?php
             echo'</div>';
         echo'</div>'; //end of content
     }
@@ -71,3 +73,7 @@ $page_preview -> description = 'ubezpieczenia, odszkodowania';
 $page_preview -> Wyswietl();
 
 ?>
+
+
+
+

@@ -113,12 +113,21 @@ class Strona2
 	</div>
 	<div id="menu">
 		<ul>';
-			print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=1'),swiec('1');\">OFE</a></li>");
+                        require 'config_db.php';
+                        $result = mysqli_query($conn, "SELECT * FROM pages WHERE stan=1 ORDER BY page_id ASC");
+                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
+                        while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                        {
+                            //echo'<li id="m'.$row[0].'" class="noactive"><a href="javascript:load_content(page_load.php?g='.$row[0].'), swiec('.$row[0].');">OFE</a></li>';
+                            print("<li id=\"m".$row[0]."\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=".$row[0]."'),swiec('".$row[0]."');\">".$row[1]."</a></li>");
+                        }
+                        //mysqli_close($conn);
+			/*print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=1'),swiec('1');\">OFE</a></li>");
 			print("<li id=\"m2\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=2'),swiec('2');\">Życie</a></li>");
 			print("<li id=\"m3\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=3'),swiec('3');\">Mieszkanie</a></li>");
 			print("<li id=\"m4\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=4'),swiec('4');\">Firma</a></li>");
 			print("<li id=\"m5\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=5'),swiec('5');\">Auto</a></li>");
-			print("<li id=\"m6\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=6'),swiec('6');\">Kontakt</a></li>");
+			print("<li id=\"m6\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=6'),swiec('6');\">Kontakt</a></li>");*/
      echo'	</ul>
 	</div>
      </div>';
@@ -134,7 +143,7 @@ class Strona2
 			
 
   
-          require_once 'config_db.php';
+              include 'config_db.php';
   
   
               $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.stan=1 ORDER BY a.date DESC");
@@ -209,20 +218,19 @@ class Strona2
 		<div id="news" class="boxed">
 			<h2 class="title">Artykuły &amp; Promocje</h2>
 			<div class="content">
-				<ul>
-					<li class="first">
-						<h3>04 July 2007</h3>
-						<p><a href="#">In posuere eleifend odio quisque semper&hellip;</a></p>
-					</li>
-					<li>
-						<h3>29 June 2007</h3>
-						<p><a href="#">Donec leo, vivamus fermentum nibh in augue&hellip;</a></p>
-					</li>
-					<li>
-						<h3>13 June 2007</h3>
-						<p><a href="#">Quisque dictum integer nisl risus sagittis&hellip;</a></p>
-					</li>
-				</ul>
+				<ul>';
+            
+                                    require 'config_db.php';
+                                    $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, DATE_FORMAT(a.date,'%Y-%m-%d') AS niceDate, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.stan=1 ORDER BY RAND() LIMIT 3");
+                                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
+                                    while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                                    {       
+					echo'<li class="first">
+						<h3>'.$row[3].'</h3>
+						<p><a href="article_load.php?article_id='.$row[0].'">'.$row[1].'&hellip;</a></p>
+					</li>';
+                                    }
+				echo'</ul>
 			</div>
 		</div>
 		<div id="extra" class="boxed">
