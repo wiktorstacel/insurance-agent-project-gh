@@ -234,13 +234,20 @@ class Strona2
 			</div>
 		</div>
 		<div id="extra" class="boxed">
-			<h2 class="title">Kategorie</h2>
+			<h2 class="title">Kategorie Artykułów</h2>
 			<div class="content">
-				<ul class="list">
-					<li class="first"><a href="#">Ut semper vestibulum est&hellip;</a></li>
-					<li><a href="#">Vestibulum luctus venenatis&hellip;</a></li>
-					<li><a href="#">Integer rutrum nisl in mi&hellip;</a></li>
-				</ul>
+				<ul class="list">';
+                                
+                                    $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY RAND()");
+                                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
+                                    while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                                    {       
+					echo'<li class="first">
+						<p><a href="article_loadCategory.php?category_id='.$row[0].'">'.$row[1].'</a></p>
+					</li>';
+                                    }
+                                					
+				echo'</ul>
 			</div>
 		</div>
 	</div>

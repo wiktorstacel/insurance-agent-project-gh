@@ -12,7 +12,7 @@ class article_preview extends Strona2
             <div style="margin-bottom: 20px;">';
             
                 //<!-- write content here -->
-                require_once 'config_db.php';
+                require 'config_db.php';
                 $article_id = htmlentities($_GET['article_id'], ENT_QUOTES, "UTF-8");
                 $result = mysqli_query($conn,
                             sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",

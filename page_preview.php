@@ -12,7 +12,7 @@ class page_preview extends Strona2
             <div style="margin-bottom: 20px;">';
             
                 //<!-- write content here -->
-                require_once 'config_db.php';
+                require 'config_db.php';
                 $page_id = htmlentities($_GET['page_id'], ENT_QUOTES, "UTF-8");
                 $result = mysqli_query($conn,
                             sprintf("SELECT * FROM pages WHERE page_id = '%d'",
