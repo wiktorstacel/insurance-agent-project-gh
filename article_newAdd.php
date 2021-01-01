@@ -2,7 +2,7 @@
 
 require ('strona_kokpit_stage.inc');
 
-class add_article extends kokpit_stage
+class article_newAdd extends kokpit_stage
 {
    public function WyswietlPage()
     {
@@ -21,7 +21,7 @@ class add_article extends kokpit_stage
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     else
     {
-    print("Artykuł został dodany");
+        echo'Artykuł został dodany.';
     }
 
 
@@ -36,14 +36,14 @@ class add_article extends kokpit_stage
 }
 
 
-$add_article = new add_article();
+$article_newAdd = new article_newAdd();
 
-$add_article -> title = 'Kokpit';
+$article_newAdd -> title = 'Kokpit';
 
-$add_article -> keywords = 'kokpit';
+$article_newAdd -> keywords = 'kokpit';
 
-$add_article -> description = 'kokpit';
+$article_newAdd -> description = 'kokpit';
 
-$add_article -> Wyswietl();
+$article_newAdd -> Wyswietl();
 
 ?>

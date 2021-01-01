@@ -66,7 +66,7 @@ class kokpit_stage
                   <meta http-equiv="Content-Language" content="pl">
                   <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 
-                  <meta name="author" content="wiktor st�cel" />
+                  <meta name="author" content="wiktor stącel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
                   <meta name="copyright" content="Wiktor Stącel" />
 
@@ -168,7 +168,7 @@ class kokpit_stage
             echo'<div id="log_box">';
             if(isset($_SESSION['zalogowany']))
             {
-                echo 'Zalogowany: '.$_SESSION['user'].' <br><a href="log_out.php">Wyloguj</a> - <a href="index.php"> Strona główna</a>';
+                echo 'Zalogowany: '.$_SESSION['user'].' <br><a href="log_out.php">Wyloguj</a> / <a href="index.php"> Strona główna</a>';
             }
             else                                
             {

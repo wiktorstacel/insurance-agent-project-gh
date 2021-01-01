@@ -5,20 +5,27 @@ require '../../strona_kokpit_stage.inc';
 
 class edycja_articles extends kokpit_stage
 {
-   function freeRTE_Preload($content)
+  /* function freeRTE_Preload($content)
     {         //moze ta funkcaja jest do wyswietlania sformatowanego tekstu
-        	// Strip newline characters.                 //arkusz styli zapami�tuje formatowanie tekstu!!!
-        	$content = str_replace(chr(10), " ", $content);      //IntRTE przekszta�ca tekst html i css i wyswietla to co ma wyjsc
+        	// Strip newline characters.                 //arkusz styli zapamiętuje formatowanie tekstu!!!
+        	$content = str_replace(chr(10), " ", $content);      //IntRTE przekształca tekst html i css i wyswietla to co ma wyjsc
         	$content = str_replace(chr(13), " ", $content);      //NIe css plik to tylko czcionka i jej rozmiar do inicjalizacji
         	// Replace single quotes.
         	$content = str_replace(chr(145), chr(39), $content);
         	$content = str_replace(chr(146), chr(39), $content);
         	// Return the result.
         	return $content;
-     }   	
+     } */  	
    public function WyswietlStyle()
     {
-      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../default.css\" />\n";
+      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../css/css_agent.css\" />\n";
+    }
+    
+   public function WyswietlSkrypty()
+    {
+        echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="../../js/js_agent.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="../../js/jquery_agent.js"></script>';
     }
     
    public function WyswietlPage()
@@ -33,8 +40,8 @@ class edycja_articles extends kokpit_stage
       
     function freeRTE_Preload($content)
     {         //moze ta funkcaja jest do wyswietlania sformatowanego tekstu
-        // Strip newline characters.                 //arkusz styli zapami�tuje formatowanie tekstu!!!
-        $content = str_replace(chr(10), " ", $content);      //IntRTE przekszta�ca tekst html i css i wyswietla to co ma wyjsc
+        // Strip newline characters.                 //arkusz styli zapamiętuje formatowanie tekstu!!!
+        $content = str_replace(chr(10), " ", $content);      //IntRTE przekształca tekst html i css i wyswietla to co ma wyjsc
         $content = str_replace(chr(13), " ", $content);      //NIe css plik to tylko czcionka i jej rozmiar do inicjalizacji
         // Replace single quotes.
         $content = str_replace(chr(145), chr(39), $content);
@@ -55,7 +62,7 @@ class edycja_articles extends kokpit_stage
         $content = freeRTE_Preload($content);
         
         ?>
-        <form enctype="multipart/form-data" name="new" method="post" action="../../add_article.php">
+        <form enctype="multipart/form-data" name="new" method="post" action="../../article_newAdd.php">
         Tytuł: <input name="title" type="text" size="60" maxlength="200" style="text-align:left; color: black">
         <br /><br />
         <!-- Include the Free Rich Text Editor Runtime -->
@@ -89,9 +96,9 @@ class edycja_articles extends kokpit_stage
         $content = $row[2];
 
         $content = freeRTE_Preload($content);
-        
-        print ("<form enctype=\"multipart/form-data\" name=\"new\" method=\"post\" action=\"../../update.php?id=$parametr\">");
         ?>
+        <form enctype="multipart/form-data" name="new" method="post" action="../../article_update.php">
+        <input id="article_id" type="hidden" name="article_id" value="<?php echo $parametr?>" />
         Tytuł: <input name="title" type="text" size="60" maxlength="200" value="<?php echo $row[1]?>" style="text-align:left; color: black"><!--background-color: ; font-style: ; --!>
         <br /><br />
         <!-- Include the Free Rich Text Editor Runtime -->
@@ -105,14 +112,9 @@ class edycja_articles extends kokpit_stage
         <br />
         <input type="submit" value="Zapisz">
         </form>
-
         <?php
 
        }
-
-
-
-
 		
 	echo'	</div>
 		

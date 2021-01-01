@@ -5,9 +5,17 @@ require '../../strona_kokpit_stage.inc';     //strona_kokpit_stage.inc nie mo�
 
 class edycja_pages extends kokpit_stage
 {  	
-   public function WyswietlStyle()
+   
+    public function WyswietlStyle()
     {
-      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../default.css\" />\n";
+      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../css/css_agent.css\" />\n";
+    }
+    
+   public function WyswietlSkrypty()
+    {
+        echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="../../js/js_agent.js"></script>';
+        echo '<script language="JavaScript" type="text/javascript" src="../../js/jquery_agent.js"></script>';
     }
 
    public function WyswietlPage()
@@ -43,7 +51,7 @@ class edycja_pages extends kokpit_stage
         $content = freeRTE_Preload($content);
 
         ?>
-        <form enctype="multipart/form-data" name="new" method="post" action="../../add_page.php">
+        <form enctype="multipart/form-data" name="new" method="post" action="../../page_newAdd.php">
         Tytuł: <input name="title" type="text" size="60" maxlength="200" style="text-align:left; color: black">
         <br /><br />
         <!-- Include the Free Rich Text Editor Runtime -->
@@ -77,9 +85,9 @@ class edycja_pages extends kokpit_stage
         $content = $row[2];
 
         $content = freeRTE_Preload($content);
-
-        print ("<form enctype=\"multipart/form-data\" name=\"new\" method=\"post\" action=\"../../update_pages.php?id=$parametr\">");
         ?>
+        <form enctype="multipart/form-data" name="new" method="post" action="../../page_update.php">
+        <input id="page_id" type="hidden" name="page_id" value="<?php echo $parametr?>" />
         Tytuł: <input name="title" type="text" size="60" maxlength="200" value="<?php echo $row[1]?>" style="text-align:left; color: black">
         <br /><br />
         <!-- Include the Free Rich Text Editor Runtime -->
@@ -91,17 +99,10 @@ class edycja_pages extends kokpit_stage
         initRTE('<?= $content ?>', 'example.css');
         </script>
         <br />
-        <input type="submit" value="Zapisz">
-		<?php
-        print("</form>");
-
-        
-
+        <input type="submit" value="Zapisz">		
+        </form>      
+        <?php
        }
-
-
-
-
 		
 	echo'	</div>
 		

@@ -2,7 +2,7 @@
 
 require ('strona_kokpit_stage.inc');
 
-class add_pages extends kokpit_stage
+class page_newAdd extends kokpit_stage
 {
    public function WyswietlPage()
     {
@@ -21,7 +21,7 @@ class add_pages extends kokpit_stage
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     else
     {
-    print("Strona została dodana");
+        echo'Strona została dodana.';
     }
 
 
@@ -36,14 +36,14 @@ class add_pages extends kokpit_stage
 }
 
 
-$add_pages = new add_pages();
+$page_newAdd = new page_newAdd();
 
-$add_pages -> title = 'Kokpit';
+$page_newAdd -> title = 'Kokpit';
 
-$add_pages -> keywords = 'kokpit';
+$page_newAdd -> keywords = 'kokpit';
 
-$add_pages -> description = 'kokpit';
+$page_newAdd -> description = 'kokpit';
 
-$add_pages -> Wyswietl();
+$page_newAdd -> Wyswietl();
 
 ?>

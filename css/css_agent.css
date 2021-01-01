@@ -302,6 +302,9 @@ hr {
         padding: 2px;
         width: 256px;
         text-align: center;
+}
+
+#log_box a{
         text-decoration: none;
 }
 
