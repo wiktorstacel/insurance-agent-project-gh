@@ -13,8 +13,8 @@ class kokpit_userProfile extends kokpit_stage
 		<div style="margin-bottom: 20px;">';
     
                 echo '<br>';
-                echo "<table class='lista_art'>";
-                echo "<tr class='listwa'>";
+                echo '<table class="lista_art">';
+                echo '<tr class="listwa">';
                 echo '<td class="tytul">Tytuł artykułu</td>';
                 echo '<td class="data">Data dodania</td>';
                 echo '<td>Podgląd</td>';
@@ -27,7 +27,7 @@ class kokpit_userProfile extends kokpit_stage
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);} 
                 while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                 {
-                    if($row[4] == 1)      //sprawdzanie czy wpis ma by� wyswietlany jako aktywny
+                    if($row[4] == 1)      //sprawdzanie czy wpis ma być wyswietlany jako aktywny
                     {
                         echo'<tr class="linia">';
                     }

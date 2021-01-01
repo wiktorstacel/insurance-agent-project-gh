@@ -302,6 +302,7 @@ hr {
         padding: 2px;
         width: 256px;
         text-align: center;
+        text-decoration: none;
 }
 
 /* Search */

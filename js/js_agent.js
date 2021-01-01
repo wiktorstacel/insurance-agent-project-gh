@@ -24,7 +24,7 @@ function load_content(adres)
 
       };
       xmlHttp.open("POST", adres); //ustawiamy metodę i adres żądania
-	  XMLHttpRequestObject.setRequestHeader('Content-Type' ,'application/x-www-form-urlencode');//!!! po zakomentowaniu zadziało, funcja tego nie znana
+	  //XMLHttpRequestObject.setRequestHeader('Content-Type' ,'application/x-www-form-urlencode');//!!! po zakomentowaniu zadziało, funcja tego nie znana
       xmlHttp.send(null); //wysyłamy żądanie
 	  xmlHttp.overrideMimeType('text/html; charset=utf-8');
 }

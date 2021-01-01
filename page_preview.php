@@ -13,18 +13,18 @@ class article_preview extends Strona2
             
                 //<!-- write content here -->
                 require_once 'config_db.php';
-                $article_id = htmlentities($_GET['article_id'], ENT_QUOTES, "UTF-8");
+                $page_id = htmlentities($_GET['page_id'], ENT_QUOTES, "UTF-8");
                 $result = mysqli_query($conn,
-                            sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",
-                            mysqli_real_escape_string($conn, $article_id)
+                            sprintf("SELECT * FROM pages WHERE page_id = '%d'",
+                            mysqli_real_escape_string($conn, $page_id)
                                 ));
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
         
-                echo'<h1 class="title">'.$row[1].'</h1>';
+                //echo'<h1 class="title">'.$row[1].'</h1>';
                 echo '<br />';
                 echo $row[2];
-                echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
+                //echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br />';
                 mysqli_close($conn);
                 

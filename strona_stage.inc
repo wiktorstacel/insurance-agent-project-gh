@@ -146,6 +146,8 @@ class Strona2
                 echo'<h1 class="title"><a href="article_load.php?article_id='.$row[0].'">'.$row[1].'</a></h1>';
                 echo '<br />';
                 echo $row[2];
+                //echo substr($row[2], 0, 10);
+                echo'<a style="text-decoration: none;" href="article_load.php?article_id='.$row[0].'">...Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br /><br />';
                 }	

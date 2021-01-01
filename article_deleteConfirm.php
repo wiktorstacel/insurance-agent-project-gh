@@ -2,7 +2,7 @@
 
 require ('strona_kokpit_stage.inc');
 
-class kokpit_userProfile extends kokpit_stage
+class article_deleteConfirm extends kokpit_stage
 {
     
     public function WyswietlPage()
@@ -95,14 +95,14 @@ class kokpit_userProfile extends kokpit_stage
 
 }
 
-$kokpit_userProfile = new kokpit_userProfile();
+$article_deleteConfirm = new article_deleteConfirm();
 
-$kokpit_userProfile -> title = 'Kokpit';
+$article_deleteConfirm -> title = 'Kokpit';
 
-$kokpit_userProfile -> keywords = 'kokpit';
+$article_deleteConfirm -> keywords = 'kokpit';
 
-$kokpit_userProfile -> description = 'kokpit';
+$article_deleteConfirm -> description = 'kokpit';
 
-$kokpit_userProfile -> Wyswietl();
+$article_deleteConfirm -> Wyswietl();
 
 ?>
