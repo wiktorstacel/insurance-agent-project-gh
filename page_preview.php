@@ -2,7 +2,7 @@
 
 require ('strona_stage.inc');
 
-class article_preview extends Strona2
+class page_preview extends Strona2
 {
     
     public function WyswietlPage()
@@ -60,14 +60,14 @@ class article_preview extends Strona2
 
 }
 
-$article_preview = new article_preview();
+$page_preview = new page_preview();
 
-$article_preview -> title = '';
+$page_preview -> title = '';
 
-$article_preview -> keywords = 'ubezpieczenia, komunikacyjne, odszkodowania, rzeszów, podkarpackie';
+$page_preview -> keywords = 'ubezpieczenia, komunikacyjne, odszkodowania, rzeszów, podkarpackie';
 
-$article_preview -> description = 'ubezpieczenia, odszkodowania';
+$page_preview -> description = 'ubezpieczenia, odszkodowania';
 
-$article_preview -> Wyswietl();
+$page_preview -> Wyswietl();
 
 ?>

@@ -40,7 +40,7 @@ class pages_list extends kokpit_stage
             echo'<td class="data">'.$row[3].'</td>';
             echo'<td class="plus"><a href="page_preview.php?page_id='.$row[0].'">+</a></td>';
             echo'<td class="plus"><a href="freerte/examples/edycja_pages.php?id='.$row[0].'">+</a></td>';
-            echo'<td class="plus"><a href="del.php?id='.$row[0].'">+</a></td>';
+            echo'<td class="plus"><a href="page_stanChange.php?page_id='.$row[0].'">+</a></td>';
             echo '</tr>';
         }
          echo '</table>';
