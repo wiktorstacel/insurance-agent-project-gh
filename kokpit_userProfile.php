@@ -52,6 +52,9 @@ class kokpit_userProfile extends kokpit_stage
                     echo'<div class="user_profile_left">Języki obce</div>'
                       . '<div class="user_profile_right">'.$row['languages'].'</div>';
                     echo'<div style="clear:both"></div>';
+                    
+                    echo'<span><br><br>Uzupełnij dane profilowe, będą one widoczne w zakładce "Kontakt" oraz pod Twoimi'
+                    . ' artykułami jako reklama/kontakt do Ciebie.</span>';
     
                     mysqli_close($conn);
 		

@@ -187,12 +187,12 @@ class kokpit_stage
 			</div>
 		</div>
 		<div id="extra" class="boxed">
-			<h2 class="title">Strony</h2>
+			<h2 class="title">Zakładki strony głównej</h2>
 			<div class="content">
 				<ul class="list">
-					<li class="first"><a href="kokpit_pagesList.php">Lista Stron</a></li>
-					<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronę</a></li>
-				</ul>
+					<li class="first"><a href="kokpit_pagesList.php">Lista Stron</a></li>';
+					//echo'<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronę</a></li>';
+				echo'</ul>
 			</div>
 		</div>
                 <div id="extra" class="boxed">

@@ -503,6 +503,12 @@ table.lista_art tr.linia2 td{
         padding: 10px;
 }
 
+.user_profile_kontakt{
+        border-top: 1px solid #97C984;
+        padding: 4px;
+        margin-bottom: 10px;
+}
+
 .long_input{
         width: 380px;
 }

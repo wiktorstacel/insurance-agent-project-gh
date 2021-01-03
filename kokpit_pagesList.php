@@ -46,7 +46,12 @@ class pages_list extends kokpit_stage
          echo '</table>';
          echo '<br>';
 
-
+         echo'<br><br><br><span><b>Uwaga</b>: Treść strony z zakładek menu poziomego i tytuły tych zakłądek są edytowalne,'
+         . ' pod warunkiem posiadania odpowiednich uprawnień. Zakładki można aktywować/dezaktywować, zmieniać'
+                 . ' treść, dlatego obowiazkiem edytującego jest sprawdzić estetykę ich ułożenia w '
+                 . 'menu. Nie można dodawać nowych stron z uwagi na ograniczoną ilość miejsca w menu, '
+                 . 'co najwyżej zmianiać, nawet całkowicie, stare treści. W celu uzyskania uprawnień do edytowania'
+                 . ' tej seksji skonktaktuj się z administratorem.</span>';
 
 
 		
