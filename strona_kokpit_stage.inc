@@ -94,7 +94,7 @@ class kokpit_stage
 	</div>
 	<div id="menu">
 		<ul>
-			<li class="active"><a href="index.php">Powrót na stronę główną</a></li>
+			<li class="active"><a href="index.php">Powrót na strona główną</a></li>
 		</ul>
 	</div>
      </div>';
@@ -138,7 +138,7 @@ class kokpit_stage
             if($row[5] == $_SESSION['user_id'])
             {
                 echo'<td class="plus"><a href="article_stanChange.php?article_id='.$row[0].'&from=1">+</a></td>';
-                echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?id='.$row[0].'">+</a></td>';
+                echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?article_id='.$row[0].'">+</a></td>';
             echo'<td class="plus"><a href="article_deleteConfirm.php?article_id='.$row[0].'">+</a></td>';
             }
             else
@@ -182,7 +182,7 @@ class kokpit_stage
 				<ul class="list">
 					<li class="first"><a href="kokpit_articlesList.php">Lista artykułów</a></li>
 					<li><a href="kokpit_articlesUser.php">Moje artykuły</a></li>
-                                        <li><a href="freerte/examples/edycja_articles.php?id=new">Dodaj artykuł</a></li>
+                                        <li><a href="freerte/examples/edycja_articles.php?article_id=new">Dodaj artykuł</a></li>
 				</ul>
 			</div>
 		</div>
@@ -191,7 +191,7 @@ class kokpit_stage
 			<div class="content">
 				<ul class="list">
 					<li class="first"><a href="kokpit_pagesList.php">Lista Stron</a></li>';
-					//echo'<li><a href="freerte/examples/edycja_pages.php?id=new">Dodaj stronę</a></li>';
+					echo'<li><a href="freerte/examples/edycja_pages.php?page_id=new">Dodaj stronę</a></li>';
 				echo'</ul>
 			</div>
 		</div>

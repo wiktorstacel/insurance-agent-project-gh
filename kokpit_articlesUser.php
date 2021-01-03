@@ -39,7 +39,7 @@ class kokpit_userProfile extends kokpit_stage
                     echo'<td class="data">'.$row[3].'</td>';
                     echo'<td class="plus"><a href="article_preview.php?article_id='.$row[0].'">+</a></td>';
                     echo'<td class="plus"><a href="article_stanChange.php?article_id='.$row[0].'&from=2">+</a></td>';
-                    echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?id='.$row[0].'">+</a></td>';
+                    echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?article_id='.$row[0].'">+</a></td>';
                     echo'<td class="plus"><a href="article_deleteConfirm.php?article_id='.$row[0].'">+</a></td>';
                     echo '</tr>';
                 }

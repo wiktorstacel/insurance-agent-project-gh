@@ -43,7 +43,7 @@ class login extends Strona2
                                         <br /><br />
 					<input id="log_submit" type="submit" value="Zaloguj" />
                                         <p id="log_message">';
-                                            if(isset($_SESSION['blad'])){echo $_SESSION['blad'];}
+                                            if(isset($_SESSION['blad'])){echo $_SESSION['blad'];unset($_SESSION['blad']);}
                                    echo'</p>
                                         <br /><br /><br />
                                         <label><a href="reset_psw_rqst.php">Nie pamiętam hasła.</a></label>

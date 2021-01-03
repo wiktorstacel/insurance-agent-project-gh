@@ -234,7 +234,7 @@ class Strona2
 			</div>
 		</div>
 		<div id="extra" class="boxed">
-			<h2 class="title">Kategorie Artykułów</h2>
+			<h2 class="title">Kategorie artykułów</h2>
 			<div class="content">
 				<ul class="list">';
                                 

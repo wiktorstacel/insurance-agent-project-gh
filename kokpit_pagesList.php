@@ -2,10 +2,10 @@
 
 require ('strona_kokpit_stage.inc');
 
-class pages_list extends kokpit_stage
+class kokpit_pagesList extends kokpit_stage
 {
 
- public function WyswietlPage()
+    public function WyswietlPage()
     {
 
     echo '<div id="page_kokpit">
@@ -19,10 +19,23 @@ class pages_list extends kokpit_stage
         echo '<td class="tytul">Tytuł - nazwa przycisku w menu głównym</td>';
         echo '<td class="data">Aktualizacja</td>';
         echo '<td>Podgląd</td>';
-        echo '<td>Edycja</td>';
         echo '<td>Stan</td>';
+        echo '<td>Edycja</td>';
         echo '</tr>';
         require_once 'config_db.php';
+        $result = mysqli_query($conn, 
+                sprintf("SELECT * FROM `users` WHERE `perm`=1 AND `user_id`='%d'",
+                mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                            ));
+        if(mysqli_num_rows($result) > 0)
+        {
+            $userPermmited = 1;
+        }
+        else
+        {
+            $userPermmited = 0;
+        }
+                        
         $result = mysqli_query($conn, "SELECT * FROM pages ORDER BY page_id ASC");
         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
@@ -39,8 +52,17 @@ class pages_list extends kokpit_stage
             echo'<td class="tytul">'.$row[1].'</td>';
             echo'<td class="data">'.$row[3].'</td>';
             echo'<td class="plus"><a href="page_preview.php?page_id='.$row[0].'">+</a></td>';
-            echo'<td class="plus"><a href="freerte/examples/edycja_pages.php?id='.$row[0].'">+</a></td>';
-            echo'<td class="plus"><a href="page_stanChange.php?page_id='.$row[0].'">+</a></td>';
+            if($userPermmited == 1)
+            {
+                echo'<td class="plus"><a href="page_stanChange.php?page_id='.$row[0].'">+</a></td>';
+                echo'<td class="plus"><a href="freerte/examples/edycja_pages.php?page_id='.$row[0].'">+</a></td>';
+            }
+            else
+            {                            
+                echo'<td class="plus"><u>+</u></td>';
+                echo'<td class="plus"><u>+</u></td>';
+            }
+            
             echo '</tr>';
         }
          echo '</table>';
@@ -63,14 +85,14 @@ class pages_list extends kokpit_stage
 
 }
 
-$pages_list = new pages_list();
+$kokpit_pagesList = new kokpit_pagesList();
 
-$pages_list -> title = 'Kokpit';
+$kokpit_pagesList -> title = 'Kokpit';
 
-$pages_list -> keywords = 'kokpit';
+$kokpit_pagesList -> keywords = 'kokpit';
 
-$pages_list -> description = 'kokpit';
+$kokpit_pagesList -> description = 'kokpit';
 
-$pages_list -> Wyswietl();
+$kokpit_pagesList -> Wyswietl();
 
 ?>
