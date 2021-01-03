@@ -4,7 +4,10 @@ require_once 'config_db.php';
 $page_id = htmlentities($_GET['g'], ENT_QUOTES, "UTF-8");
 if(isset($_GET['g']))
 {
-    $q=mysqli_query($conn, 'SELECT content FROM pages WHERE page_id="'.$page_id.'"');
+    $q = mysqli_query($conn, 
+            sprintf("SELECT content FROM pages WHERE page_id='%d'",
+            mysqli_real_escape_string($conn, $page_id)
+                        ));
     if($q != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     $rekord=mysqli_fetch_array($q);
     echo "<div>".$rekord["content"]."</div><br><br>";

@@ -96,8 +96,8 @@ class edycja_articles extends kokpit_stage
               $content = freeRTE_Preload($content);
 
               ?>
-              <form enctype="multipart/form-data" name="new" method="post" "action="../../article_newAdd.php>      
-              Kategoria: <select name="category" id="category" class="">';
+              <form enctype="multipart/form-data" name="new" method="post" action="../../article_save.php">      
+              Kategoria: <select name="category_id" id="category_id" class="">';
               <?php
               $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY name ASC");
               if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
@@ -121,9 +121,8 @@ class edycja_articles extends kokpit_stage
               <br />
               <input type="submit" name="submit" value="Dodaj">
               </form>
+              <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
               <?php
-              echo'<a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>';
-
             }
             else //edycja istniejącego artykułu
             {
@@ -143,9 +142,9 @@ class edycja_articles extends kokpit_stage
 
               $content = freeRTE_Preload($content);
               ?>
-              <form enctype="multipart/form-data" name="new" method="post" action="../../article_update.php">
+              <form enctype="multipart/form-data" name="new" method="post" action="../../article_save.php">
               <input id="article_id" type="hidden" name="article_id" value="<?php echo $article_id?>" />
-              Kategoria: <select name="category" id="category" class="">';
+              Kategoria: <select name="category_id" id="category_id" class="">';
               <?php
               $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY name ASC");
               if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
@@ -176,8 +175,8 @@ class edycja_articles extends kokpit_stage
               <br />
               <input type="submit" name="submit" value="Zapisz">
               </form>
-              <?php
-              echo'<a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>';
+              <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+              <?php       
              }//koniec seksji edycja istniejącego artykułu
       }	
 	echo'	</div>

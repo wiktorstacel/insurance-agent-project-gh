@@ -95,7 +95,7 @@ class edycja_pages extends kokpit_stage
           $content = freeRTE_Preload($content);
 
           ?>
-          <form enctype="multipart/form-data" name="new" method="post" action="../../page_newAdd.php">
+          <form enctype="multipart/form-data" name="new" method="post" action="../../page_save.php">
           Tytuł: <input name="title" type="text" size="13" maxlength="13" style="text-align:left; color: black"> Maks. długość: 13 znaków, bo jest to tytuł zakładki.
           <br /><br />
           <!-- Include the Free Rich Text Editor Runtime -->
@@ -109,8 +109,8 @@ class edycja_pages extends kokpit_stage
           <br />
           <input type="submit" value="Dodaj">
           </form>
-          <?php
-          echo'<a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>';
+          <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+        <?php
         }
         else//edycja strony
         {
@@ -128,7 +128,7 @@ class edycja_pages extends kokpit_stage
 
           $content = freeRTE_Preload($content);
           ?>
-          <form enctype="multipart/form-data" name="new" method="post" action="../../page_update.php">
+          <form enctype="multipart/form-data" name="new" method="post" action="../../page_save.php">
           <input id="page_id" type="hidden" name="page_id" value="<?php echo $page_id?>" />
           Tytuł: <input name="title" type="text" size="13" maxlength="13" value="<?php echo $row[1]?>" style="text-align:left; color: black"> Maks. długość: 13 znaków, bo jest to tytuł zakładki.
           <br /><br />
@@ -143,8 +143,8 @@ class edycja_pages extends kokpit_stage
           <br />
           <input type="submit" value="Zapisz">		
           </form>      
-          <?php
-          echo'<a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>';
+          <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+          <?php          
          }//koniec seksji edycji strony
       }//koniec if od sprawdzania usera
       
