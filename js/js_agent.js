@@ -29,9 +29,9 @@ function load_content(adres)
 	  xmlHttp.overrideMimeType('text/html; charset=utf-8');
 }
 
-function swiec(a)
+function swiec(a, maks)
 {
-        for(ir=1;ir<=6;ir++)
+        for(ir=1;ir<=maks;ir++)
          {
            document.getElementById("m"+ir).className = "noactive";
          }

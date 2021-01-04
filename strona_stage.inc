@@ -115,11 +115,14 @@ class Strona2
 		<ul>';
                         require 'config_db.php';
                         $result = mysqli_query($conn, "SELECT * FROM pages WHERE stan=1 ORDER BY page_id ASC");
-                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
+                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                        $count = 1;
+                        $max = mysqli_num_rows($result);
                         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                         {
                             //echo'<li id="m'.$row[0].'" class="noactive"><a href="javascript:load_content(page_load.php?g='.$row[0].'), swiec('.$row[0].');">OFE</a></li>';
-                            print("<li id=\"m".$row[0]."\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=".$row[0]."'),swiec('".$row[0]."');\">".$row[1]."</a></li>");
+                            print("<li id=\"m".$count."\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=".$row[0]."'),swiec('".$count."', '".$max."');\">".$row[1]."</a></li>");
+                            $count++;
                         }
                         //mysqli_close($conn);
 			/*print("<li id=\"m1\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=1'),swiec('1');\">OFE</a></li>");
