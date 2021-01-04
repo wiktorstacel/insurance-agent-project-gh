@@ -14,61 +14,96 @@ class page_save extends kokpit_stage
         $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8");
         $content = $_POST['freeRTE_content'];
     
-        require_once 'config_db.php';
-        //sprawdzenie czy zalogowany użytkownik ma uprawnienia
-        $result = mysqli_query($conn, 
-                sprintf("SELECT * FROM `users` WHERE `perm`=1 AND `user_id`='%d'",
-                mysqli_real_escape_string($conn, $_SESSION['user_id'])
-                        ));
-        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-        $record_number = mysqli_num_rows($result);
-        if($record_number > 0)
+        //WALIDACJA
+        if(isset($_POST['submit']))
         {
-            if(isset($_POST['page_id']))//UPDATE istniejącego id
+            $validation_OK = true;
+            
+            if(strlen($title) < 3 || strlen($title) > 13)
             {
-                $page_id = htmlentities($_POST['page_id'], ENT_QUOTES, "UTF-8");	
-
-                $result1 = mysqli_query($conn, 
-                        sprintf("UPDATE `pages` SET `title` = '%s', `update_date` = CURDATE(), `user_id` = '%d', `stan` = 1 WHERE `page_id` = '%d' LIMIT 1",
-                        mysqli_real_escape_string($conn, $title),
-                        mysqli_real_escape_string($conn, $_SESSION['user_id']),
-                        mysqli_real_escape_string($conn, $page_id)
-                                ))
-                or die("Błąd w pages.title: " . mysqli_error($conn));
-                $r1 = mysqli_affected_rows($conn);
-
-                $result2 = mysqli_query($conn,
-                        sprintf("UPDATE `pages` SET `content` = '%s' WHERE `page_id` = '%d' LIMIT 1",
-                        mysqli_real_escape_string($conn, $content),
-                        mysqli_real_escape_string($conn, $page_id)
-                                              ))
-                or die("Błąd w pages.content: " . mysqli_error($conn));
-                $r2 = mysqli_affected_rows($conn);
-
-                if($r1 == 0 && $r2 == 0)
-                {
-                    echo'Nie dokonano żadnych zmian. Zakładka pozostała w niezmienionej formie.';
-                }
-                else
-                {
-                    echo'Strona został zaktualizowana.';
-                }
+                $validation_OK = false;
+                $_SESSION['e_title'] = "Tytuł musi mieć długość od 3 do 13 znaków!";
+            }           
+            elseif(!preg_match("/^(ą|ę| |ź|ć|ń|ó|&oacute;|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[0-9]|[a-z]|[A-Z]){3,13}$/", $title))
+            {
+                $validation_OK = false;
+                $_SESSION['e_title'] = "Dozwolone tylko litery, cyfry i spacja!";
             }
-            else //NOWY PAGE bo brak ustawionego id
+            
+            if(strlen($content) > 2555)
             {
-                $result = mysqli_query($conn,
-                    sprintf("INSERT INTO `pages` ( `page_id` , `title` , `content`, `update_date`, `user_id`, `stan`) VALUES (DEFAULT,'%s','%s',CURDATE(),'%d',1)",
-                    mysqli_real_escape_string($conn, $title),
-                    mysqli_real_escape_string($conn, $content),
+                $validation_OK = false;
+                $_SESSION['e_content'] = "Strona może zawierać do 2555 znaków!";
+            }
+        }
+        //Walidacha nieudana, wracamy do edycji z zapamiętanymi danymi
+        if($validation_OK == false) 
+        {
+            $_SESSION['mem_title'] = $title;
+            $_SESSION['mem_content'] = $content;
+            if(isset($_POST['page_id'])) {header('location: freerte/examples/edycja_pages.php?page_id='.$_POST['page_id']);}
+            else {header('location: freerte/examples/edycja_pages.php?page_id=new');}
+            exit();
+        }
+        else
+        {
+        
+            //ZAPIS DANYCH
+            require_once 'config_db.php';
+            //sprawdzenie czy zalogowany użytkownik ma uprawnienia
+            $result = mysqli_query($conn, 
+                    sprintf("SELECT * FROM `users` WHERE `perm`=1 AND `user_id`='%d'",
                     mysqli_real_escape_string($conn, $_SESSION['user_id'])
-                                              ));
-                if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                else
+                            ));
+            if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+            $record_number = mysqli_num_rows($result);
+            if($record_number > 0)
+            {
+                if(isset($_POST['page_id']))//UPDATE istniejącego id
                 {
-                    echo'Strona została dodana.';
+                    $page_id = htmlentities($_POST['page_id'], ENT_QUOTES, "UTF-8");	
+
+                    $result1 = mysqli_query($conn, 
+                            sprintf("UPDATE `pages` SET `title` = '%s', `update_date` = CURDATE(), `user_id` = '%d', `stan` = 1 WHERE `page_id` = '%d' LIMIT 1",
+                            mysqli_real_escape_string($conn, $title),
+                            mysqli_real_escape_string($conn, $_SESSION['user_id']),
+                            mysqli_real_escape_string($conn, $page_id)
+                                    ))
+                    or die("Błąd w pages.title: " . mysqli_error($conn));
+                    $r1 = mysqli_affected_rows($conn);
+
+                    $result2 = mysqli_query($conn,
+                            sprintf("UPDATE `pages` SET `content` = '%s' WHERE `page_id` = '%d' LIMIT 1",
+                            mysqli_real_escape_string($conn, $content),
+                            mysqli_real_escape_string($conn, $page_id)
+                                                  ))
+                    or die("Błąd w pages.content: " . mysqli_error($conn));
+                    $r2 = mysqli_affected_rows($conn);
+
+                    if($r1 == 0 && $r2 == 0)
+                    {
+                        echo'Nie dokonano żadnych zmian. Zakładka pozostała w niezmienionej formie.';
+                    }
+                    else
+                    {
+                        echo'Strona został zaktualizowana.';
+                    }
+                }//koniec UPDATE
+                else //NOWY PAGE bo brak ustawionego id
+                {
+                    $result = mysqli_query($conn,
+                        sprintf("INSERT INTO `pages` ( `page_id` , `title` , `content`, `update_date`, `user_id`, `stan`) VALUES (DEFAULT,'%s','%s',CURDATE(),'%d',0)",
+                        mysqli_real_escape_string($conn, $title),
+                        mysqli_real_escape_string($conn, $content),
+                        mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                                                  ));
+                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                    else
+                    {
+                        echo'Strona została dodana.';
+                    }
                 }
             }
-
         }		
      echo'	</div>
 		

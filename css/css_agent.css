@@ -443,6 +443,12 @@ table.lista_art tr.linia2 td{
 	border: none;
 }
 
+.form-error-little {
+        color: red;
+        font-weight: bold;
+        font-size: 11px;
+}
+
 .form-error {
         color: red;
         font-weight: bold;

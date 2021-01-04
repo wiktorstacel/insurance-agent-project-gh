@@ -90,13 +90,27 @@ class edycja_pages extends kokpit_stage
           echo "<h2>Nowy strona</h2>";
           echo '<br>';
 
-          $content = "";
+            if(isset($_SESSION['mem_content']))//powrót z walidacji
+            {
+                $title = $_SESSION['mem_title'];unset($_SESSION['mem_title']);
+                $content = $_SESSION['mem_content'];unset($_SESSION['mem_content']);
+            }
+            else //całkiem nowy
+            {
+                $title = NULL;
+                $content = NULL;
+            }
 
           $content = freeRTE_Preload($content);
 
           ?>
           <form enctype="multipart/form-data" name="new" method="post" action="../../page_save.php">
-          Tytuł: <input name="title" type="text" size="13" maxlength="13" style="text-align:left; color: black"> Maks. długość: 13 znaków, bo jest to tytuł zakładki.
+          Tytuł: <input name="title" type="text" size="13" maxlength="13" value="<?php echo $title?>" style="text-align:left; color: black"> 
+          <?php
+          if(isset($_SESSION['e_title']))
+          {echo '<span class="form-error-little">'.$_SESSION['e_title'].'</span>'; unset($_SESSION['e_title']);}
+          else {echo'Maks. długość: 13 znaków, bo jest to tytuł zakładki.';}
+          ?>         
           <br /><br />
           <!-- Include the Free Rich Text Editor Runtime -->
           <script src="../js/richtext.js" type="text/javascript" language="javascript"></script>
@@ -106,31 +120,48 @@ class edycja_pages extends kokpit_stage
           <script>
           initRTE('<?= $content ?>', 'example.css');
           </script>
+          <?php
+          if(isset($_SESSION['e_content']))
+          {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
+          ?>
           <br />
-          <input type="submit" value="Dodaj">
+          <input type="submit" name="submit" value="Dodaj">
           </form>
           <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
         <?php
         }
-        else//edycja strony
+        else//EDYCJA STRONY
         {
+            //powrót z walidacji, omijamy mysql
+            if(isset($_SESSION['mem_content']))
+            {
+                $title = $_SESSION['mem_title']; unset($_SESSION['mem_title']);
+                $content = $_SESSION['mem_content']; unset($_SESSION['mem_content']);
+            }
+            else //zaciągnięcie z BD
+            {
+                require '../../config_db.php';
+                $result = mysqli_query($conn, "SELECT * FROM pages WHERE page_id=$page_id");
+                if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
 
-          require '../../config_db.php';
-
-          $result = mysqli_query($conn, "SELECT * FROM pages WHERE page_id=$page_id");
-          if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-          $row = mysqli_fetch_array($result, MYSQLI_NUM);
-
+                $title = $row[1];
+                $content = $row[2];
+            }
+            
           echo '<h2>Edycja strony</h2>';
           echo '<br>';
-
-          $content = $row[2];
 
           $content = freeRTE_Preload($content);
           ?>
           <form enctype="multipart/form-data" name="new" method="post" action="../../page_save.php">
           <input id="page_id" type="hidden" name="page_id" value="<?php echo $page_id?>" />
-          Tytuł: <input name="title" type="text" size="13" maxlength="13" value="<?php echo $row[1]?>" style="text-align:left; color: black"> Maks. długość: 13 znaków, bo jest to tytuł zakładki.
+          Tytuł: <input name="title" type="text" size="13" maxlength="13" value="<?php echo $title?>" style="text-align:left; color: black">
+          <?php
+          if(isset($_SESSION['e_title']))
+          {echo '<span class="form-error-little">'.$_SESSION['e_title'].'</span>'; unset($_SESSION['e_title']);}
+          else {echo'Maks. długość: 13 znaków, bo jest to tytuł zakładki.';}
+          ?>
           <br /><br />
           <!-- Include the Free Rich Text Editor Runtime -->
           <script src="../js/richtext.js" type="text/javascript" language="javascript"></script>
@@ -140,8 +171,12 @@ class edycja_pages extends kokpit_stage
           <script>
           initRTE('<?= $content ?>', 'example.css');
           </script>
+          <?php
+          if(isset($_SESSION['e_content']))
+          {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
+          ?>
           <br />
-          <input type="submit" value="Zapisz">		
+          <input type="submit" name="submit" value="Zapisz">		
           </form>      
           <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
           <?php          

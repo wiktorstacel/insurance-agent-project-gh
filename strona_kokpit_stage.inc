@@ -191,7 +191,7 @@ class kokpit_stage
 			<div class="content">
 				<ul class="list">
 					<li class="first"><a href="kokpit_pagesList.php">Lista Stron</a></li>';
-					echo'<li><a href="freerte/examples/edycja_pages.php?page_id=new">Dodaj stronę</a></li>';
+					//echo'<li><a href="freerte/examples/edycja_pages.php?page_id=new">Dodaj stronę</a></li>';
 				echo'</ul>
 			</div>
 		</div>

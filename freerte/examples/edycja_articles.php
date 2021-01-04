@@ -85,13 +85,25 @@ class edycja_articles extends kokpit_stage
       {
       
             require'../../config_db.php';
-            if($article_id == "new") //nowy artykuł
+            if($article_id == "new") //NOWY ARTYKUŁ
             {
-          
-              echo "<h2>Nowy artykuł</h2>";
-              echo '<br>';
 
-              $content = "";
+                if(isset($_SESSION['mem_content']))//powrót z walidacji
+                {
+                    $category_id = $_SESSION['mem_category_id'];unset($_SESSION['mem_category_id']);
+                    $title = $_SESSION['mem_title'];unset($_SESSION['mem_title']);
+                    $content = $_SESSION['mem_content'];unset($_SESSION['mem_content']);
+                }
+                else //całkiem nowy
+                {
+                    $category_id = 0;
+                    $title = NULL;
+                    $content = NULL;
+                }
+
+                          
+                echo "<h2>Nowy artykuł</h2>";
+                echo '<br>';
 
               $content = freeRTE_Preload($content);
 
@@ -103,12 +115,35 @@ class edycja_articles extends kokpit_stage
               if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
               while($row = mysqli_fetch_array($result, MYSQLI_NUM))
               { 
-                  print("<option value=".$row[0].">".$row[1]."</option>");
+                  if($category_id == $row[0])
+                  {
+                      print("<option selected=\"selected\" value=".$row[0].">".$row[1]."</option>");
+                  }
+                  else
+                  {
+                      print("<option value=".$row[0].">".$row[1]."</option>");                           
+                  }
               }
+                if($category_id == 0)
+                {
+                    echo'<option value=0 selected="selected">-wybierz-</option>';
+                }
+                else
+                {
+                    echo'<option value=0 >-wybierz-</option>';
+                }
               ?>
-              <option value=0 selected="selected">-wybierz-</option></select>
+              </select>
+              <?php
+              if(isset($_SESSION['e_category']))
+              {echo '<span class="form-error-little">'.$_SESSION['e_category'].'</span>'; unset($_SESSION['e_category']);}
+              ?>
               <br /><br />
-              Tytuł: <input name="title" type="text" size="60" maxlength="200" style="text-align:left; color: black">
+              Tytuł: <input name="title" type="text" size="50" maxlength="70" style="text-align:left; color: black" value="<?php echo $title?>">
+              <?php
+              if(isset($_SESSION['e_title']))
+              {echo '<span class="form-error-little">'.$_SESSION['e_title'].'</span>'; unset($_SESSION['e_title']);}
+              ?>
               <br /><br />
               <!-- Include the Free Rich Text Editor Runtime -->
               <script src="../js/richtext.js" type="text/javascript" language="javascript"></script>
@@ -118,27 +153,43 @@ class edycja_articles extends kokpit_stage
               <script>
               initRTE('<?= $content ?>', 'example.css');
               </script>
+              <?php
+              if(isset($_SESSION['e_content']))
+              {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
+              ?>
               <br />
               <input type="submit" name="submit" value="Dodaj">
               </form>
               <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
               <?php
             }
-            else //edycja istniejącego artykułu
+            else //EDYCJA ISTNIEJĄCEGO ARTYKUŁU
             {
-              $result = mysqli_query($conn,
+                //powrót z walidacji, omijamy mysql
+                if(isset($_SESSION['mem_content']))
+                { 
+                    $category_id = $_SESSION['mem_category_id']; unset($_SESSION['mem_category_id']);
+                    $title = $_SESSION['mem_title']; unset($_SESSION['mem_title']);
+                    $content = $_SESSION['mem_content']; unset($_SESSION['mem_content']);
+                }
+                else //zaciągnięcie z BD
+                {
+                    $result = mysqli_query($conn,
                           sprintf("SELECT * FROM articles WHERE article_id='%d'",
                           mysqli_real_escape_string($conn, $article_id)
                                       ));
-              if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-              $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                    
+                    $content = $row[2];
+                    $category_id = $row[6];
+                    $title = $row[1];
+                }
+                
+
 
               echo '<h2>Edycja artykułu</h2>';
               echo '<br>';
-
-              $content = $row[2];
-              $title = $row[1];
-              $category_id = $row[6];
 
               $content = freeRTE_Preload($content);
               ?>
@@ -159,10 +210,26 @@ class edycja_articles extends kokpit_stage
                       print("<option value=".$row[0].">".$row[1]."</option>");
                   }
               }
+                if($category_id == 0)
+                {
+                    echo'<option value=0 selected="selected">-wybierz-</option>';
+                }
+                else
+                {
+                    echo'<option value=0 >-wybierz-</option>';
+                }
               ?>
-              <option value=0>-wybierz-</option></select>
+              </select>
+              <?php
+              if(isset($_SESSION['e_category']))
+              {echo '<span class="form-error-little">'.$_SESSION['e_category'].'</span>'; unset($_SESSION['e_category']);}
+              ?>
               <br /><br />
-              Tytuł: <input name="title" type="text" size="60" maxlength="200" value="<?php echo $title?>" style="text-align:left; color: black"><!--background-color: ; font-style: ; --!>
+              Tytuł: <input name="title" type="text" size="50" maxlength="200" value="<?php echo $title?>" style="text-align:left; color: black">
+              <?php
+              if(isset($_SESSION['e_title']))
+              {echo '<span class="form-error-little">'.$_SESSION['e_title'].'</span>'; unset($_SESSION['e_title']);}
+              ?>
               <br /><br />
               <!-- Include the Free Rich Text Editor Runtime -->
               <script src="../js/richtext.js" type="text/javascript" language="javascript"></script>
@@ -172,6 +239,10 @@ class edycja_articles extends kokpit_stage
               <script>
               initRTE('<?= $content ?>', 'example.css');
               </script>
+              <?php
+              if(isset($_SESSION['e_content']))
+              {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
+              ?>
               <br />
               <input type="submit" name="submit" value="Zapisz">
               </form>
