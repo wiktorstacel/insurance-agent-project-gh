@@ -209,7 +209,7 @@ class Strona2
 		<div id="search" class="boxed">
 			<h2 class="title">Wyszukaj</h2>
 			<div class="content">
-				<form id="searchform" method="get" action="">
+				<form id="searchform" method="get" action="article_loadSearch.php">
 					<fieldset>
 					<input id="searchinput" type="text" name="searchinput" value="" />
 					<input id="searchsubmit" type="submit" value="Szukaj" />
