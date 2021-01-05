@@ -15,7 +15,7 @@ class article_load extends Strona2
                 require 'config_db.php';
                 $article_id = htmlentities($_GET['article_id'], ENT_QUOTES, "UTF-8");
                 $result = mysqli_query($conn,
-                            sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",
+                            sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",
                             mysqli_real_escape_string($conn, $article_id)
                                 ));                
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
@@ -28,7 +28,7 @@ class article_load extends Strona2
                 echo '<br /><br />';
                 mysqli_close($conn);
                 //$this -> title = $row[1]; jak ustawić z tego miejsca title na poziomie klasy
-                
+                //include 'contact_formLoad.php?user_id=1';
                 
                         echo'	<br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym zarejstrowanym w <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
 			<h2>Praesent Scelerisque</h2>

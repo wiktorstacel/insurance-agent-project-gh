@@ -58,7 +58,7 @@ ul {
 
 ul li {
 	padding-left: 15px;
-	background: url(images/img07.gif) no-repeat 0px 7px;
+	background: no-repeat 0px 7px;
 }
 
 blockquote {
@@ -449,6 +449,10 @@ table.lista_art tr.linia2 td{
         font-size: 11px;
 }
 
+.form-error-contact {
+        /*color: red;*/
+}
+
 .form-error {
         color: red;
         font-weight: bold;
@@ -518,3 +522,33 @@ table.lista_art tr.linia2 td{
 .long_input{
         width: 380px;
 }
+
+/* Kontaktowy formularz*/
+
+.kontaktform_loadButt{
+        background-color: white;
+        color: #FF5723;
+        border: none;
+        margin: 4px 0;
+        font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+        padding: 0px;
+        text-decoration: underline;
+}
+
+.kontaktform_loadButt:hover {
+	text-decoration: none;
+	color: #1777B1;
+}
+
+/*.user_profile_kontakt form {
+        width: 340px;
+	padding: 0;
+        display: inline-block;
+        text-align: center;
+}
+
+.user_profile_kontakt fieldset {
+
+        border: 2px solid #A4C0C8;
+}*/

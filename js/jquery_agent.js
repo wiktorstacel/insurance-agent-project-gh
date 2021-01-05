@@ -85,6 +85,7 @@ $(document).ready(function(){
 });
 
 //asynchroniczny kontakt z plikiem obsługi edycji profilu użytkownika
+//walidacja i zapis (nie ładowanie danych)
 $(document).ready(function(){
     
     $("#edit_submit").click(function(){
@@ -127,6 +128,54 @@ $(document).ready(function(){
             haslo0: haslo0,
             haslo: haslo,
             haslo2: haslo2,
+            submit: submit
+        });
+    });
+    
+});
+
+//wstawienie formularza kontaktowego po naciśnięciu "Napisz Wiadomość"
+$(document).ready(function(){
+
+    $(document).on("click", ".kontaktform_loadButt", function(){
+        var user_id = $(this).val(); 
+        $(".kontaktform_loadButt").prop( "disabled", true );//wyłączenie wszystkich innych "Napisz Wiadomość"
+        var pole = "#kontaktform_div"+user_id; 
+        $(pole).load("contact_formLoad.php?" + $.param( { //? oraz $.param - zamiana na metodę GET przy load
+            user_id: user_id
+        } ));
+    });
+    
+});
+
+// requests.post(url, data=data) will make an HTTP POST request, and
+// requests.get(url, params=params) will make an HTTP GET request
+/*$("#output").load(
+    "server_output.html?" + $.param({
+        year: 2009,
+        country: "Canada"})
+);*/
+
+//asynchroniczne przesyłanie danych z formularza kontaktu klienta z doradcą
+$(document).ready(function(){
+    
+    $(document).on("submit", "#kont_form", function(event){
+        event.preventDefault(); 
+        var user_id= $("#kont_user_id").val();//wyłącza domyślne action i method
+        var inquiry= $("#kont_inquiry").val();
+        var name= $("#kont_name").val();
+        var email = $("#kont_email").val();
+        var telefon = $("#kont_telefon").val();
+        var regulamin = $("#kont_regulamin").prop('checked');
+        //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
+        var submit = $("#kont_submit").val();
+        $("#kont_message").load("contact_formLoadAction.php", {
+            user_id: user_id,
+            inquiry: inquiry,
+            name: name,
+            email: email,
+            telefon: telefon,
+            regulamin: regulamin,
             submit: submit
         });
     });
