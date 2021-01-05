@@ -9,10 +9,10 @@ class article_save extends kokpit_stage
         echo '<div id="page_kokpit">
             <div id="content_kokpit">
                     <div style="margin-bottom: 20px;">';
-        
+       
         $category_id = htmlentities($_POST['category_id'], ENT_QUOTES, "UTF-8");
-        $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8");         
-        $content = $_POST['freeRTE_content']; //$content = htmlentities($_POST['freeRTE_content'], ENT_QUOTES, "UTF-8");
+        $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8"); 
+        $content = $_POST['freeRTE_content'];
         
         //Walidacja
         if(isset($_POST['submit']))
@@ -40,6 +40,17 @@ class article_save extends kokpit_stage
             {
                 $validation_OK = false;
                 $_SESSION['e_content'] = "Artykuł musi mieć długość od 100 do 2555 znaków!";
+            }
+            
+            //Usuwanie wyrażeń regularnych, kwestia pytania ile takich niebezpiecznych jest.
+            //Można wracać z informacją o usnięciu czegoś albo zablokować dostęp do konta.
+            $count = 0;
+            $vowels = array("<script>", "</script>", "onerror", "alert", "cookie", "kurwa");
+            $content = str_replace($vowels, " ", $content, $count);
+            if($count > 0)
+            {
+                $validation_OK = false;
+                $_SESSION['e_content'] = "Znaleziono w treści $count wyrażenia niedozwolone!";
             }
         }
         //Walidacha nieudana, wracamy do edycji z zapamiętanymi danymi

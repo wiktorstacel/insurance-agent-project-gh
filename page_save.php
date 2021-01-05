@@ -10,7 +10,7 @@ class page_save extends kokpit_stage
         echo '<div id="page_kokpit">
             <div id="content_kokpit">
                     <div style="margin-bottom: 20px;">';
-		
+
         $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8");
         $content = $_POST['freeRTE_content'];
     
@@ -34,6 +34,17 @@ class page_save extends kokpit_stage
             {
                 $validation_OK = false;
                 $_SESSION['e_content'] = "Strona może zawierać do 2555 znaków!";
+            }
+            
+            //Usuwanie wyrażeń regularnych, kwestia pytania ile takich niebezpiecznych jest.
+            //Można wracać z informacją o usnięciu czegoś albo zablokować dostęp do konta.
+            $count = 0;
+            $vowels = array("<script>", "</script>", "onerror", "alert", "cookie", "kurwa");
+            $content = str_replace($vowels, " ", $content, $count);
+            if($count > 0)
+            {
+                $validation_OK = false;
+                $_SESSION['e_content'] = "Znaleziono w treści $count wyrażenia niedozwolone!";
             }
         }
         //Walidacha nieudana, wracamy do edycji z zapamiętanymi danymi
@@ -64,7 +75,7 @@ class page_save extends kokpit_stage
                     $page_id = htmlentities($_POST['page_id'], ENT_QUOTES, "UTF-8");	
 
                     $result1 = mysqli_query($conn, 
-                            sprintf("UPDATE `pages` SET `title` = '%s', `update_date` = CURDATE(), `user_id` = '%d', `stan` = 1 WHERE `page_id` = '%d' LIMIT 1",
+                            sprintf("UPDATE `pages` SET `title` = '%s', `update_date` = CURDATE(), `user_id` = '%d', `stan` = 0 WHERE `page_id` = '%d' LIMIT 1",
                             mysqli_real_escape_string($conn, $title),
                             mysqli_real_escape_string($conn, $_SESSION['user_id']),
                             mysqli_real_escape_string($conn, $page_id)
@@ -86,7 +97,7 @@ class page_save extends kokpit_stage
                     }
                     else
                     {
-                        echo'Strona został zaktualizowana.';
+                        echo'Strona został zaktualizowana. Aby była widoczna w serwisie potrzeba ją aktywować zmieniając STAN.';
                     }
                 }//koniec UPDATE
                 else //NOWY PAGE bo brak ustawionego id
