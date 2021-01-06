@@ -108,8 +108,8 @@ class Strona2
       echo '<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
-		<h1><a href="index.php">Imię Nazwisko</a></h1>
-		<h2><a href="index.php">Doradca Aviva</a></h2>
+		<h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
+		<h2><a href="index.php">Rzeszów, Podkarpackie</a></h2>
 	</div>
 	<div id="menu">
 		<ul>';
@@ -157,36 +157,42 @@ class Strona2
         
                 echo'<h1 class="title"><a href="article_load.php?article_id='.$row[0].'">'.$row[1].'</a></h1>';
                 echo '<br />';
-                echo $row[2];
-                //echo substr($row[2], 0, 10);
+                //echo $row[2];
+                $no_html = strip_tags($row[2]);
+                echo substr($no_html, 0, 500);
                 echo'<a style="text-decoration: none;" href="article_load.php?article_id='.$row[0].'">...Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br /><br />';
                 }	
 			
-		echo'	<br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym zarejstrowanym w <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
-			<h2>Praesent Scelerisque</h2>
-			<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat:</p>
+		echo'	<br><br><br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym, w którym specjaliści, dorardcy zamieszczają wartościowe artykuły związane z tematmi, z którymi pracuja na codzień. Można znaleźć tutaj wartościowe informacje i porady, zapoznać się z trendami rynkowymi. <em>Życzymy owocnego czytania :)</em></p>
+			<h2>Złote myśli</h2>
+			<p>Zwycięzcy i ludzie sukcesu problemy traktują jako wyzwanie i szansę do własnego rozwoju i pomocy sobie i innym.</p>
 			<blockquote>
-				<p>&ldquo;Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget.&rdquo;</p>
+				<p>&ldquo;Wiedza na temat tego, gdzie znaleźć informacje i jak je wykorzystać - to sekret sukcesu. &rdquo;Albert Einstein</p>
 			</blockquote>
 		</div>
 		<div>&nbsp;</div>
 		<div class="twocols">
-			<div class="col1">
-				<h3 class="title">Lorem Ipsum Dolor</h3>
-				<p>Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Quisque dictum integer nisl risus, sagittis convallis, rutrum id, congue, and nibh.</p>
-				<p><a href="#">Read more&hellip;</a></p>
+			<div class="col1">';
+				echo'<h3 class="title">Jeśłi jesteś doradcą</h3>
+				<p>...i chcesz współtworzyć ten serwis - załóż darmowe konto, które umożliwia pisanie artykułów, na końcu których znajduje się formularz przesyłający wiadomości od zainteresowanych osób bezpośrednio do na Twoją skrzynkę pocztową.</p>
+				<p><a href="regulamin.php">Regulamin&hellip;</a></p>                               
 			</div>
 			<div class="col2">
-				<h3 class="title">CAŁA OFERTA</h3>
-				<ul class="list">
-					<li><a href="#">Ubezpieczenia na Życie</a></li>
-					<li><a href="#">Fundusz Emerytalny</a></li>
-					<li><a href="#">Ubezpieczenia majątkowe</a></li>
-					<li><a href="#">Ubezpieczenia wyjazdów zagranicznych</a></li>
-					<li><a href="#">Ubezpieczenia dla firm</a></li>
-				</ul>
+				<h3 class="title">WYBRANE KATEGORIE</h3>
+				<ul class="list">';
+                
+                                    $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY RAND() LIMIT 5");
+                                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
+                                    while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                                    {       
+					echo'<li class="first">
+						<p><a href="article_loadCategory.php?category_id='.$row[0].'">'.$row[1].'</a></p>
+					</li>';
+                                    }
+                                    
+				echo'</ul>
 			</div>
 		</div>
 	</div>
@@ -224,7 +230,7 @@ class Strona2
 				<ul>';
             
                                     require 'config_db.php';
-                                    $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, DATE_FORMAT(a.date,'%Y-%m-%d') AS niceDate, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.stan=1 ORDER BY RAND() LIMIT 3");
+                                    $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, DATE_FORMAT(a.date,'%Y-%m-%d') AS niceDate, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.stan=1 ORDER BY RAND() LIMIT 5");
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                                     {       
