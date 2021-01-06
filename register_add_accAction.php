@@ -142,7 +142,7 @@ if(isset($_POST['submit']))
                     $mail->isHTML(true);
                     $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
                     $mail->addAddress($email);
-                    $mail->Subject = "Weryfikacja adresu e-mail - portal ubezpieczenia i odszkodowania";
+                    $mail->Subject = "Weryfikacja adresu e-mail - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "
                         Kliknij link w celu weryfikacji adresu e-mail:<br><br>
 

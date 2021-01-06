@@ -22,7 +22,7 @@ if(isset($_GET['user_id']))
             <fieldset>
             <img src="css\images\envelop2.png" width="32" height="32" alt="alt"/>
             <input id="kont_user_id" type="hidden" name="kont_user_id" value="<?php echo $row['user_id']?>" />
-            <label for="kont_login"><u>Wiadomość do:</u> <b><?php echo $row['surname']?></b></label>
+            <label for="kont_login"><u>Wiadomość do:</u> <b><?php echo $row['surname'].'</b>, '.$row['address']?></label>
                 
             <br>
             <br><textarea name="kont_inquiry" cols="56" rows="6" type="text" value="" id="kont_inquiry" placeholder="Treść zapytania... prośby o przedstawienie oferty... wniosku o umówienie spotkania..." class=""></textarea>
@@ -34,7 +34,7 @@ if(isset($_GET['user_id']))
             <input id="kont_email" type="text" name="kont_email" value="" />
             <br /><br />
             <label for="rej_haslo">Telefon*: </label>
-            <input id="kont_telefon" type="password" name="kont_telefon" value="" />
+            <input id="kont_telefon" type="text" name="kont_telefon" value="" />
             <br /><br />
 
             <label><input id="kont_regulamin" type="checkbox" name="kont_regulamin" />Akceptuję </label>

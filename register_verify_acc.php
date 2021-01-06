@@ -20,7 +20,7 @@ class verify_account extends Strona2
         }
         else
         {
-            require_once 'config_db.php';
+            require 'config_db.php';
             
             $email = htmlentities($_GET['email'], ENT_QUOTES, "UTF-8");
             $token = htmlentities($_GET['token'], ENT_QUOTES, "UTF-8");

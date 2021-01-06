@@ -26,6 +26,8 @@ class article_load extends Strona2
             }
         }
         $words_comma = implode(", ", $pieces);
+        $vowels = array("!", "?", ".", "-"); //special character allowed for titles
+        $words_comma = str_replace($vowels, " ", $words_comma);//delete characters sorrounding keywords
         $this->keywords = $words_comma;
         
         $this->description = $row[0];
@@ -63,6 +65,10 @@ class article_load extends Strona2
                 echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br />';
                 
+                echo '<div class="user_profile_kontakt" id="kontaktform_div'.$row[5].'">';
+                echo '<br><button class="kontaktform_loadButt" value="'.$row[5].'"> Napisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
+                echo'</div>';
+                echo'... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce Kontakt';
                 
                 
                 mysqli_close($conn);               
@@ -70,7 +76,7 @@ class article_load extends Strona2
                 //$this -> title = $row[1]; jak ustawić z tego miejsca title na poziomie klasy. ODP:$this -> setSomething($s);
 
                 
-                        echo'	<br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym zarejstrowanym w <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
+                        echo'	<br><br><br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym zarejstrowanym w <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. You"re free to use it for both commercial or personal use. I only ask that you link back to <a href="http://www.freecsstemplates.org/">my site</a> in some way. <em>Enjoy :)</em></p>
 			<h2>Praesent Scelerisque</h2>
 			<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat:</p>
 			<blockquote>

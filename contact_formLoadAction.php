@@ -36,60 +36,48 @@ if(isset($_POST['submit']))
         echo '<span class="form-error-contact">Wypełnij wymagane pola.</span>';
         $errorEmpty = true;
     }
-    elseif(ctype_alnum($login) == false)//sprawdź odpowiednie znaki login
+    elseif((strlen($inquiry) < 20) || (strlen($inquiry) > 2000))//sprawdz poprawność hasla
     {
-        $errorLogin = true;
-        echo '<span class="form-error">Login może składać się tylko z liter i cyfr (bez polskich znaków)!</span>';
+        $errorInquiry = true;
+        echo '<span class="form-error-contact">Wiadomość ma niedopowiednią ilość znaków (min. 20, maks. 2000)</span>';
     }
-    elseif(strlen($login) < 3 || strlen($login) > 20)//sprawdz długość login
+    /*elseif(!preg_match("/^(ą|ę| |\,|\.|\;|\?|\!|\%|\@|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,2000}$/", $inquiry))//sprawdź odpowiednie znaki surname
     {
-        $errorLogin = true;
-        echo '<span class="form-error">Login musi posiadać od 3 do 20 znaków!</span>';
+        $errorInquiry = true;
+        echo '<span class="form-error-contact">Treść wiadomości może składać się tylko z liter(w tym polskich) oraz spacji i znaków ,.;?!%@</span>';            
+    }*/
+    elseif(strlen($name) < 3 || strlen($name) > 20)//sprawdz długość login
+    {
+        $errorName = true;
+        echo '<span class="form-error-contact">Imię powinno posiadać od 3 do 20 znaków.</span>';
+    }
+    elseif(!preg_match("/^(ą|ę| |ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,20}$/", $name))//sprawdź odpowiednie znaki surname
+    {
+        $errorName = true;
+        echo '<span class="form-error-contact">Pole "Imię" może składać się tylko z liter(w tym polskich) oraz spacji, 0-20 znaków!</span>';            
     }
     elseif ((!filter_var($emailB, FILTER_VALIDATE_EMAIL)) || $email != $emailB) //sprawdz poprawnosc email
     {
         $errorEmail = true;
-        echo '<span class="form-error">Wprowadź poprawny e-mail!</span>';   
+        echo '<span class="form-error-contact">Wprowadź poprawny e-mail.</span>';   
     }
-    elseif((strlen($haslo) < 8) || (strlen($haslo) > 20))//sprawdz poprawność hasla
+    elseif(!preg_match("/^(\-|\+|\)|\(|\ |[0-9]){0,20}$/", $telefon))//sprawdź odpowiednie znaki surname
     {
-        $errorHaslo = true;
-        echo '<span class="form-error">Hasło musi posiadać od 8 do 20 znaków!</span>';
-    }
-    elseif (!preg_match("#[0-9]+#", $haslo)) 
-    {
-        $errorHaslo = true;
-        echo '<span class="form-error">Hasło musi posiadać co najmniej jedną cyfrę!</span>';
-    }
-    elseif (!preg_match("#[a-zA-Z]+#", $haslo)) 
-    {
-        $errorHaslo = true;
-        echo '<span class="form-error">Hasło musi posiadać co najmniej jedną literę!</span>';
-    }
-    elseif($haslo != $haslo2)//sprawdz zgodność 2 haseł
-    {
-        $errorHaslo2 = true;
-        echo '<span class="form-error">Podane hasła nie są identyczne!</span>';
-    }
-    elseif(!isset($_POST['gender']))//sprawdz czy zaznaczono płeć
-    {
-        $errorGender = true;
-        echo '<span class="form-error">Zaznacz pole płeć!</span>';
+        $errorTelefon = true;
+        echo '<span class="form-error-contact">Pole "Telefon" może składać się tylko z cyfr i znaków +-() 0-20 znaków.</span>';            
     }
     elseif($regulamin != 1)//czy zaakceptowano regulamin
     {
         $errorRegulamin = true;
-        echo '<span class="form-error">Potwierdź akceptację regulaminu!</span>';
+        echo '<span class="form-error-contact">Potwierdź akceptację regulaminu.</span>';
     }
-    //reCapcha do wstawienia jak już będzie wrzucane na serwer, v3 sprawdzającą content strony np artykuły
     else
     {       
         //echo '<span class="form-success">Jeszcze SQL check... </span>';
     }
-    
-    
-    //dane wejsciowe zwalidowane, sprawdzamy dalsze warunki wykorzystując MySQL
-    if($errorEmpty == false && $errorLogin == false && $errorEmail == false && $errorHaslo == false && $errorHaslo2 == false && $errorGender == false && $errorRegulamin == false)
+        
+    //dane wejsciowe zwalidowane
+    if($errorEmpty == false && $errorInquiry == false && $errorName == false && $errorEmail == false && $errorTelefon == false &&  $errorRegulamin == false)
     {       
         mysqli_report(MYSQLI_REPORT_STRICT);        
         try
@@ -99,74 +87,66 @@ if(isset($_POST['submit']))
 
             //sprawdz czy nie ma już takiego loginu
             $result = mysqli_query($conn, 
-            sprintf("SELECT * FROM users WHERE login='%s'",
-            mysqli_real_escape_string($conn, $login)));
+            sprintf("SELECT * FROM users WHERE user_id='%d'",
+            mysqli_real_escape_string($conn, $user_id)));
             if(!$result) throw new Exception(mysqli_error($conn));
-            $ile_takich_login = mysqli_num_rows($result);
-            if($ile_takich_login > 0)
+            $ile_takich_userow = mysqli_num_rows($result);
+            if($ile_takich_userow < 1)
             {
-                $errorLogin = true;
-                echo '<span class="form-error">Istnieje już konto z takim loginem!</span>';
+                $errorUser_id = true;
+                echo '<span class="form-error-contact">Błąd wysłania wiadomości do odbiorcy. Spróbuj ponownie lub napisz na adres e-mail administratora z prośbą o przekazanie do wybranego doradcy.</span>';
             }
+            $row = mysqli_fetch_assoc($result);
+            $user_email = $row['email'];
+            $user_surname = $row['surname'];
+            
 
-            //czy email już istnieje
-            $result = mysqli_query($conn, 
-            sprintf("SELECT * FROM users WHERE email='%s'",
-            mysqli_real_escape_string($conn, $email)));
-            if(!$result) throw new Exception(mysqli_error($conn));
-            $ile_takich_maili = mysqli_num_rows($result);
-            if($ile_takich_maili > 0)
-            {                   
-                if($errorLogin != true)
-                {
-                    $errorEmail = true;
-                    echo '<span class="form-error">Istnieje już konto z takim adresem e-mail!</span>';
-                }
-            }
-
-            if($errorLogin == false && $errorEmail == false)
+            if($errorUser_id == false && $errorEmail == false)
             {
-                    //Tworzenie tokena do weryfikacji e-maila
-                    $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789!/)(*';
-                    $token = str_shuffle($token);
-                    $token = substr($token, 0, 20);
-
-                    //Wysłanie email do użytkownika w celu weryfikacji
+                    //Wysłanie email do klienta i doradcy
                     include_once "PHPMailer/PHPMailer.php";
                     include_once "PHPMailer/SMTP.php";
                     include_once "PHPMailer/Exception.php";
 
                     require_once 'config_smtp.php';
-                    //Email Settings
+                    //Email Settings =>to advisor
                     $mail->isHTML(true);
                     $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
-                    $mail->addAddress($email);
-                    $mail->Subject = "Weryfikacja adresu e-mail - portal ubezpieczenia i odszkodowania";
+                    $mail->addAddress($user_email);
+                    $mail->Subject = "Kontakt od klienta - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "
-                        Kliknij link w celu weryfikacji adresu e-mail:<br><br>
-
-                        <a href='http://manager.test/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
+                        $inquiry 
+                        <br><br>$name
+                        <br>$email
+                        <br>$telefon
+                        <br><br>Adresat: $user_surname
                     ";
-                    if($mail->send())
+                    if($mail->send())//jesli wysłano do doradcy, to dopiero wtedy potwierdzenie do klienta
                     {
-                        //wszystkie testy zaliczone, dodajemy usera do bazy - dopiero po poprawnym wysłaniu email
-                        $gender = htmlentities($_POST['gender'], ENT_QUOTES, "UTF-8");//tu jest pewność, że ustawiona zmienna POST
+                        //Email Settings =>to client
+                        $mail->isHTML(true);
+                        $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
+                        $mail->addAddress($email);
+                        $mail->Subject = "Potwierdzenie nadania e-mail do doradcy - serwis Ubezpieczenia i Odszkodowania";
+                        $mail->Body = "
+                            $inquiry 
+                            <br><br>$name
+                            <br>$telefon
+                            <br><br>Adresat: $user_surname
+                        ";
+                        if($mail->send())
+                        {
+                            if($result){echo '<span class="form-success">Wiadomość wysłana. Sprawdź potwierdzenie na Twojej skrzynce pocztowej.</span>';}
+                            else {throw new Exception(mysqli_error($conn));}
+                        }
+                        else //doradca dostał, klientowi nie dało rady wysłać
+                        {
+                            $errorEmail = true;
+                            echo '<span class="form-error-contact">Doradca otrzymał Twoją wiadomość, jednak nie udało się wysłać '
+                            . ' potwierdzenia do Ciebie. Sprawdź aktualność danych kontaktowych, gdyż może to uniemożliwiać kontakt do Ciebie.</span>';
+                            throw new Exception($mail->ErrorInfo);
+                        }
 
-                        $result = mysqli_query($conn, 
-                        sprintf("INSERT INTO users (`user_id`, `login`, `pass`, `email`, `gender`, `languages`, `token`) "
-                                . "VALUES (DEFAULT, '%s', '%s', '%s', '%s', '%s', '%s')",
-                        mysqli_real_escape_string($conn, $login),
-                        mysqli_real_escape_string($conn, $haslo_hash),
-                        mysqli_real_escape_string($conn, $email),
-                        mysqli_real_escape_string($conn, $gender),
-                        mysqli_real_escape_string($conn, $languages),
-                        mysqli_real_escape_string($conn, $token)
-                                ));
-
-                        if($result){echo '<span class="form-success">Nowe konto utworzone. '
-                        . 'Sprawdź skrzynkę pocztową i potwierdź rejestrację.<br>'
-                                . '<a href="login.php">Logowanie</a></span>';}
-                        else {throw new Exception(mysqli_error($conn));}
                     }
                     else
                     {
@@ -196,7 +176,7 @@ else
 ?>
 
 <script>
-    $("#kont_inquiry, #kont_name, #kont_mail, #kont_telefon, #kont_regulamin").removeClass("input-error");
+    $("#kont_inquiry, #kont_name, #kont_email, #kont_telefon, #kont_regulamin").removeClass("input-error");
     
     var errorEmpty = "<?php echo $errorEmpty; ?>";
     var errorUser_id = "<?php echo $errorUser_id; ?>";
@@ -216,7 +196,7 @@ else
         $("#kont_name").addClass("input-error");
     }
     if(errorEmail == true){
-        $("#kont_mail").addClass("input-error");
+        $("#kont_email").addClass("input-error");
     }
     if(errorTelefon == true){
         $("#kont_telefon").addClass("input-error");
@@ -226,8 +206,9 @@ else
     }
     if(errorEmpty == false && errorInquiry == false && errorName == false && errorEmail == false && errorTelefon == false && errorRegulamin == false)
     {
-        $("#kont_inquiry, #kont_name, #kont_mail, #kont_telefon").val("");
-        $("#rej_regulamin").prop('checked', false);
+        //$("#kont_inquiry, #kont_name, #kont_email, #kont_telefon").val("");
+        //$("#kont_regulamin").prop('checked', false);
+        $("#kont_inquiry, #kont_name, #kont_email, #kont_telefon, #kont_regulamin, #kont_submit").prop( "disabled", true );
     }
     
 </script>

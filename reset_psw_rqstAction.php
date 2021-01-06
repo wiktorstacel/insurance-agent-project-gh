@@ -80,7 +80,7 @@ if(isset($_POST['submit']))
                 $mail->isHTML(true);
                 $mail->setFrom('confirm@ubezpieczenia-stawik964.com');
                 $mail->addAddress($email);
-                $mail->Subject = "Odzyskiwanie konta - portal ubezpieczenia i odszkodowania";
+                $mail->Subject = "Odzyskiwanie konta - serwis Ubezpieczenia i Odszkodowania";
                 $mail->Body = "
                     Kliknij link w celu utworzenia nowego hasla:<br><br>
 
