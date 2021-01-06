@@ -84,9 +84,9 @@ class Strona2
                   <meta http-equiv="Content-Language" content="pl">
                   <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 
-                  <meta name="author" content="wiktor st�cel" />
+                  <meta name="author" content="wiktor stącel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
-                  <meta name="copyright" content="Wiktor St�cel" />
+                  <meta name="copyright" content="Wiktor Stącel" />
 
                   <meta http-equiv="Content-Script-Type" content="text/javascript">';
     }
