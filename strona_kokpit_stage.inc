@@ -118,7 +118,7 @@ class kokpit_stage
         echo '<td>Edycja</td>';
         echo '<td>Usuń</td>';
         echo '</tr>';
-        require_once 'config_db.php';
+        require 'config_db.php';
         $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC");
         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);} 
         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
@@ -182,8 +182,22 @@ class kokpit_stage
 				<ul class="list">
 					<li class="first"><a href="kokpit_articlesList.php">Lista artykułów</a></li>
 					<li><a href="kokpit_articlesUser.php">Moje artykuły</a></li>
-                                        <li><a href="freerte/examples/edycja_articles.php?article_id=new">Dodaj artykuł</a></li>
-				</ul>
+                                        <li><a href="freerte/examples/edycja_articles.php?article_id=new">Dodaj artykuł</a></li>';
+                                        require 'config_db.php';
+                                        $result = mysqli_query($conn, 
+                                            sprintf("SELECT COUNT( * ) FROM inquiries WHERE stan=1 AND `user_id`=10 GROUP BY user_id",
+                                                mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                                                    ));
+                                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                                        if($row[0] < 1)
+                                        {
+                                            echo'<li class="first"><a href="kokpit_inquiriesList.php">Zapytania</a></li>';
+                                        }
+                                        else
+                                        {
+                                            echo'<li class="first"><a href="kokpit_inquiriesList.php"><b>Zapytania('.$row[0].')</b></a></li>';
+                                        }
+				echo'</ul>
 			</div>
 		</div>
 		<div id="extra" class="boxed">

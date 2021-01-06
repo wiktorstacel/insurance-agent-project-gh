@@ -133,7 +133,6 @@ if(isset($_POST['submit']))
                         <br><br>$name
                         <br>$email
                         <br>$telefon
-                        <br><br>Adresat: $user_surname
                     ";
                     if($mail->send())//jesli wysłano do doradcy, to dopiero wtedy potwierdzenie do klienta
                     {
@@ -152,7 +151,7 @@ if(isset($_POST['submit']))
                         ";
                         if($mail2->send())
                         {
-                            if($result){echo '<span class="form-success">Wiadomość wysłana. Sprawdź potwierdzenie na Twojej skrzynce pocztowej.</span>';}
+                            if($result){echo '<span class="form-success">Wiadomość wysłana. Sprawdź potwierdzenie w Twojej skrzynce pocztowej.</span>';}
                             else {throw new Exception(mysqli_error($conn));}
                         }
                         else //doradca dostał, klientowi nie dało rady wysłać

@@ -68,7 +68,7 @@ class article_load extends Strona2
                 echo '<div class="user_profile_kontakt" id="kontaktform_div'.$row[5].'">';
                 echo '<br><button class="kontaktform_loadButt" value="'.$row[5].'"> Napisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
                 echo'</div>';
-                echo'... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce Kontakt';
+                echo'... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
                 
                 
                 mysqli_close($conn);               
