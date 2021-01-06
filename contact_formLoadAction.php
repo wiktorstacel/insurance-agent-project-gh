@@ -100,6 +100,19 @@ if(isset($_POST['submit']))
             $user_email = $row['email'];
             $user_surname = $row['surname'];
             
+            //zapisanie kontaktu do bazy - na wszelki wypadek teraz jakby nie udało się wysłać maili, to będzie
+            //w bazie do odtworzenia.
+            $result = mysqli_query($conn, 
+            sprintf("INSERT INTO inquiries (`inquiry_id`, `inquiry`, `name`, `email`, `telefon`, `date`, `stan`, `user_id`) "
+                    . "VALUES (DEFAULT, '%s', '%s', '%s', '%s', NOW(), '1', '%d')",
+            mysqli_real_escape_string($conn, $inquiry),
+            mysqli_real_escape_string($conn, $name),
+            mysqli_real_escape_string($conn, $email),
+            mysqli_real_escape_string($conn, $telefon),
+            mysqli_real_escape_string($conn, $user_id)
+                    ));
+
+            if(!$result)throw new Exception(mysqli_error($conn));
 
             if($errorUser_id == false && $errorEmail == false)
             {
@@ -111,6 +124,7 @@ if(isset($_POST['submit']))
                     require_once 'config_smtp.php';
                     //Email Settings =>to advisor
                     $mail->isHTML(true);
+                    $mail->CharSet = "UTF-8";
                     $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
                     $mail->addAddress($user_email);
                     $mail->Subject = "Kontakt od klienta - serwis Ubezpieczenia i Odszkodowania";
@@ -124,17 +138,19 @@ if(isset($_POST['submit']))
                     if($mail->send())//jesli wysłano do doradcy, to dopiero wtedy potwierdzenie do klienta
                     {
                         //Email Settings =>to client
-                        $mail->isHTML(true);
-                        $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
-                        $mail->addAddress($email);
-                        $mail->Subject = "Potwierdzenie nadania e-mail do doradcy - serwis Ubezpieczenia i Odszkodowania";
-                        $mail->Body = "
+                        $mail2->isHTML(true);
+                        $mail2->CharSet = "UTF-8";
+                        $mail2->setFrom('confirm@ubezpieczenia-odszkodowania.com');
+                        $mail2->addAddress($email);
+                        $mail2->Subject = "Potwierdzenie nadania e-mail do doradcy - serwis Ubezpieczenia i Odszkodowania";
+                        $mail2->Body = "
                             $inquiry 
                             <br><br>$name
+                            <br>$email
                             <br>$telefon
                             <br><br>Adresat: $user_surname
                         ";
-                        if($mail->send())
+                        if($mail2->send())
                         {
                             if($result){echo '<span class="form-success">Wiadomość wysłana. Sprawdź potwierdzenie na Twojej skrzynce pocztowej.</span>';}
                             else {throw new Exception(mysqli_error($conn));}
@@ -144,7 +160,7 @@ if(isset($_POST['submit']))
                             $errorEmail = true;
                             echo '<span class="form-error-contact">Doradca otrzymał Twoją wiadomość, jednak nie udało się wysłać '
                             . ' potwierdzenia do Ciebie. Sprawdź aktualność danych kontaktowych, gdyż może to uniemożliwiać kontakt do Ciebie.</span>';
-                            throw new Exception($mail->ErrorInfo);
+                            throw new Exception($mail2->ErrorInfo);
                         }
 
                     }

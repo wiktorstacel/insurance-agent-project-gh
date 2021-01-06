@@ -78,11 +78,12 @@ if(isset($_POST['submit']))
                 require_once 'config_smtp.php';
                 //Email Settings
                 $mail->isHTML(true);
+                $mail->CharSet = "UTF-8";
                 $mail->setFrom('confirm@ubezpieczenia-stawik964.com');
                 $mail->addAddress($email);
                 $mail->Subject = "Odzyskiwanie konta - serwis Ubezpieczenia i Odszkodowania";
                 $mail->Body = "
-                    Kliknij link w celu utworzenia nowego hasla:<br><br>
+                    Kliknij poniższy link w celu utworzenia nowego hasła:<br><br>
 
                     <a href='http://manager.test/reset_psw_new.php?selector=$selector&validator=$hexToken'>Link</a>
                 ";
