@@ -17,6 +17,7 @@ class kokpit_userProfile extends kokpit_stage
                 echo '<tr class="listwa">';
                 echo '<td class="tytul">Tytuł artykułu</td>';
                 echo '<td class="data">Data dodania</td>';
+                echo '<td>W</td>';
                 echo '<td>Podgląd</td>';
                 echo '<td class="stan">Stan</td>';
                 echo '<td>Edycja</td>';
@@ -37,6 +38,7 @@ class kokpit_userProfile extends kokpit_stage
                     }
                     echo'<td class="tytul">'.$row[1].'</td>';
                     echo'<td class="data">'.$row[3].'</td>';
+                    echo'<td class="plus">'.$row[7].'</td>';
                     echo'<td class="plus"><a href="article_preview.php?article_id='.$row[0].'">+</a></td>';
                     echo'<td class="plus"><a href="article_stanChange.php?article_id='.$row[0].'&from=2">+</a></td>';
                     echo'<td class="plus"><a href="freerte/examples/edycja_articles.php?article_id='.$row[0].'">+</a></td>';

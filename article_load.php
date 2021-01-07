@@ -31,6 +31,13 @@ class article_load extends Strona2
         $this->keywords = $words_comma;
         
         $this->description = $row[0];
+        
+        //view count
+            $result = mysqli_query($conn,
+            sprintf("UPDATE articles SET views = views + 1 WHERE article_id = '%d'",
+            mysqli_real_escape_string($conn, $article_id)
+                        ));                
+            if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
         return true; 
     }
     
@@ -53,7 +60,7 @@ class article_load extends Strona2
                 require 'config_db.php';
                 $article_id = htmlentities($_GET['article_id'], ENT_QUOTES, "UTF-8");
                 $result = mysqli_query($conn,
-                            sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",
+                            sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",
                             mysqli_real_escape_string($conn, $article_id)
                                 ));                
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
@@ -62,7 +69,7 @@ class article_load extends Strona2
                 echo'<h1 class="title">'.$row[1].'</h1>';
                 echo '<br />';
                 echo $row[2];
-                echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
+                echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3].', wyświetleń: '.$row[6];
                 echo '<br /><br />';
                 
                 echo '<div class="user_profile_kontakt" id="kontaktform_div'.$row[5].'">';
