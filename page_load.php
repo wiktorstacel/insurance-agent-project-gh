@@ -30,7 +30,8 @@ if($page_id == 6)
         //print ("<br><a href=\"javascript:LoadForm('main_wyszukaj.php','field');\"> Napisz wiadomość</a>");
         //echo'<a><div class="kontaktform_class" value="'.$row['user_id'].'" name="'.$row['user_id'].'"> Napisz wiadomość</div></a>';
         //echo 'polski,'.$row['languages'].'</span>';
-        echo'<br><button class="kontaktform_loadButt" value="'.$row['user_id'].'"> Napisz wiadomość</button>';
+        echo'<br><img src="css\images\envelop2.png" width="16" height="16" alt="alt"/>'
+        . '<button class="kontaktform_loadButt" value="'.$row['user_id'].'"> &nbspNapisz wiadomość</button>';
             
                  
         //echo '</div>';

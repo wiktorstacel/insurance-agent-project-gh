@@ -26,20 +26,65 @@ class article_stanChange extends kokpit_stage
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
                 $record_number = mysqli_num_rows($result);
                 if($record_number > 0)
-                {
-                    $result = mysqli_query($conn, 
-                    sprintf("UPDATE `articles` SET `stan`= NOT stan WHERE `article_id`='%d' AND `user_id`='%d'",
-                    mysqli_real_escape_string($conn, $article_id),
-                    mysqli_real_escape_string($conn, $_SESSION['user_id'])
-                            ));                                        
-                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                    else
+                {                    
+                    $row = mysqli_fetch_array($result);
+                    $article_stan = $row[4];
+                    if($article_stan == 1)//(stan 1) i dezaktywujemy, to nie sprawdzamy więcej żadnych warunków
                     {
-                        if($from == 1) header('location: kokpit_articlesList.php');
-                        elseif($from == 2) header('location: kokpit_articlesUser.php');
+                        $result = mysqli_query($conn, 
+                        sprintf("UPDATE `articles` SET `stan`= NOT stan WHERE `article_id`='%d' AND `user_id`='%d'",
+                        mysqli_real_escape_string($conn, $article_id),
+                        mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                                ));                                        
+                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                        else//zmieniono stan - powrót do strony
+                        {
+                            if($from == 1) header('location: kokpit_articlesList.php');
+                            elseif($from == 2) header('location: kokpit_articlesUser.php');
+                        }
                     }
+                    else //jak nieaktywny (stan 0) to sprawdzamy czy można aktywować
+                    {
+                        //sprawdzamy czy do aktywacji idzie stary artykuł czy dzisiajszy
+                        $result = mysqli_query($conn, 
+                        sprintf("SELECT * FROM `articles` WHERE date < CURDATE() AND `article_id`='%d'",
+                        mysqli_real_escape_string($conn, $article_id)
+                                ));
+                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                        $old = mysqli_num_rows($result); //większe 1 to stary artykuł
+                        //echo "czy stary: ".$old;exit();
+                        //$article_date = strtotime($row[3]);//strtotime($var);
+                        //$now = date();
+                        //if($article_date < $now) {$old = 1;}
+                        $result = mysqli_query($conn, 
+                        sprintf("SELECT COUNT(*) FROM `articles` WHERE date =CURDATE() AND `stan`=1 AND `user_id`='%d' GROUP BY user_id",
+                        mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                                ));
+                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                        $row = mysqli_fetch_array($result);//liczba aktywnych dzisiejszych < 1 lub aktywacja starego
+                        if($row[0] < 1 || $old == 1)
+                        {
+                            $result = mysqli_query($conn, 
+                            sprintf("UPDATE `articles` SET `stan`= NOT stan WHERE `article_id`='%d' AND `user_id`='%d'",
+                            mysqli_real_escape_string($conn, $article_id),
+                            mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                                    ));                                        
+                            if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                            else//zmieniono stan - powrót do strony
+                            {
+                                if($from == 1) header('location: kokpit_articlesList.php');
+                                elseif($from == 2) header('location: kokpit_articlesUser.php');
+                            }
+                        }
+                        else //przekroczono dozwoloną liczbę aktywnych art dziennie, stan nie uległ zmianie
+                        {
+                            if($from == 1) header('location: kokpit_articlesList.php');
+                            elseif($from == 2) header('location: kokpit_articlesUser.php');                        
+                        }
+                    }
+
                 }
-                else
+                else //użytkonik próbuje zmienić stan nie swojego artykułu
                 {
                     echo 'Bład. Stan nie został zmieniony, spróbuj ponownie lub skontaktuj się z administratorem.';
                 }

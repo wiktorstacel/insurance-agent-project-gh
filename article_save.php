@@ -70,7 +70,6 @@ class article_save extends kokpit_stage
             if(isset($_POST['article_id']))//UPDATE istniejącego id
             {
                 $article_id = htmlentities($_POST['article_id'], ENT_QUOTES, "UTF-8");	
-
                 $result1 = mysqli_query($conn, 
                         sprintf("UPDATE `articles` SET `title` = '%s', `category_id` = '%d' WHERE `article_id` = '%d' AND user_id = '%d' LIMIT 1",
                         mysqli_real_escape_string($conn, $title),
@@ -101,17 +100,37 @@ class article_save extends kokpit_stage
             }//koniec UPDATE
             else //NOWY ARTYKUŁ bo brak ustawionego id
             {
+                //sprawdzanie czy użytkonik ma już dodany i aktywny artykuł z dzisiejszą datą (max 1 dziennie można dodać)
                 $result = mysqli_query($conn,
-                    sprintf("INSERT INTO `articles` ( `article_id` , `title` , `content`,`date`, `stan`, `user_id`, `category_id`) VALUES (DEFAULT,'%s','%s',CURDATE(),'1','%d','%d')",
+                    sprintf("SELECT * FROM `articles` WHERE `date`= CURDATE() AND `user_id` = '%d' AND stan = 1",
+                    mysqli_real_escape_string($conn, $_SESSION['user_id'])
+                                              ));
+                if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                $todays_art_number = mysqli_num_rows($result);
+                if($todays_art_number > 0) $stan = 0; else $stan = 1;
+                
+                $result = mysqli_query($conn,
+                    sprintf("INSERT INTO `articles` ( `article_id` , `title` , `content`,`date`, `stan`, `user_id`, `category_id`) VALUES (DEFAULT,'%s','%s',CURDATE(),'%d','%d','%d')",
                     mysqli_real_escape_string($conn, $title),
                     mysqli_real_escape_string($conn, $content),
+                    mysqli_real_escape_string($conn, $stan),
                     mysqli_real_escape_string($conn, $_SESSION['user_id']),
                     mysqli_real_escape_string($conn, $category_id)
                                               ));
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
                 else
                 {
-                    echo'Artykuł został dodany.';
+                    if($todays_art_number > 0)
+                    {
+                        echo'Artykuł został zapisany, jednak ponieważ '
+                        . 'dodałeś już dzisiaj conajmniej 1 artykuł stan '
+                        . 'będzie nieaktywny. Możesz aktywować od jutra.';
+                    }
+                    else
+                    {
+                        echo'Artykuł został dodany.';
+                    }
+  
                 }
             }
         }	

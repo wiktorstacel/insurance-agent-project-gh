@@ -73,7 +73,8 @@ class article_load extends Strona2
                 echo '<br /><br />';
                 
                 echo '<div class="user_profile_kontakt" id="kontaktform_div'.$row[5].'">';
-                echo '<br><button class="kontaktform_loadButt" value="'.$row[5].'"> Napisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
+                echo '<br><img src="css\images\envelop2.png" width="16" height="16" alt="alt"/>'
+                . '<button class="kontaktform_loadButt" value="'.$row[5].'"> &nbspNapisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
                 echo'</div>';
                 echo'... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
                 

@@ -187,7 +187,7 @@ class kokpit_stage
                                         <li><a href="freerte/examples/edycja_articles.php?article_id=new">Dodaj artykuł</a></li>';
                                         require 'config_db.php';
                                         $result = mysqli_query($conn, 
-                                            sprintf("SELECT COUNT( * ) FROM inquiries WHERE stan=1 AND `user_id`=10 GROUP BY user_id",
+                                            sprintf("SELECT COUNT( * ) FROM inquiries WHERE stan=1 AND `user_id`='%d' GROUP BY user_id",
                                                 mysqli_real_escape_string($conn, $_SESSION['user_id'])
                                                     ));
                                         $row = mysqli_fetch_array($result, MYSQLI_NUM);

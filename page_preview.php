@@ -15,7 +15,7 @@ class page_preview extends Strona2
                 require 'config_db.php';
                 $page_id = htmlentities($_GET['page_id'], ENT_QUOTES, "UTF-8");
                 $result = mysqli_query($conn,
-                            sprintf("SELECT * FROM pages WHERE page_id = '%d'",
+                            sprintf("SELECT p.content, p.update_date, u.surname FROM pages p, users u WHERE p.user_id = u.user_id AND page_id = '%d'",
                             mysqli_real_escape_string($conn, $page_id)
                                 ));
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
@@ -23,8 +23,8 @@ class page_preview extends Strona2
         
                 //echo'<h1 class="title">'.$row[1].'</h1>';
                 echo '<br />';
-                echo $row[2];
-                //echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
+                echo $row[0];
+                echo '<br><br><b>Ostatnia aktualizacja:</b> '.$row[1].', '.$row[2];
                 echo '<br /><br />';
                 mysqli_close($conn);
                 ?>                
