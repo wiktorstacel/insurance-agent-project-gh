@@ -51,18 +51,20 @@ class article_stanChange extends kokpit_stage
                         mysqli_real_escape_string($conn, $article_id)
                                 ));
                         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                        $old = mysqli_num_rows($result); //większe 1 to stary artykuł
+                        $old = mysqli_num_rows($result); // 1 to stary artykuł
                         //echo "czy stary: ".$old;exit();
                         //$article_date = strtotime($row[3]);//strtotime($var);
                         //$now = date();
                         //if($article_date < $now) {$old = 1;}
+                        
+                        //sprawdzamy liczbą aktywnych artykułów z dzisiejszą datą - tu można zwiększyć limit
                         $result = mysqli_query($conn, 
                         sprintf("SELECT COUNT(*) FROM `articles` WHERE date =CURDATE() AND `stan`=1 AND `user_id`='%d' GROUP BY user_id",
                         mysqli_real_escape_string($conn, $_SESSION['user_id'])
                                 ));
                         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                        $row = mysqli_fetch_array($result);//liczba aktywnych dzisiejszych < 1 lub aktywacja starego
-                        if($row[0] < 1 || $old == 1)
+                        $row = mysqli_fetch_array($result);
+                        if($row[0] < 1 || $old == 1)//liczba aktywnych dzisiejszych < 1 lub aktywacja starego
                         {
                             $result = mysqli_query($conn, 
                             sprintf("UPDATE `articles` SET `stan`= NOT stan WHERE `article_id`='%d' AND `user_id`='%d'",

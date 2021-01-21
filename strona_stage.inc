@@ -268,7 +268,7 @@ class Strona2
     public function WyswietlFooter()
     {
       echo '<div id="footer">
-	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+	<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
 	
 	/*echo'<div id="flash3"></div>
@@ -535,7 +535,7 @@ class Strona2
        echo'                        </div>
 
 
-                <a href="http://www.rzeszow.pl/">Rzesz�w</a>
+                <a href="http://www.rzeszow.pl/">Rzeszów</a>
 
                 <a href="http://www.hosting.osemka.pl/">Darmowy hosting</a>';
 

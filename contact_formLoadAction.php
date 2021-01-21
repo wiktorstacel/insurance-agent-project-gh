@@ -41,11 +41,11 @@ if(isset($_POST['submit']))
         $errorInquiry = true;
         echo '<span class="form-error-contact">Wiadomość ma niedopowiednią ilość znaków (min. 20, maks. 2000)</span>';
     }
-    /*elseif(!preg_match("/^(ą|ę| |\,|\.|\;|\?|\!|\%|\@|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,2000}$/", $inquiry))//sprawdź odpowiednie znaki surname
+    elseif(preg_match('/[^?!@%.,;ĄąĆćĘęŁłŃńÓóŚśŻżŹźa-zA-Z\s\d]/', $inquiry))//sprawdź odpowiednie znaki surname
     {
         $errorInquiry = true;
         echo '<span class="form-error-contact">Treść wiadomości może składać się tylko z liter(w tym polskich) oraz spacji i znaków ,.;?!%@</span>';            
-    }*/
+    }
     elseif(strlen($name) < 3 || strlen($name) > 20)//sprawdz długość login
     {
         $errorName = true;

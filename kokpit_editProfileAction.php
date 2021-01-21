@@ -61,6 +61,11 @@ if(isset($_POST['email']))
         $errorBusi_area = true;
         echo '<span class="form-error">Pole "Obszar dzialności" może składać się z 0-1000 znaków!</span>';            
     }
+    elseif(preg_match('/[^?!@%.,;ĄąĆćĘęŁłŃńÓóŚśŻżŹźa-zA-Z\s\d]/', $busi_area))//sprawdź odpowiednie znaki surname
+    {
+        $errorBusi_area = true;
+        echo '<span class="form-error">Pole "Obszar dzialności" może składać się tylko z liter(w tym polskich) oraz spacji i znaków ,.;?!%@</span>';
+    }
     elseif(!preg_match("/^(ą|ę| |\,|\.|\;|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,40}$/", $languages))//sprawdź odpowiednie znaki surname
     {
         $errorLanguages = true;

@@ -120,7 +120,19 @@ class kokpit_stage
         echo '<td>Usuń</td>';
         echo '</tr>';
         require 'config_db.php';
-        $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC");
+        if(!isset($_GET['articlesSum']))
+        {
+            $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET 0");
+            $row_number = mysqli_num_rows($result);
+        }
+        else
+        {
+            $articlesSum = htmlentities($_GET['articlesSum'], ENT_QUOTES, "UTF-8");
+            $result = mysqli_query($conn, 
+                    sprintf("SELECT * FROM articles ORDER BY date DESC LIMIT 10 OFFSET %d",
+                            mysqli_real_escape_string($conn, $articlesSum)
+                            ));
+        }
         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);} 
         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
         {
@@ -153,6 +165,39 @@ class kokpit_stage
         }
         echo '</table>';
         echo '<br>';
+
+        if(!isset($_GET['articlesSum']))
+        {
+            
+            $result = mysqli_query($conn, "SELECT * FROM articles ORDER BY date DESC LIMIT 1000000 OFFSET 0");
+            $row_number = mysqli_num_rows($result);
+            if($row_number > 10)
+            {
+                echo '<a href="kokpit_articlesList.php?articlesSum=10"><button style="float: right;" id="button_more_articles">Dalej >></button></a>';
+            }
+        }
+        else
+        {
+            $result_pom = mysqli_query($conn, 
+            sprintf("SELECT * FROM articles ORDER BY date LIMIT 1000000 OFFSET %d",
+                mysqli_real_escape_string($conn, $articlesSum)
+                ));
+            if($result_pom != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+            $row_number = mysqli_num_rows($result_pom);
+            if($row_number > $articlesSum)
+            {
+                $articlesSum_10more = $articlesSum+10;
+                $articlesSum_10less = $articlesSum-10;
+                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10more.'"><button style="float: right;" id="button_more_articles">Dalej >></button></a>';
+                if($articlesSum >= 10)
+                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10less.'"><button style="float: right; margin-right:6px;" id="button_more_articles"><< Wstecz</button></a>';
+            }
+            else
+            {
+                $articlesSum_10less = $articlesSum-10;
+                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10less.'"><button style="float: right; margin-right:6px;" id="button_more_articles"><< Wstecz</button></a>';
+            }
+        }
 
 
 
@@ -230,7 +275,7 @@ class kokpit_stage
      public function WyswietlFooter()
     {
       echo '<div id="footer">
-	<p id="legal">&copy;2007 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+	<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
 	
 		echo'<div id="flash3"></div>
