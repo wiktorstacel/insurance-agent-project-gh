@@ -50,6 +50,7 @@ class Strona2
 //      echo $this->tresc;
 //     $this -> WyswietlStopke();
 //      $this -> WyswietlZastopke();
+      echo '<script language="JavaScript" type="text/javascript" src="js/listeners_agent.js"></script>';
       echo "</body>\n</html>\n";
 
     }
@@ -278,9 +279,15 @@ class Strona2
                                flash("flash3", "blue", 20000, "aqua", 50);
 
                                // ]]>
-                               </script> --!>
-	
-     </div>';*/
+                               </script> --!>*/
+		
+        echo'<div class="cookie_container">';
+            echo'Ta strona korzysta z ciasteczek aby świadczyć usługi na najwyższym poziomie. 
+                Dalsze korzystanie ze strony oznacza, że zgadzasz się na ich użycie.&nbsp';
+            echo'<button class="cookie_button">Zgoda</button>';
+        echo'</div>';
+ 
+     echo'</div>';
     }
 
     public function WyswietlMenuPoziom($przyciski_poz)

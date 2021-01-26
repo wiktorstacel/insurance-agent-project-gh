@@ -277,7 +277,7 @@ class kokpit_stage
       echo '<div id="footer">
 	<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
-	
+     
 		echo'<div id="flash3"></div>
                                <script type="text/javascript">
                                // <![CDATA[

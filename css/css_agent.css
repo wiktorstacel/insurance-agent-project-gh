@@ -552,3 +552,34 @@ table.lista_art tr.linia2 td{
 
         border: 2px solid #A4C0C8;
 }*/
+
+/*Cookie message*/
+.cookie_container{
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    min-height: 46px;
+    background: #5F919E;/*#A4C0C8;/*#2f3640;*/
+    color: #f5f6fa;
+    padding: 2px 32px;
+    text-align: center;
+    /*box-shadow: 0 -2px 16px rgba(47, 54, 64);*/
+    
+    transition: 1000ms;
+}
+.cookie_container.active{
+    bottom: 0;
+}
+.cookie_button{
+    /*background: #c2d5db;*//*#ff5723;*/background: #A8C3CB url(images/img03.jpg) no-repeat;
+    border: 0;
+    color: #144B6B;/*#f5f6fa;*/
+    padding: 12px 48px;
+    /*font-size: 18px;
+    font-weight: bold;*/
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin: 4px;
+    /*border-radius: 8px;*/
+    cursor: pointer;
+}
