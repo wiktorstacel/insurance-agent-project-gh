@@ -79,13 +79,14 @@ if(isset($_POST['submit']))
                 //Email Settings
                 $mail->isHTML(true);
                 $mail->CharSet = "UTF-8";
-                $mail->setFrom('confirm@ubezpieczenia-stawik964.com');
+                $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
+                $mail->FromName="ubezpieczenia-odszkodowania";
                 $mail->addAddress($email);
                 $mail->Subject = "Odzyskiwanie konta - serwis Ubezpieczenia i Odszkodowania";
                 $mail->Body = "
                     Kliknij poniższy link w celu utworzenia nowego hasła:<br><br>
 
-                    <a href='http://manager.test/reset_psw_new.php?selector=$selector&validator=$hexToken'>Link</a>
+                    <a href='http://ubezpieczenia-odszkodowania.pl/reset_psw_new.php?selector=$selector&validator=$hexToken'>Link</a>
                 ";
                 if($mail->send())
                 {
@@ -130,7 +131,7 @@ if(isset($_POST['submit']))
         catch (Exception $ex) 
         {
             echo '<span class="form-error">Błąd serwera - prosimy o powrót w innym terminie.</span>';
-            echo '<br>Informacja deweloperska: '.$ex;
+            //echo '<br>Informacja deweloperska: '.$ex;
         }
     }
   

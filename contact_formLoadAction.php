@@ -125,7 +125,8 @@ if(isset($_POST['submit']))
                     //Email Settings =>to advisor
                     $mail->isHTML(true);
                     $mail->CharSet = "UTF-8";
-                    $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
+                    $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
+                    $mail->FromName="ubezpieczenia-odszkodowania";
                     $mail->addAddress($user_email);
                     $mail->Subject = "Kontakt od klienta - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "
@@ -139,7 +140,8 @@ if(isset($_POST['submit']))
                         //Email Settings =>to client
                         $mail2->isHTML(true);
                         $mail2->CharSet = "UTF-8";
-                        $mail2->setFrom('confirm@ubezpieczenia-odszkodowania.com');
+                        $mail2->setFrom('info@ubezpieczenia-odszkodowania.pl');
+                        $mail2->FromName="ubezpieczenia-odszkodowania";
                         $mail2->addAddress($email);
                         $mail2->Subject = "Potwierdzenie nadania e-mail do doradcy - serwis Ubezpieczenia i Odszkodowania";
                         $mail2->Body = "
@@ -177,8 +179,8 @@ if(isset($_POST['submit']))
         } 
         catch (Exception $ex) 
         {
-            echo '<span class="form-error">Błąd serwera - prosimy o rejestrację w innym terminie.</span>';
-            echo '<br>Informacja deweloperska: '.$ex;
+            echo '<span class="form-error">Błąd serwera - prosimy o próbę w innym terminie.</span>';
+            //echo '<br>Informacja deweloperska: '.$ex;
         }
     }
 

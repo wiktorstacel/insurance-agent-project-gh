@@ -141,13 +141,14 @@ if(isset($_POST['submit']))
                     //Email Settings
                     $mail->isHTML(true);
                     $mail->CharSet = "UTF-8";
-                    $mail->setFrom('confirm@ubezpieczenia-odszkodowania.com');
+                    $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
+                    $mail->FromName="ubezpieczenia-odszkodowania";
                     $mail->addAddress($email);
                     $mail->Subject = "Weryfikacja adresu e-mail - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "
                         Kliknij poniższy link w celu weryfikacji adresu e-mail:<br><br>
 
-                        <a href='http://manager.test/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
+                        <a href='http://ubezpieczenia-odszkodowania.pl/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
                     ";
                     if($mail->send())
                     {
@@ -185,7 +186,7 @@ if(isset($_POST['submit']))
         catch (Exception $ex) 
         {
             echo '<span class="form-error">Błąd serwera - prosimy o rejestrację w innym terminie.</span>';
-            echo '<br>Informacja deweloperska: '.$ex;
+            //echo '<br>Informacja deweloperska: '.$ex;
         }
     }
 
