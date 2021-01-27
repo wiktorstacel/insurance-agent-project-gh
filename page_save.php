@@ -30,16 +30,27 @@ class page_save extends kokpit_stage
                 $_SESSION['e_title'] = "Dozwolone tylko litery, cyfry i spacja!";
             }
             
-            if(strlen($content) > 2555)
+            if(strlen($content) > 4000)
             {
                 $validation_OK = false;
-                $_SESSION['e_content'] = "Strona może zawierać do 2555 znaków!";
+                $_SESSION['e_content'] = "Strona może zawierać do 4000 znaków!";
+            }
+            
+            $content_array = explode(" ", $content);
+            foreach($content_array as $word)
+            {
+                if(strlen($word) > 55)// && preg_match('/[^"=:-#;><a-zA-Z\d]/',$word)
+                {
+                    $validation_OK = false;
+                    $_SESSION['e_content'] = "Treść nie może zawierać ciągu znaków bez spacji powyżej 55! Tekst: ".substr($word, 0, 8)."...";
+                    break;
+                }
             }
             
             //Usuwanie wyrażeń regularnych, kwestia pytania ile takich niebezpiecznych jest.
             //Można wracać z informacją o usnięciu czegoś albo zablokować dostęp do konta.
             $count = 0;
-            $vowels = array("<script>", "</script>", "onerror", "alert", "cookie", "kurwa");
+            $vowels = array("<script>", "</script>", "onerror", "alert", "cookie", "kurwa", "chuj", "pierdol", "cipa", "dupa", "pizda");
             $content = str_replace($vowels, " ", $content, $count);
             if($count > 0)
             {
