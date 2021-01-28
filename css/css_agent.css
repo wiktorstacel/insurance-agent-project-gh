@@ -177,7 +177,7 @@ hr {
 /* Page */
 
 #page {
-	width: 750px;
+	width: 800px;
 	margin: 0 auto;
 	padding: 30px 0;
 }
@@ -209,7 +209,7 @@ hr {
 
 #content {
 	float: left;
-	width: 450px;
+	width: 500px;
 	padding-top: 8px;
 }
 

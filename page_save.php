@@ -30,19 +30,21 @@ class page_save extends kokpit_stage
                 $_SESSION['e_title'] = "Dozwolone tylko litery, cyfry i spacja!";
             }
             
-            if(strlen($content) > 4000)
+            if(strlen($content) > 100000)
             {
                 $validation_OK = false;
-                $_SESSION['e_content'] = "Strona może zawierać do 4000 znaków!";
+                $_SESSION['e_content'] = "Strona może zawierać do 100000 znaków!";
             }
             
+            $no_html_content = strip_tags($content);
+            $content_array = explode(" ", $no_html_content);
             $content_array = explode(" ", $content);
             foreach($content_array as $word)
             {
-                if(strlen($word) > 55)// && preg_match('/[^"=:-#;><a-zA-Z\d]/',$word)
+                if(strlen($word) > 60)// && preg_match('/[^"=:-#;><a-zA-Z\d]/',$word)
                 {
                     $validation_OK = false;
-                    $_SESSION['e_content'] = "Treść nie może zawierać ciągu znaków bez spacji powyżej 55! Tekst: ".substr($word, 0, 8)."...";
+                    $_SESSION['e_content'] = "Treść nie może zawierać ciągu znaków bez spacji powyżej 60! Tekst: ".substr($word, 0, 8)."...";
                     break;
                 }
             }

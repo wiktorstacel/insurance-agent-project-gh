@@ -25,10 +25,10 @@ class article_save extends kokpit_stage
                 $_SESSION['e_category'] = "Przypisz artykuł do kategorii!";
             }
             
-            if(strlen($title) < 15 || strlen($title) > 64)
+            if(strlen($title) < 15 || strlen($title) > 128)
             {
                 $validation_OK = false;
-                $_SESSION['e_title'] = "Tytuł musi mieć długość od 15 do 64 znaków!";
+                $_SESSION['e_title'] = "Tytuł musi mieć długość od 15 do 128 znaków!";
             }           
             elseif(!preg_match("/^(ą|ę| |\,|\.|\-|\?|\!|\%|ź|ć|ń|ó|&oacute;|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[0-9]|[a-z]|[A-Z]){15,64}$/", $title))
             {
@@ -36,19 +36,20 @@ class article_save extends kokpit_stage
                 $_SESSION['e_title'] = "Dozwolone litery, cyfry, spacja oraz !?,.-!";
             }
             
-            if(strlen($content) < 100 || strlen($content) >4000)
+            if(strlen($content) < 100 || strlen($content) >100000)
             {
                 $validation_OK = false;
-                $_SESSION['e_content'] = "Artykuł musi mieć długość od 100 do 4000 znaków!";
+                $_SESSION['e_content'] = "Artykuł musi mieć długość od 100 do 100000 znaków!";
             }
             
-            $content_array = explode(" ", $content);
+            $no_html_content = strip_tags($content);
+            $content_array = explode(" ", $no_html_content);
             foreach($content_array as $word)
             {
-                if(strlen($word) > 55)// && preg_match('/[^><a-zA-Z\d]/', $word)
+                if(strlen($word) > 60)// && preg_match('/[^><a-zA-Z\d]/', $word)
                 {
                     $validation_OK = false;
-                    $_SESSION['e_content'] = "Artykuł nie może zawierać ciągu znaków bez spacji powyżej 55! Tekst: ".substr($word, 0, 8)."...";;
+                    $_SESSION['e_content'] = "Artykuł nie może zawierać ciągu znaków bez spacji powyżej 60! Tekst: ".substr($word, 0, 8)."...";;
                     break;
                 }
             }    

@@ -142,7 +142,7 @@ if(isset($_POST['submit']))
                     $mail->isHTML(true);
                     $mail->CharSet = "UTF-8";
                     $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
-                    $mail->FromName="ubezpieczenia-odszkodowania";
+                    $mail->FromName="Ubezpieczenia i Odszkodowania";
                     $mail->addAddress($email);
                     $mail->Subject = "Weryfikacja adresu e-mail - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "

@@ -80,7 +80,7 @@ if(isset($_POST['submit']))
                 $mail->isHTML(true);
                 $mail->CharSet = "UTF-8";
                 $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
-                $mail->FromName="ubezpieczenia-odszkodowania";
+                $mail->FromName="Ubezpieczenia i Odszkodowania";
                 $mail->addAddress($email);
                 $mail->Subject = "Odzyskiwanie konta - serwis Ubezpieczenia i Odszkodowania";
                 $mail->Body = "

@@ -110,7 +110,7 @@ class Strona2
       echo '<div id="header">
 	<div id="logo">
 		<h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
-		<h2><a href="index.php">Rzeszów, Podkarpackie</a></h2>
+		<h2><a href="index.php">informacje, artykuły, porady</a></h2>
 	</div>
 	<div id="menu">
 		<ul>';
@@ -160,13 +160,18 @@ class Strona2
                 echo '<br />';
                 //echo $row[2];
                 $no_html = strip_tags($row[2]);
-                echo substr($no_html, 0, 500);
+                //echo substr($no_html, 0, 500);
                 //Use wordwrap() to truncate the string without breaking words if the string is longer than 50 characters, and just add ... at the end
-                //if( strlen( $input) > 50) {
-                //$str = explode( "\n", wordwrap( $input, 50));
-                //$str = $str[0] . '...';
-                //}
-                echo'<a style="text-decoration: none;" href="article_load.php?article_id='.$row[0].'"> ...Czytaj dalej</a>';
+                if( strlen($no_html) > 600) {
+                    $str = explode( "\n", wordwrap($no_html, 600));
+                    $str = $str[0] . '...';
+                    echo $str;
+                }
+                else
+                {
+                    echo $no_html;
+                }
+                echo'<a style="text-decoration: none;" href="article_load.php?article_id='.$row[0].'"> Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br /><br />';
                 }	
