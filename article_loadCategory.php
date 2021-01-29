@@ -27,11 +27,12 @@ class article_loadCategory extends Strona2
                 {
                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                     {
-                    echo'<h1 class="title">'.$row[1].'</h1>';
+                    $sanitazed_title = $this->rewrite($row[1]);
+                    echo'<h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1>';
                     echo '<br />';
                     $no_html = strip_tags($row[2]);
                     echo substr($no_html, 0, 500);
-                    echo'<a style="text-decoration: none;" href="article_load.php?article_id='.$row[0].'">...Czytaj dalej</a>';
+                    echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> ...Czytaj dalej</a>';
                     echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                     echo '<br /><br />';
                     }
@@ -62,9 +63,10 @@ class article_loadCategory extends Strona2
                                     $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY RAND() LIMIT 5");
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-                                    {       
+                                    {
+                                        $sanitazed_name = $this->rewrite($row[1]);
 					echo'<li class="first">
-						<p><a href="article_loadCategory.php?category_id='.$row[0].'">'.$row[1].'</a></p>
+						<p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
 					</li>';
                                     }
                                     

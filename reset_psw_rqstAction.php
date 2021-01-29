@@ -80,13 +80,13 @@ if(isset($_POST['submit']))
                 $mail->isHTML(true);
                 $mail->CharSet = "UTF-8";
                 $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
-                $mail->FromName="Ubezpieczenia i Odszkodowania";
+                $mail->FromName="ubezpieczenia-odszkodowania";
                 $mail->addAddress($email);
                 $mail->Subject = "Odzyskiwanie konta - serwis Ubezpieczenia i Odszkodowania";
                 $mail->Body = "
                     Kliknij poniższy link w celu utworzenia nowego hasła:<br><br>
 
-                    <a href='http://ubezpieczenia-odszkodowania.pl/reset_psw_new.php?selector=$selector&validator=$hexToken'>Link</a>
+                    <a href='https://ubezpieczenia-odszkodowania.pl/reset_psw_new.php?selector=$selector&validator=$hexToken'>Link</a>
                 ";
                 if($mail->send())
                 {

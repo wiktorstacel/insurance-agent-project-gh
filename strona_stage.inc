@@ -59,6 +59,22 @@ class Strona2
     {
         session_start();
     }
+    
+    function rewrite($string){ 
+      $a = array( 'Ę', 'Ó', 'Ą', 'Ś', 'Ł', 'Ż', 'Ź', 'Ć', 'Ń', 'ę', 'ó', 'ą',
+                  'ś', 'ł', 'ż', 'ź', 'ć', 'ń' );
+      $b = array( 'E', 'O', 'A', 'S', 'L', 'Z', 'Z', 'C', 'N', 'e', 'o', 'a',
+                  's', 'l', 'z', 'z', 'c', 'n' );
+
+          $string = str_replace("&oacute;", "o", $string );//2021-01-29: dodane, może tylko moja klawiatura daje to zamiast ó
+          $string = str_replace( $a, $b, $string );
+          $string = preg_replace( '#[^a-z0-9]#is', ' ', $string );
+          $string = trim( $string );
+          $string = preg_replace( '#\s{2,}#', ' ', $string );
+          $string = str_replace( ' ', '-', $string );
+          $string = strtolower($string);
+          return $string;
+    }
 
     public function WyswietlTytul()
     {
@@ -89,12 +105,14 @@ class Strona2
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
                   <meta name="copyright" content="Wiktor Stącel" />
 
-                  <meta http-equiv="Content-Script-Type" content="text/javascript">';
+                  <meta http-equiv="Content-Script-Type" content="text/javascript">
+                  <base href="/" />';//SEO friendly URL 
+      //so that every relative URL is resolved from that base URL and not from the current page's URL.
     }
 
     public function WyswietlStyle()
     {
-      echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"css/css_agent.css\" />\n";
+      echo '<link rel="stylesheet" type="text/css" href="css/css_agent.css" />';
     }
 
     public function WyswietlSkrypty()
@@ -110,8 +128,8 @@ class Strona2
       echo '<div id="header">
 	<div id="logo">
 		<h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
-		<h2><a href="index.php">informacje, artykuły, porady</a></h2>
-	</div>
+		<h2><a href="index.php">informacje, artykuły, porady</a></h2>';//UWAGA: login i register !!!
+	echo'</div>
 	<div id="menu">
 		<ul>';
                         require 'config_db.php';
@@ -155,8 +173,10 @@ class Strona2
               //$row = mysqli_fetch_array($result, MYSQLI_NUM);
                 while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                 {
+                //$str_row_1 = str_replace(" ", "-", $row[1]);
+                $sanitazed_title = $this->rewrite($row[1]);
         
-                echo'<h1 class="title"><a href="article_load.php?article_id='.$row[0].'">'.$row[1].'</a></h1>';
+                echo'<h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1>';
                 echo '<br />';
                 //echo $row[2];
                 $no_html = strip_tags($row[2]);
@@ -171,7 +191,7 @@ class Strona2
                 {
                     echo $no_html;
                 }
-                echo'<a style="text-decoration: none;" href="article_load.php?article_id='.$row[0].'"> Czytaj dalej</a>';
+                echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br /><br />';
                 }	
@@ -197,9 +217,10 @@ class Strona2
                                     $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY RAND() LIMIT 5");
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-                                    {       
+                                    {
+                                        $sanitazed_name = $this->rewrite($row[1]);
 					echo'<li class="first">
-						<p><a href="article_loadCategory.php?category_id='.$row[0].'">'.$row[1].'</a></p>
+						<p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
 					</li>';
                                     }
                                     
@@ -245,9 +266,10 @@ class Strona2
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                                     {       
+                                        $sanitazed_title = $this->rewrite($row[1]);
 					echo'<li class="first">
 						<h3>'.$row[3].'</h3>
-						<p><a href="article_load.php?article_id='.$row[0].'">'.$row[1].'&hellip;</a></p>
+						<p><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'&hellip;</a></p>
 					</li>';
                                     }
 				echo'</ul>
@@ -262,8 +284,9 @@ class Strona2
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                                     {       
+                                        $sanitazed_name = $this->rewrite($row[1]);
 					echo'<li class="first">
-						<p><a href="article_loadCategory.php?category_id='.$row[0].'">'.$row[1].'</a></p>
+						<p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
 					</li>';
                                     }
                                 					

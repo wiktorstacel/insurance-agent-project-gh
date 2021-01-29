@@ -126,7 +126,7 @@ if(isset($_POST['submit']))
                     $mail->isHTML(true);
                     $mail->CharSet = "UTF-8";
                     $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
-                    $mail->FromName="Ubezpieczenia i Odszkodowania";
+                    $mail->FromName="ubezpieczenia-odszkodowania";
                     $mail->addAddress($user_email);
                     $mail->Subject = "Kontakt od klienta - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "
@@ -141,7 +141,7 @@ if(isset($_POST['submit']))
                         $mail2->isHTML(true);
                         $mail2->CharSet = "UTF-8";
                         $mail2->setFrom('info@ubezpieczenia-odszkodowania.pl');
-                        $mail2->FromName="Ubezpieczenia i Odszkodowania";
+                        $mail2->FromName="ubezpieczenia-odszkodowania";
                         $mail2->addAddress($email);
                         $mail2->Subject = "Potwierdzenie nadania e-mail do doradcy - serwis Ubezpieczenia i Odszkodowania";
                         $mail2->Body = "

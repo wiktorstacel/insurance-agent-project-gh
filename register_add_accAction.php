@@ -142,13 +142,13 @@ if(isset($_POST['submit']))
                     $mail->isHTML(true);
                     $mail->CharSet = "UTF-8";
                     $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
-                    $mail->FromName="Ubezpieczenia i Odszkodowania";
+                    $mail->FromName="ubezpieczenia-odszkodowania";
                     $mail->addAddress($email);
                     $mail->Subject = "Weryfikacja adresu e-mail - serwis Ubezpieczenia i Odszkodowania";
                     $mail->Body = "
                         Kliknij poniższy link w celu weryfikacji adresu e-mail:<br><br>
 
-                        <a href='http://ubezpieczenia-odszkodowania.pl/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
+                        <a href='https://ubezpieczenia-odszkodowania.pl/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
                     ";
                     if($mail->send())
                     {

@@ -105,9 +105,10 @@ class article_load extends Strona2
                                     $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY RAND() LIMIT 5");
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-                                    {       
+                                    {
+                                        $sanitazed_name = $this->rewrite($row[1]);
 					echo'<li class="first">
-						<p><a href="article_loadCategory.php?category_id='.$row[0].'">'.$row[1].'</a></p>
+						<p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
 					</li>';
                                     }
                                     

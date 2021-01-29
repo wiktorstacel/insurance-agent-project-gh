@@ -21,7 +21,7 @@ class login extends Strona2
       echo '<div id="header">
 	<div id="logo">
 		<h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
-		<h2><a href="index.php">Rzeszów, Podkarpackie</a></h2>
+		<h2><a href="index.php">informacje, artykuły, porady</a></h2>
 	</div>
 	<div id="menu">
 		<ul>';
