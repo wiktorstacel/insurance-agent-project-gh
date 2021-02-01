@@ -39,6 +39,21 @@ class kokpit_stage
             header('location: login.php');
             exit();
         }
+        else
+        {
+            //log out after 30 minuts of inactivity
+            if(time() - $_SESSION['timestamp'] > 1500) //subtract new timestamp from the old one
+            { 
+                //echo"<script>alert('Wylogowano z powodu 30 minut braku aktywności!');</script>";
+                //unset($_SESSION['username'], $_SESSION['password'], $_SESSION['timestamp']);$_SESSION['logged_in'] = false;
+                header("Location: log_out.php"); //redirect to index.php
+                exit;
+            } 
+            else 
+            {
+                $_SESSION['timestamp'] = time(); //set new timestamp
+            }
+        }
     }
 
     public function WyswietlTytul()

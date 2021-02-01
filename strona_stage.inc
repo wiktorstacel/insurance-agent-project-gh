@@ -58,6 +58,23 @@ class Strona2
     public function ObsluzSesje()
     {
         session_start();
+        
+        if(isset($_SESSION['zalogowany']))
+        {
+            //log out after 30 minuts of inactivity
+            if(time() - $_SESSION['timestamp'] > 1500) //subtract new timestamp from the old one
+            { 
+                //echo"<script>alert('Wylogowano z powodu 30 minut braku aktywności!');</script>";
+                unset($_SESSION['user'], $_SESSION['user_id'], $_SESSION['timestamp']);
+                $_SESSION['zalogowany'] = false;
+                header("Location: https://www.ubezpieczenia-odszkodowania.pl"); //redirect to index.php
+                //<base href="/" /> - that in meta for friendly URL makes problem with redirection - to solve
+            } 
+            else 
+            {
+                $_SESSION['timestamp'] = time(); //set new timestamp
+            }
+        }
     }
     
     function rewrite($string){ 

@@ -21,9 +21,10 @@ else
     require_once 'config_db.php';
 
     $result = mysqli_query($conn, 
-            sprintf("SELECT * FROM users WHERE login='%s'",
-            mysqli_real_escape_string($conn, $login))
-                            );
+            sprintf("SELECT * FROM users WHERE login='%s' OR email='%s'",
+            mysqli_real_escape_string($conn, $login),
+            mysqli_real_escape_string($conn, $login)
+                            ));
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     else 
     {
@@ -38,6 +39,7 @@ else
 
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['user'] = $row['login'];
+                $_SESSION['timestamp'] = time();
 
                 unset($_SESSION['blad']);
 
