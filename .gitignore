@@ -3,6 +3,7 @@ images/
 PHPMailer/
 config_db.php
 config_smtp.php
+config_reCaptcha.php
 Agent_CMS.clpprj
 .htaccess
 

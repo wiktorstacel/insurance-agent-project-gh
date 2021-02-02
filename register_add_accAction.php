@@ -93,7 +93,7 @@ if(isset($_POST['submit']))
     }
     else
     {
-        $secret_key = "6LfV2UUaAAAAAGWi-FVkgMYzV7ltIkiSn94QllAL";
+        require_once 'config_reCaptcha.php';
         $check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret_key.'&response='.$_POST['captchaResponse']);
         $response = json_decode($check);
         //printf($response->success);

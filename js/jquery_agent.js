@@ -146,6 +146,12 @@ $(document).ready(function(){
         $(pole).load("contact_formLoad.php?" + $.param( { //? oraz $.param - zamiana na metodę GET przy load
             user_id: user_id
         } ));
+        
+        setTimeout(function() {
+        grecaptcha.render('captcha_container', {
+          'sitekey': '6LfV2UUaAAAAAKkcskYoAimOqSAJMW0XLM78uu9d',
+        });
+        }, 50);
     });
     
 });
@@ -170,6 +176,7 @@ $(document).ready(function(){
         var telefon = $("#kont_telefon").val();
         var regulamin = $("#kont_regulamin").prop('checked');
         //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
+        var captchaResponse = grecaptcha.getResponse();
         var submit = $("#kont_submit").val();
         $("#kont_message").load("contact_formLoadAction.php", {
             user_id: user_id,
@@ -178,6 +185,7 @@ $(document).ready(function(){
             email: email,
             telefon: telefon,
             regulamin: regulamin,
+            captchaResponse: captchaResponse,
             submit: submit
         });
     });

@@ -39,12 +39,17 @@ if(isset($_GET['user_id']))
 
             <label><input id="kont_regulamin" type="checkbox" name="kont_regulamin" />Akceptuję </label>
             <a href="regulamin.php">regulamin</a>
-            <br /><br />                        
+            <br /><br />
+            <div id="captcha_container" class="google-cpatcha"></div>
+            <br />
             <input id="kont_submit" type="submit" value="Wyślij" />
             <br />
             <p id="kont_message"></p>
             </fieldset>
     </form>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
 
 <?php
 }

@@ -28,7 +28,8 @@ if(isset($_POST['submit']))
     $errorEmail = false;
     $errorTelefon = false;
     $errorRegulamin = false;
-    
+    $errorBot = false;
+   
 
     
     if(empty($inquiry) || empty($name) || empty($email))//czy jest jakieś puste pole
@@ -71,13 +72,29 @@ if(isset($_POST['submit']))
         $errorRegulamin = true;
         echo '<span class="form-error-contact">Potwierdź akceptację regulaminu.</span>';
     }
+    elseif(empty($_POST['captchaResponse']))
+    {
+        //reCapcha
+        //$_POST['captchaResponse'] zamiast standardowego $_POST['g-recaptcha-response'], bo odbieram te dane
+        //w js(jquery) i przesyłam do tego pliku pod inną nazwą
+        $errorBot = true;
+        echo '<span class="form-error-contact">Potwierdź, że nie jesteś robotem!</span>';
+    }
     else
-    {       
-        //echo '<span class="form-success">Jeszcze SQL check... </span>';
+    {
+        require_once 'config_reCaptcha.php';
+        $check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret_key.'&response='.$_POST['captchaResponse']);
+        $response = json_decode($check);
+        //printf($response->success);
+        if(!($response->success))
+        {
+            $errorBot = true;
+            echo '<span class="form-error-contact">Błąd weryfikacji reCaptcha!</span>';
+        }
     }
         
     //dane wejsciowe zwalidowane
-    if($errorEmpty == false && $errorInquiry == false && $errorName == false && $errorEmail == false && $errorTelefon == false &&  $errorRegulamin == false)
+    if($errorEmpty == false && $errorInquiry == false && $errorName == false && $errorEmail == false && $errorTelefon == false &&  $errorRegulamin == false && $errorBot == false)
     {       
         mysqli_report(MYSQLI_REPORT_STRICT);        
         try
@@ -202,6 +219,7 @@ else
     var errorEmail = "<?php echo $errorEmail; ?>";
     var errorTelefon = "<?php echo $errorTelefon; ?>";
     var errorRegulamin = "<?php echo $errorRegulamin; ?>";
+    var errorBot = "<?php echo $errorBot; ?>";
     
     if(errorEmpty == true){
         $("#kont_inquiry, #kont_name, #kont_email").addClass("input-error");
@@ -221,11 +239,15 @@ else
     if(errorRegulamin == true){
         $("#kont_regulamin").addClass("input-error");
     }
-    if(errorEmpty == false && errorInquiry == false && errorName == false && errorEmail == false && errorTelefon == false && errorRegulamin == false)
+    if(errorEmpty == false && errorInquiry == false && errorName == false && errorEmail == false && errorTelefon == false && errorRegulamin == false && errorBot == false)
     {
         //$("#kont_inquiry, #kont_name, #kont_email, #kont_telefon").val("");
         //$("#kont_regulamin").prop('checked', false);
         $("#kont_inquiry, #kont_name, #kont_email, #kont_telefon, #kont_regulamin, #kont_submit").prop( "disabled", true );
+    }
+    else
+    {
+        grecaptcha.reset(); //kasowanie reCapcha
     }
     
 </script>
