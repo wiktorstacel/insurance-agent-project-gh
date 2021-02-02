@@ -21,6 +21,7 @@ if(isset($_POST['submit']))
     $regulamin = filter_var($_POST['regulamin'], FILTER_VALIDATE_BOOLEAN);
     $emailB = filter_var($email, FILTER_SANITIZE_EMAIL);//zwraca string usuwając (np) polskie znaki
     $haslo_hash = password_hash($haslo, PASSWORD_DEFAULT);
+
     
     $errorEmpty = false;
     $errorLogin = false;
@@ -29,7 +30,7 @@ if(isset($_POST['submit']))
     $errorHaslo2 = false;
     $errorGender = false;
     $errorRegulamin = false;
-    
+    $errorBot = false;
 
     
     if(empty($login) || empty($email) || empty($haslo) || empty($haslo2))//czy jest jakieś puste pole
@@ -81,16 +82,31 @@ if(isset($_POST['submit']))
     {
         $errorRegulamin = true;
         echo '<span class="form-error">Potwierdź akceptację regulaminu!</span>';
+    }   
+    elseif(empty($_POST['captchaResponse']))
+    {
+        //reCapcha
+        //$_POST['captchaResponse'] zamiast standardowego $_POST['g-recaptcha-response'], bo odbieram te dane
+        //w js(jquery) i przesyłam do tego pliku pod inną nazwą
+        $errorBot = true;
+        echo '<span class="form-error">Potwierdź, że nie jesteś robotem!</span>';
     }
-    //reCapcha do wstawienia jak już będzie wrzucane na serwer, v3 sprawdzającą content strony np artykuły
     else
-    {       
-        //echo '<span class="form-success">Jeszcze SQL check... </span>';
+    {
+        $secret_key = "6LfV2UUaAAAAAGWi-FVkgMYzV7ltIkiSn94QllAL";
+        $check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret_key.'&response='.$_POST['captchaResponse']);
+        $response = json_decode($check);
+        //printf($response->success);
+        if(!($response->success))
+        {
+            $errorBot = true;
+            echo '<span class="form-error">Błąd weryfikacji reCaptcha!</span>';
+        }
     }
     
     
     //dane wejsciowe zwalidowane, sprawdzamy dalsze warunki wykorzystując MySQL
-    if($errorEmpty == false && $errorLogin == false && $errorEmail == false && $errorHaslo == false && $errorHaslo2 == false && $errorGender == false && $errorRegulamin == false)
+    if($errorEmpty == false && $errorLogin == false && $errorEmail == false && $errorHaslo == false && $errorHaslo2 == false && $errorGender == false && $errorRegulamin == false && $errorBot == false)
     {       
         mysqli_report(MYSQLI_REPORT_STRICT);        
         try
@@ -200,6 +216,7 @@ else
 
 <script>
     $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female, #rej_regulamin").removeClass("input-error");
+    grecaptcha.reset(); //kasowanie reCapcha
     
     var errorEmpty = "<?php echo $errorEmpty; ?>";
     var errorLogin = "<?php echo $errorLogin; ?>";
@@ -208,6 +225,7 @@ else
     var errorHaslo2 = "<?php echo $errorHaslo2; ?>";
     var errorGender = "<?php echo $errorGender; ?>";
     var errorRegulamin = "<?php echo $errorRegulamin; ?>";
+    var errorBot = "<?php echo $errorBot; ?>";
     
     if(errorEmpty == true){
         $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2").addClass("input-error");
@@ -230,7 +248,7 @@ else
     if(errorRegulamin == true){
         $("#rej_regulamin").addClass("input-error");
     }
-    if(errorEmpty == false && errorLogin == false && errorEmail == false && errorHaslo == false && errorHaslo2 == false && errorGender == false && errorRegulamin == false)
+    if(errorEmpty == false && errorLogin == false && errorEmail == false && errorHaslo == false && errorHaslo2 == false && errorGender == false && errorRegulamin == false && errorBot == false)
     {
         $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female").val("");
         $("#language1, #language2, #language3, #language4, \n\

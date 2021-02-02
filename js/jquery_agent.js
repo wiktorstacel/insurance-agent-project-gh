@@ -33,6 +33,7 @@ $(document).ready(function(){
         //alert("Number of selected Languages: "+selectedLanguage.length+"\n"+"And, they are: "+selectedLanguage);
         var regulamin = $("#rej_regulamin").prop('checked');         //checkbox pojedyńczy
         //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
+        var captchaResponse = grecaptcha.getResponse();
         var submit = $("#rejestra_submit").val();
         $("#rejestra_message").load("register_add_accAction.php", {
             login: login,
@@ -40,6 +41,7 @@ $(document).ready(function(){
             haslo: haslo,
             haslo2: haslo2,
             regulamin: regulamin,
+            captchaResponse: captchaResponse,
             gender: gender,
             languages: languages,
             submit: submit

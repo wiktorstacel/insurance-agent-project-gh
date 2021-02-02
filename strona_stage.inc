@@ -137,6 +137,7 @@ class Strona2
         echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/js_agent.js"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/jquery_agent.js"></script>';
+        echo '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
     }
 
     public function WyswietlHeader()
