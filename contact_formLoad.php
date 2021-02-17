@@ -47,7 +47,7 @@ if(isset($_GET['user_id']))
             <p id="kont_message"></p>
             </fieldset>
     </form>
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit"
         async defer>
     </script>
 

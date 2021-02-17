@@ -138,6 +138,8 @@ class Strona2
         echo '<script language="JavaScript" type="text/javascript" src="js/js_agent.js"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/jquery_agent.js"></script>';
         echo '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
+        // Removed 'onload=onloadCallback' from url after form in contact_formLoad
+        // In help it was written maybe this is also to add as global: window.myCallback = myCallback;
     }
 
     public function WyswietlHeader()

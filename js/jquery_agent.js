@@ -145,13 +145,24 @@ $(document).ready(function(){
         var pole = "#kontaktform_div"+user_id; 
         $(pole).load("contact_formLoad.php?" + $.param( { //? oraz $.param - zamiana na metodę GET przy load
             user_id: user_id
-        } ));
+            }), function(){
+                    grecaptcha.render('captcha_container', {
+                        'sitekey': '6LfV2UUaAAAAAKkcskYoAimOqSAJMW0XLM78uu9d'
+                    });
+                } 
+        );
         
-        setTimeout(function() {
+        /*setTimeout(function() {
         grecaptcha.render('captcha_container', {
           'sitekey': '6LfV2UUaAAAAAKkcskYoAimOqSAJMW0XLM78uu9d',
         });
-        }, 50);
+        }, 500);*/
+        
+        //EXAMPLE - not connected data
+        /*$("#result").load("feeds.php", { limit: 25 }, function() {
+        //funkcja zwrotna odpalana po wczytaniu
+        $("#result").slideDown();
+        });*/
     });
     
 });

@@ -17,3 +17,7 @@ setTimeout(() => {
     cookieContainer.classList.add("active");
     }
 }, 2000)
+
+//it was tried to put this code here beacause now is loaded dynamicaly with form - in this case would be static down on each page
+//src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+//        async defer
