@@ -56,49 +56,21 @@ class article_loadSearch extends Strona2
                 mysqli_close($conn);
     
 
-                
-                
-		echo'	<br><br><br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym, w którym specjaliści, dorardcy zamieszczają wartościowe artykuły związane z tematmi, z którymi pracuja na codzień. Można znaleźć tutaj wartościowe informacje i porady, zapoznać się z trendami rynkowymi. <em>Życzymy owocnego czytania :)</em></p>
-			<h2>Złote myśli</h2>
-			<p>Zwycięzcy i ludzie sukcesu problemy traktują jako wyzwanie i szansę do własnego rozwoju i pomocy sobie i innym.</p>
-			<blockquote>
-				<p>&ldquo;Wiedza na temat tego, gdzie znaleźć informacje i jak je wykorzystać - to sekret sukcesu. &rdquo;Albert Einstein</p>
-			</blockquote>
-		</div>
-		<div>&nbsp;</div>
-		<div class="twocols">
-			<div class="col1">';
-				echo'<h3 class="title">Jeśłi jesteś doradcą</h3>
-				<p>...i chcesz współtworzyć ten serwis - załóż darmowe konto, które umożliwia pisanie artykułów, na końcu których znajduje się formularz przesyłający wiadomości od zainteresowanych osób bezpośrednio do na Twoją skrzynkę pocztową.</p>
-				<p><a href="regulamin.php">Regulamin&hellip;</a></p>                               
-			</div>
-			<div class="col2">
-				<h3 class="title">WYBRANE KATEGORIE</h3>
-				<ul class="list">';
-                                    require 'config_db.php';
-                                    $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY RAND() LIMIT 5");
-                                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
-                                    while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-                                    {
-                                        $sanitazed_name = $this->rewrite($row[1]);
-					echo'<li class="first">
-						<p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
-					</li>';
-                                    }
-                                    
-				echo'</ul>
-			</div>
-		</div>
+                $this->WyswietlMotto();
+            echo'</div>';
 
-        </div>'; //end of content
+
+        echo'</div>'; //end of content
     }
     
 
 }
 
-$article_loadSearch = new article_loadSearch();
+$header_type = 1;
 
-$article_loadSearch -> title = 'Artykuł';
+$article_loadSearch = new article_loadSearch($header_type);
+
+$article_loadSearch -> title = 'Wyniki wyszukiwania';
 
 $article_loadSearch -> keywords = 'ubezpieczenia, komunikacyjne, odszkodowania, rzeszów, podkarpackie';
 

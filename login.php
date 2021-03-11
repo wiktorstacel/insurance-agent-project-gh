@@ -15,23 +15,6 @@ class login extends Strona2
         }
     }
     
-    public function WyswietlHeader()
-    {
-      echo '<div id="header_parent">';
-      echo '<div id="header">
-	<div id="logo">
-		<h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
-		<h2><a href="index.php">informacje, artykuły, porady</a></h2>
-	</div>
-	<div id="menu">
-		<ul>';
-                    print("<li class=\"noactive\"><a style=\"color: white;\" href=\"index.php\">Powrót na stronę główną</a></li>");
-     echo'	</ul>
-	</div>
-     </div>';
-     echo '</div>';
-    }
-    
     public function WyswietlPage()
     {
       echo '<div id="page">
@@ -76,7 +59,9 @@ class login extends Strona2
 
 }
 
-$login = new login();
+$header_type = 2;
+
+$login = new login($header_type);
 
 $login -> title = 'Logowanie';
 
