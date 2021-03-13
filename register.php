@@ -7,7 +7,7 @@ class register extends Strona2
     
     public function WyswietlPage()
     {
-        echo '<div id="page">
+        echo '
                 <div id="rejestra_field">
                     <h1 class="title">Utwórz konto</h1>
                     <div id="rejestra_div">
@@ -52,18 +52,15 @@ class register extends Strona2
                 </div>
         ';
     }
-    
-    public function WyswietlSidebar()
-    {
-	echo'
-            </div><!-- end page -->';
-    }
 
 }
 
 $header_type = 2;
+$show_content = true;
+$show_sidebar = false; 
+$show_motto = true;
 
-$register = new register($header_type);
+$register = new register($header_type, $show_content, $show_sidebar, $show_motto);
 
 $register -> title = 'Rejestracja - utwórz konto';
 

@@ -8,9 +8,9 @@ class kokpit_inquiryDelConf extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
+		<main style="margin-bottom: 20px;">';
     
                 echo '<br>';
                 echo "<table class='lista_art'>";
@@ -87,7 +87,7 @@ class kokpit_inquiryDelConf extends kokpit_stage
     
                 mysqli_close($conn);
 		
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
@@ -95,7 +95,11 @@ class kokpit_inquiryDelConf extends kokpit_stage
 
 }
 
-$kokpit_inquiryDelConf = new kokpit_inquiryDelConf();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true;
+
+$kokpit_inquiryDelConf = new kokpit_inquiryDelConf($header_type, $show_content, $show_sidebar);
 
 $kokpit_inquiryDelConf -> title = 'Kokpit';
 

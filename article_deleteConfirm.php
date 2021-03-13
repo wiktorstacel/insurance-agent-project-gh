@@ -8,9 +8,9 @@ class article_deleteConfirm extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
+		<main style="margin-bottom: 20px;">';
     
                 echo '<br>';
                 echo "<table class='lista_art'>";
@@ -87,7 +87,7 @@ class article_deleteConfirm extends kokpit_stage
     
                 mysqli_close($conn);
 		
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
@@ -95,7 +95,11 @@ class article_deleteConfirm extends kokpit_stage
 
 }
 
-$article_deleteConfirm = new article_deleteConfirm();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true; 
+
+$article_deleteConfirm = new article_deleteConfirm($header_type, $show_content, $show_sidebar);
 
 $article_deleteConfirm -> title = 'Kokpit';
 

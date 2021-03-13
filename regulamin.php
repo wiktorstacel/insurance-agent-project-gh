@@ -7,11 +7,11 @@ class regulamin extends Strona2
     
     public function WyswietlPage()
     {
-      echo '<div id="page">
+      echo '
         <div id="content" style="float:left;">
-            <div style="margin-bottom: 20px;">';
+            <main style="margin-bottom: 20px;"><aside>';
             
-             echo'<h1>Regulamin</h2><br>
+             echo'<header><h1>Regulamin</h1><header><br>
              <div>
              1. Zarejstrowany użytkownik ma prawo dodać 1 artykuł dziennie.<br>
              2. Artykuły podlegają moderacji przez administratora.<br>
@@ -25,25 +25,19 @@ class regulamin extends Strona2
              <br>* Pole nieobowiązkowe do zaznaczenia w rejestracji nowego konta lub wysyłania wiadomości.
              </div>';
         
-            echo'</div>
+            echo'</aside></main>
         </div>';
     }
-    
-    /*public function WyswietlSidebar()
-    {
-	echo'<div id="sidebar" style="float:left;">';
 
-//<!-- write sidebar content here -->
-
-	echo'</div>
-	<!-- end sidebar -->
-	<div style="clear: both;">&nbsp;</div>
-     </div><!-- end page -->';
-    }*/
 
 }
 
-$regulamin = new regulamin();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = false; 
+$show_motto = true;
+
+$regulamin = new regulamin($header_type, $show_content, $show_sidebar, $show_motto);
 
 $regulamin -> title = 'Regulamin';
 

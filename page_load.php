@@ -10,7 +10,7 @@ if(isset($_GET['g']))
                         ));
     if($q != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     $rekord=mysqli_fetch_array($q);
-    echo "<div>".$rekord["content"]."</div><br><br>";
+    echo "<main><article>".$rekord["content"]."</article></main><br><br>";
 }
 
 //TREŚCI STALE PRZYPISANE DO ODPOWIEDNIEJ ZAKLADKI
@@ -21,6 +21,7 @@ if($page_id == 6)
     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
     while($row = mysqli_fetch_assoc($result))
     {
+        echo '<section>';
         if(strlen($row['surname']) > 3)
         {
             //echo '<div class="user_profile_kontakt">';
@@ -39,6 +40,7 @@ if($page_id == 6)
             //echo '</div>';
             echo'</div>';
         }
+        echo '</section>';
     }
 }
 echo'</div>';

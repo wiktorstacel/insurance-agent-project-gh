@@ -2,15 +2,15 @@
 
 require ('strona_kokpit_stage.inc');
 
-class kokpit_userProfile extends kokpit_stage
+class kokpit_articlesUser extends kokpit_stage
 {
 
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
+		<main style="margin-bottom: 20px;">';
     
                 echo '<br>';
                 echo '<table class="lista_art">';
@@ -50,7 +50,7 @@ class kokpit_userProfile extends kokpit_stage
     
                 mysqli_close($conn);
 		
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
@@ -58,14 +58,18 @@ class kokpit_userProfile extends kokpit_stage
 
 }
 
-$kokpit_userProfile = new kokpit_userProfile();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true;
 
-$kokpit_userProfile -> title = 'Kokpit';
+$kokpit_articlesUser = new kokpit_articlesUser($header_type, $show_content, $show_sidebar);
 
-$kokpit_userProfile -> keywords = 'kokpit';
+$kokpit_articlesUser -> title = 'Kokpit';
 
-$kokpit_userProfile -> description = 'kokpit';
+$kokpit_articlesUser -> keywords = 'kokpit';
 
-$kokpit_userProfile -> Wyswietl();
+$kokpit_articlesUser -> description = 'kokpit';
+
+$kokpit_articlesUser -> Wyswietl();
 
 ?>

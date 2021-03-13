@@ -8,6 +8,9 @@ class Strona2
     public $description;
     public $metas;
     protected $header_type;
+    protected $show_content;
+    protected $show_sidebar;
+    protected $show_motto;
     public $przyciski_poz = array('Strona Główna' => 'index.html',
                                   'zapisz się do OFE on-line' => 'formularzofe.htm',
                                   'umów spotkanie' => 'umowsp.htm'
@@ -22,8 +25,11 @@ class Strona2
                               );
     public $stopka = 'Autor witryny: Wiktor Stącel, wiktor.stacel@hotmail.com. Wszelkie prawa zastrzeżone.';
     
-    public function __construct($header_type) {
+    public function __construct($header_type, $show_content, $show_sidebar, $show_motto) {
         $this->header_type = $header_type;
+        $this->show_content = $show_content;
+        $this->show_sidebar = $show_sidebar;
+        $this->show_motto = $show_motto;
     }
 
     public function _set($nazwa, $wartosc)
@@ -37,20 +43,22 @@ class Strona2
         //echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">';
         echo '<!DOCTYPE html>';
         echo "<html>\n<head>\n";
-        $this -> WyswietlTytul();
-        $this -> WyswietlSlowaKluczowe();
-        $this -> WyswietlOpis();
-        $this -> WyswietlMeta();
-        $this -> WyswietlStyle();
-        $this -> WyswietlSkrypty();
-        echo "</head>\n<body>\n";
-        $this -> WyswietlHeader();
-        $this -> WyswietlPage();
-        $this -> WyswietlSidebar();
-        $this -> WyswietlFooter();
-        //$this -> WyswietlMenuPoziom($this->przyciski_poz);
+            $this -> WyswietlTytul();
+            $this -> WyswietlSlowaKluczowe();
+            $this -> WyswietlOpis();
+            $this -> WyswietlMeta();
+            $this -> WyswietlStyle();
+            $this -> WyswietlSkrypty();
+        echo "</head>\n<body>\n";           
+            $this -> WyswietlHeader();
+            echo '<div id="page">';
+            if($this -> show_content){$this -> WyswietlPage();}
+            if($this -> show_sidebar)$this -> WyswietlSidebar();
+            echo '<div style="clear: both;">&nbsp;</div></div>';//<!-- end of page (from WyswietlPage()) -->
+            $this -> WyswietlFooter();
+            //$this -> WyswietlMenuPoziom($this->przyciski_poz);
 
-        echo '<script language="JavaScript" type="text/javascript" src="js/listeners_agent.js"></script>';
+            echo '<script language="JavaScript" type="text/javascript" src="js/listeners_agent.js"></script>';
         echo "</body>\n</html>\n";
     }
     
@@ -149,7 +157,8 @@ class Strona2
 
     public function WyswietlHeader()
     {
-        echo '<div id="header_parent">';
+        //echo '<div id="header_parent">';
+        echo '<header id="header_parent">';
             echo '<div id="header">
                 
                 <div id="logo">
@@ -158,8 +167,8 @@ class Strona2
                 echo'</div>
                     
                 <div id="menu">
-                        <ul>';
-                        if($this->header_type == 1)
+                        <nav><ul>';
+                        if($this->header_type === 1)
                         {
                             require 'config_db.php';
                             $result = mysqli_query($conn, "SELECT * FROM pages WHERE stan=1 ORDER BY page_id ASC");
@@ -172,19 +181,28 @@ class Strona2
                                 $count++;
                             }
                         }
-                        elseif($this->header_type == 2)
+                        elseif($this->header_type === 2)
                         {
                             print("<li class=\"noactive\"><a style=\"color: white;\" href=\"index.php\">Powrót na stronę główną</a></li>");
                         }
-                    echo'</ul>
+                        elseif(($this->header_type === 3))
+                        {
+                            echo '<li class="active"><a href="../../kokpit_articlesUser.php">Powrót do kokpitu</a></li>';
+                        }
+                    echo'</ul></nav>
                 </div>
             </div>';//end of header
-        echo '</div>';
+        echo '</header>';
+        //echo '</div>';//end of header_parent
     }
     
     public function WyswietlMotto() 
     {
-        echo'	<br><br><br><br><br><p><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym, w którym specjaliści, dorardcy zamieszczają wartościowe artykuły związane z tematmi, z którymi pracuja na codzień. Można znaleźć tutaj wartościowe informacje i porady, zapoznać się z trendami rynkowymi. <em>Życzymy owocnego czytania :)</em></p>
+        echo '<aside id="motto" style="margin-top: 100px;">
+        <p style="text-align:justify;"><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym, w którym specjaliści, 
+        dorardcy zamieszczają wartościowe artykuły związane z tematmi, z którymi pracuja na codzień. 
+        Można znaleźć tutaj wartościowe informacje i porady, zapoznać się z trendami rynkowymi. 
+        <em>Życzymy owocnego czytania :)</em></p>
         <h2>Złote myśli</h2>
         <p>Zwycięzcy i ludzie sukcesu problemy traktują jako wyzwanie i szansę do własnego rozwoju i pomocy sobie i innym.</p>
         <blockquote>
@@ -215,16 +233,13 @@ class Strona2
                     echo'</ul>
             </div>
         </div>';
+        echo'</aside>';//end of motto
     }
     
     public function WyswietlPage()
     {
-
-    echo '<div id="page">
-	<div id="content">
-		<div style="margin-bottom: 20px;">';
-			
-
+        echo '<div id="content">';
+            echo'<main style="margin-bottom: 20px;">';	//MAIN		
   
             include 'config_db.php';
   
@@ -237,7 +252,8 @@ class Strona2
                 //$str_row_1 = str_replace(" ", "-", $row[1]);
                 $sanitazed_title = $this->rewrite($row[1]);
 
-                echo'<h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1>';
+                echo'<article>';
+                echo'<header><h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1></header>';
                 echo '<br />';
                 //echo $row[2];
                 $no_html = strip_tags($row[2]);
@@ -255,17 +271,19 @@ class Strona2
                 echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br /><br />';
+                echo '</article>';
             }	
 			
-            $this->WyswietlMotto();
-        echo'</div>';
-
+            
+            echo'</main>';//END OF MAIN
+        if($this->show_motto)$this->WyswietlMotto();
 	echo'</div>
 	<!-- end content -->';
-	}
-	public function WyswietlSidebar()
-	{
-	echo'<div id="sidebar">';
+    }
+        
+    public function WyswietlSidebar()
+    {
+	echo'<div id="sidebar"><aside>';
             echo'<div id="log_box">';
             if(isset($_SESSION['zalogowany']))
             {
@@ -327,15 +345,14 @@ class Strona2
 				echo'</ul>
 			</div>
 		</div>
-	</div>
-	<!-- end sidebar -->
-	<div style="clear: both;">&nbsp;</div>
-     </div>';//<!-- end of page (from WyswietlPage()) -->
+	</aside></div>
+	<!-- end sidebar -->';
     }
     
     public function WyswietlFooter()
     {
-        echo '<div id="footer" >'; //data-test="This is a test!" data-longer-name="TYTYTYTYZZZ"
+        //echo '<div id="footer" >'; //data-test="This is a test!" data-longer-name="TYTYTYTYZZZ"
+        echo '<footer id="footer">';
         
             echo '<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>';
             echo '<p id="links">'.$this->stopka.'</p>';
@@ -347,7 +364,8 @@ class Strona2
                 echo'<button class="cookie_button">Zgoda</button>';
             echo'</div>';
  
-        echo'</div>';
+        echo '</footer>';
+        //echo'</div>';
     }
 
     public function WyswietlMenuPoziom($przyciski_poz)

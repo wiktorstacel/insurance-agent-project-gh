@@ -7,7 +7,7 @@ class page_preview extends Strona2
     
     public function WyswietlPage()
     {
-      echo '<div id="page">
+      echo '
         <div id="content" style="float:left;">
             <div style="margin-bottom: 20px;">';
             
@@ -62,17 +62,21 @@ class page_preview extends Strona2
 			</div>
 		</div>
 	</div>
-	<!-- end sidebar -->
-	<div style="clear: both;">&nbsp;</div>
-     </div>';//<!-- end of page (from WyswietlPage()) -->
+	<!-- end sidebar -->';
+
     }
     
 
 }
 
-$page_preview = new page_preview();
+$header_type = 3;
+$show_content = true;
+$show_sidebar = true; 
+$show_motto = false;
 
-$page_preview -> title = '';
+$page_preview = new page_preview($header_type, $show_content, $show_sidebar, $show_motto);
+
+$page_preview -> title = 'Podglad strony';
 
 $page_preview -> keywords = 'ubezpieczenia, komunikacyjne, odszkodowania, rzeszów, podkarpackie';
 

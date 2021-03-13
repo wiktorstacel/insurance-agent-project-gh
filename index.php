@@ -3,8 +3,11 @@
 require ('strona_stage.inc');
 
 $header_type = 1;
+$show_content = true;
+$show_sidebar = true; 
+$show_motto = true;
 
-$index = new Strona2($header_type);
+$index = new Strona2($header_type, $show_content, $show_sidebar, $show_motto);
 
 $index -> title = 'Ubezpieczenia i Odszkodowania - informacje, artykuły, porady';
 

@@ -8,9 +8,9 @@ class article_stanChange extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
+		<main style="margin-bottom: 20px;">';
     
 
                 require_once 'config_db.php';
@@ -92,7 +92,7 @@ class article_stanChange extends kokpit_stage
                 }
                 mysqli_close($conn);
 		
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
@@ -100,7 +100,11 @@ class article_stanChange extends kokpit_stage
 
 }
 
-$article_stanChange = new article_stanChange();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true; 
+
+$article_stanChange = new article_stanChange($header_type, $show_content, $show_sidebar);
 
 $article_stanChange -> title = 'Kokpit';
 

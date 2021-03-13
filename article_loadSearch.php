@@ -7,9 +7,9 @@ class article_loadSearch extends Strona2
     
     public function WyswietlPage()
     {
-      echo '<div id="page">
+      echo '
         <div id="content" style="float:left;">
-            <div style="margin-bottom: 20px;">';
+            <main style="margin-bottom: 20px;">';
             
                 //<!-- write content here -->
                 require 'config_db.php';
@@ -31,7 +31,8 @@ class article_loadSearch extends Strona2
                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                     {
                     $sanitazed_title = $this->rewrite($row[1]);
-                    echo'<h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1>';
+                    echo'<article>';
+                    echo'<header><h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1></header>';
                     echo '<br />';
                     $no_html = strip_tags($row[2]);
                     echo substr($no_html, 0, 900);
@@ -51,14 +52,15 @@ class article_loadSearch extends Strona2
                     }
                     echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                     echo '<br /><br />';
+                    echo'</article>';
                     }
                 }
                 mysqli_close($conn);
     
 
-                $this->WyswietlMotto();
-            echo'</div>';
-
+                
+            echo'</main>'; //END OF MAIN
+            if($this->show_motto)$this->WyswietlMotto();
 
         echo'</div>'; //end of content
     }
@@ -67,8 +69,11 @@ class article_loadSearch extends Strona2
 }
 
 $header_type = 1;
+$show_content = true;
+$show_sidebar = true; 
+$show_motto = false;
 
-$article_loadSearch = new article_loadSearch($header_type);
+$article_loadSearch = new article_loadSearch($header_type, $show_content, $show_sidebar, $show_motto);
 
 $article_loadSearch -> title = 'Wyniki wyszukiwania';
 

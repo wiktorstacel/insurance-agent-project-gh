@@ -8,9 +8,9 @@ class kokpit_pagesList extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
+		<main style="margin-bottom: 20px;">';
 		
         echo '<br>';
         echo '<table class="lista_art">';
@@ -77,7 +77,7 @@ class kokpit_pagesList extends kokpit_stage
 
 
 		
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
@@ -85,7 +85,11 @@ class kokpit_pagesList extends kokpit_stage
 
 }
 
-$kokpit_pagesList = new kokpit_pagesList();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true; 
+
+$kokpit_pagesList = new kokpit_pagesList($header_type, $show_content, $show_sidebar);
 
 $kokpit_pagesList -> title = 'Kokpit';
 

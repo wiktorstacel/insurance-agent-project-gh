@@ -18,22 +18,6 @@ class edycja_articles extends kokpit_stage
         echo '<script language="JavaScript" type="text/javascript" src="../../js/jquery_agent.js"></script>';
     }
     
-    public function WyswietlHeader()
-    {
-      echo '<div id="header_parent">';
-      echo '<div id="header">
-	<div id="logo">
-		<h1><a href="#">Zarządzanie treścią witryny</a></h1>
-	</div>
-	<div id="menu">
-		<ul>
-			<li class="active"><a href="../../kokpit_articlesUser.php">Powrót do kokpitu</a></li>
-		</ul>
-	</div>
-     </div>';
-     echo '</div>';
-    }
-    
     public function WyswietlPage()
     {
         function freeRTE_Preload($content)
@@ -71,9 +55,9 @@ class edycja_articles extends kokpit_stage
             }
         }
     
-        echo '<div id="page_edycja">
-	<div id="content_edycja">
-		<div style="margin-bottom: 20px;">';
+        //echo '<div id="page_edycja">';
+	echo '<div id="content_edycja">
+		<main style="margin-bottom: 20px;">';
 	echo '<center>';
         	
       $article_id = htmlentities($_GET['article_id'], ENT_QUOTES, "UTF-8");
@@ -250,21 +234,20 @@ class edycja_articles extends kokpit_stage
               <?php       
              }//koniec seksji edycja istniejącego artykułu
       }	
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
-	<!-- end content -->';
+	<!-- end content_edycja -->';
 	
     }
-    public function WyswietlSidebar()
-    {
-      echo'<div style="clear: both;">&nbsp;</div>
-     </div>';
-    }
+
 }
 
+$header_type = 3;
+$show_content = true;
+$show_sidebar = false; 
 
-$edycja_articles = new edycja_articles();
+$edycja_articles = new edycja_articles($header_type, $show_content, $show_sidebar);
 
 $edycja_articles -> title = 'Kokpit';
 

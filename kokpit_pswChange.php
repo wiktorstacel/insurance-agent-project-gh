@@ -8,7 +8,7 @@ class kokpit_pswChange extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
 		<div style="margin-bottom: 20px;">';
     
@@ -53,7 +53,11 @@ class kokpit_pswChange extends kokpit_stage
 
 }
 
-$kokpit_pswChange = new kokpit_pswChange();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true; 
+
+$kokpit_pswChange = new kokpit_pswChange($header_type, $show_content, $show_sidebar);
 
 $kokpit_pswChange -> title = 'Kokpit';
 

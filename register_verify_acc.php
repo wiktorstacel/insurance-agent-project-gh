@@ -10,6 +10,7 @@ require ('strona_stage.inc');
 
 class verify_account extends Strona2
 {
+    
     public function WeryfikujKonto()
     {
         //logika
@@ -57,7 +58,7 @@ class verify_account extends Strona2
     
     public function WyswietlPage()
     {
-      echo '<div id="page">
+      echo '
         <div id="content" style="float:right;">
             <div style="margin-bottom: 20px;">';
             
@@ -66,22 +67,16 @@ class verify_account extends Strona2
             echo'</div>
         </div>';
     }
-    
-    public function WyswietlSidebar()
-    {
-	echo'<div id="sidebar" style="float:left;">';
 
-//<!-- write sidebar content here -->
-
-	echo'</div>
-	<!-- end sidebar -->
-	<div style="clear: both;">&nbsp;</div>
-     </div><!-- end page -->';
-    }
 
 }
 
-$verify_account = new verify_account();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = false; 
+$show_motto = true;
+
+$verify_account = new verify_account($header_type, $show_content, $show_sidebar, $show_motto);
 
 $verify_account -> title = 'Weryfikacja e-mail';
 

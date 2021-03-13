@@ -17,22 +17,6 @@ class edycja_pages extends kokpit_stage
         echo '<script language="JavaScript" type="text/javascript" src="../../js/js_agent.js"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="../../js/jquery_agent.js"></script>';
     }
-    
-    public function WyswietlHeader()
-    {
-      echo '<div id="header_parent">';
-      echo '<div id="header">
-	<div id="logo">
-		<h1><a href="#">Zarządzanie treścią witryny</a></h1>
-	</div>
-	<div id="menu">
-		<ul>
-			<li class="active"><a href="../../kokpit_pagesList.php">Powrót do kokpitu</a></li>
-		</ul>
-	</div>
-     </div>';
-     echo '</div>';
-    }
 
     public function WyswietlPage()
     {
@@ -72,9 +56,9 @@ class edycja_pages extends kokpit_stage
         }
         
         
-        echo '<div id="page_edycja">
-	<div id="content_edycja">
-		<div style="margin-bottom: 20px;">';
+        //echo '<div id="page_edycja">';
+	echo '<div id="content_edycja">
+		<main style="margin-bottom: 20px;">';
         echo '<center>';
 
       $page_id = htmlentities($_GET['page_id'], ENT_QUOTES, "UTF-8");
@@ -183,21 +167,20 @@ class edycja_pages extends kokpit_stage
          }//koniec seksji edycji strony
       }//koniec if od sprawdzania usera
       
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
 	
     }
-    public function WyswietlSidebar()
-    {
-      echo'<div style="clear: both;">&nbsp;</div>
-     </div>';
-    }
+
 }
 
+$header_type = 3;
+$show_content = true;
+$show_sidebar = false;
 
-$edycja_pages = new edycja_pages();
+$edycja_pages = new edycja_pages($header_type, $show_content, $show_sidebar);
 
 $edycja_pages -> title = 'Kokpit';
 

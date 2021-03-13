@@ -3,27 +3,11 @@
 require ('strona_stage.inc');
 
 class reset_psw_rqst extends Strona2
-{   
-    public function WyswietlHeader()
-    {
-      echo '<div id="header_parent">';
-      echo '<div id="header">
-	<div id="logo">
-		<h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
-		<h2><a href="index.php">Rzeszów, Podkarpackie</a></h2>
-	</div>
-	<div id="menu">
-		<ul>';
-                    print("<li class=\"noactive\"><a style=\"color: white;\" href=\"index.php\">Powrót na stronę główną</a></li>");
-     echo'	</ul>
-	</div>
-     </div>';
-     echo '</div>';
-    }
+{ 
     
     public function WyswietlPage()
     {
-        echo '<div id="page">
+        echo '
                 <div id="rejestra_field">
                     <h1 class="title">Odzyskiwanie hasła</h1>
                     <div id="res_psw_div">
@@ -42,16 +26,15 @@ class reset_psw_rqst extends Strona2
                 </div>
         ';
     }
-    
-    public function WyswietlSidebar()
-    {
-	echo'
-            </div><!-- end page -->';
-    }
 
 }
 
-$reset_psw_rqst = new reset_psw_rqst();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = false; 
+$show_motto = true;
+
+$reset_psw_rqst = new reset_psw_rqst($header_type, $show_content, $show_sidebar, $show_motto);
 
 $reset_psw_rqst -> title = 'Odzyskiwanie dostępu do konta';
 

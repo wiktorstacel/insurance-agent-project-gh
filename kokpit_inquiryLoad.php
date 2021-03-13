@@ -8,9 +8,9 @@ class kokpit_userProfile extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
+		<main style="margin-bottom: 20px;">';
                     
                     $inquiry_id = htmlentities($_GET['inquiry_id'], ENT_QUOTES, "UTF-8");
                     require_once 'config_db.php';
@@ -63,7 +63,7 @@ class kokpit_userProfile extends kokpit_stage
                         }
                     mysqli_close($conn);
 		
-	echo'	</div>
+	echo'	</main>
 		
 	</div>
 	<!-- end content -->';
@@ -71,7 +71,11 @@ class kokpit_userProfile extends kokpit_stage
 
 }
 
-$kokpit_userProfile = new kokpit_userProfile();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true;
+
+$kokpit_userProfile = new kokpit_userProfile($header_type, $show_content, $show_sidebar);
 
 $kokpit_userProfile -> title = 'Kokpit';
 

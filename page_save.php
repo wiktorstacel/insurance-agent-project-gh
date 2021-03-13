@@ -7,9 +7,9 @@ class page_save extends kokpit_stage
    public function WyswietlPage()
     {
 
-        echo '<div id="page_kokpit">
+        echo '
             <div id="content_kokpit">
-                    <div style="margin-bottom: 20px;">';
+                    <main style="margin-bottom: 20px;">';
 
         $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8");
         $content = $_POST['freeRTE_content'];
@@ -129,7 +129,7 @@ class page_save extends kokpit_stage
                 }
             }
         }		
-     echo'	</div>
+     echo'	</main>
 		
      </div>
 	<!-- end content -->';
@@ -137,8 +137,11 @@ class page_save extends kokpit_stage
     }
 }
 
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true;
 
-$page_save = new page_save();
+$page_save = new page_save($header_type, $show_content, $show_sidebar);
 
 $page_save -> title = 'Kokpit';
 

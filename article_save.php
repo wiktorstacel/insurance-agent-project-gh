@@ -6,9 +6,9 @@ class article_save extends kokpit_stage
 {
     public function WyswietlPage()
     {
-        echo '<div id="page_kokpit">
+        echo '
             <div id="content_kokpit">
-                    <div style="margin-bottom: 20px;">';
+                    <main style="margin-bottom: 20px;">';
        
         $category_id = htmlentities($_POST['category_id'], ENT_QUOTES, "UTF-8");
         $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8"); 
@@ -146,7 +146,7 @@ class article_save extends kokpit_stage
                 }
             }
         }	
-     echo'	</div>
+     echo'	</main>
 		
      </div>
 	<!-- end content -->';
@@ -154,8 +154,11 @@ class article_save extends kokpit_stage
     }
 }
 
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true; 
 
-$article_save = new article_save();
+$article_save = new article_save($header_type, $show_content, $show_sidebar);
 
 $article_save -> title = 'Kokpit';
 

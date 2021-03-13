@@ -8,7 +8,7 @@ class kokpit_editProfile extends kokpit_stage
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
 		<div style="margin-bottom: 20px;">';
     
@@ -81,7 +81,11 @@ class kokpit_editProfile extends kokpit_stage
 
 }
 
-$kokpit_editProfile = new kokpit_editProfile();
+$header_type = 2;
+$show_content = true;
+$show_sidebar = true; 
+
+$kokpit_editProfile = new kokpit_editProfile($header_type, $show_content, $show_sidebar);
 
 $kokpit_editProfile -> title = 'Kokpit';
 

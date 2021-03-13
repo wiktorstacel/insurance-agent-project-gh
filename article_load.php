@@ -52,9 +52,9 @@ class article_load extends Strona2
     
     public function WyswietlPage()
     {
-      echo '<div id="page">
+      echo '
         <div id="content" style="float:left;">
-            <div style="margin-bottom: 20px;">';
+            <main style="margin-bottom: 20px;">';
             
                 //<!-- write content here -->
                 require 'config_db.php';
@@ -65,29 +65,31 @@ class article_load extends Strona2
                                 ));                
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
-        
-                echo'<h1 class="title">'.$row[1].'</h1>';
+                
+                echo '<article>';
+                echo '<header><h1 class="title">'.$row[1].'</h1></header>';
                 echo '<br />';
                 echo $row[2];
                 echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3].', wyświetleń: '.$row[6];
                 echo '<br /><br />';
                 
+                echo '<footer>';
                 echo '<div class="user_profile_kontakt" id="kontaktform_div'.$row[5].'">';
                 echo '<br><img src="css\images\envelop2.png" width="16" height="16" alt="alt"/>'
                 . '<button class="kontaktform_loadButt" value="'.$row[5].'"> &nbspNapisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
-                echo'</div>';
-                echo'... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
+                echo '</div>';
+                echo '... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
+                echo '</footer>';
+                echo'</article>';
                 
                 
                 mysqli_close($conn);               
  
                 //$this -> title = $row[1]; jak ustawić z tego miejsca title na poziomie klasy. ODP:$this -> setSomething($s);
 
-                
-
-                $this->WyswietlMotto();
-            echo '</div>';
-
+                                
+            echo '</main>';//END OF MAIN
+            if($this->show_motto)$this->WyswietlMotto();
 
         echo'</div>'; //end of content
     }
@@ -96,8 +98,11 @@ class article_load extends Strona2
 }
 
 $header_type = 1;
+$show_content = true;
+$show_sidebar = true; 
+$show_motto = true;
 
-$article_load = new article_load($header_type);
+$article_load = new article_load($header_type, $show_content, $show_sidebar, $show_motto);
 
 //$article_load -> title = 'Artykuł'; //In case article is loaded function setTitle set those proporties
 

@@ -3,31 +3,37 @@
 
 class kokpit_stage
 {
+    protected $header_type;
+    protected $show_content;
+    protected $show_sidebar;
+    
+    public function __construct($header_type, $show_content, $show_sidebar) {
+        $this->header_type = $header_type;
+        $this->show_content = $show_content;
+        $this->show_sidebar = $show_sidebar;
+    }
 
-   public function Wyswietl()
+    public function Wyswietl()
     {
       $this -> ObsluzSesje();
-      echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">';
+      //echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">';
+      echo '<!DOCTYPE html>';
       echo "<html>\n<head>\n";
-      $this -> WyswietlTytul();
-      $this -> WyswietlSlowaKluczowe();
-      $this -> WyswietlOpis();
-      $this -> WyswietlMeta();
-      $this -> WyswietlStyle();
-      $this -> WyswietlSkrypty();
+        $this -> WyswietlTytul();
+        $this -> WyswietlSlowaKluczowe();
+        $this -> WyswietlOpis();
+        $this -> WyswietlMeta();
+        $this -> WyswietlStyle();
+        $this -> WyswietlSkrypty();
       echo "</head>\n<body>\n";
-      $this -> WyswietlHeader();
-      $this -> WyswietlPage();
-      $this -> WyswietlSidebar();
-      $this -> WyswietlFooter();
-//      $this -> WyswietlMenuPoziom($this->przyciski_poz);
- /*   $this -> WyswietlSearch();
-      $this -> WyswietlMenuPion($this->przyciski_pion);
-      $this -> WyswietlInformacje();
-      $this -> WyswietlTresc();
-      echo $this->tresc;
-      $this -> WyswietlStopke();
-      $this -> WyswietlZastopke();*/
+        $this -> WyswietlHeader();
+        echo '<div id="page_kokpit">';
+        if($this -> show_content){$this -> WyswietlPage();}
+        if($this -> show_sidebar)$this -> WyswietlSidebar();
+        echo '<div style="clear: both;">&nbsp;</div></div>';
+        $this -> WyswietlFooter();
+        //$this -> WyswietlMenuPoziom($this->przyciski_poz);
+
       echo "</body>\n</html>\n";
     }
     
@@ -102,24 +108,37 @@ class kokpit_stage
 
    public function WyswietlHeader()
     {
-      echo '<div id="header_parent">';
+      echo '<header id="header_parent">';//<div id="header_parent">';
       echo '<div id="header">
 	<div id="logo">
 		<h1><a href="#">Zarządzanie treścią witryny</a></h1>
-	</div>
-	<div id="menu">
-		<ul>
-			<li class="active"><a href="index.php">Powrót na strona główną</a></li>
-		</ul>
-	</div>
-     </div>';
+	</div>';
+      
+        if($this->header_type === 2)
+        {
+            echo '<div id="menu">
+                    <ul>
+                            <li class="active"><a href="index.php">Powrót na strona główną</a></li>
+                    </ul>
+            </div>';
+        }
+        elseif(($this->header_type === 3))
+        {
+            echo '<div id="menu">
+                    <ul>
+                            <li class="active"><a href="../../kokpit_articlesUser.php">Powrót do kokpitu</a></li>
+                    </ul>
+            </div>';
+        }
+        
      echo '</div>';
+     echo '</header>';//</div>';
     }
 
     public function WyswietlPage()
     {
 
-    echo '<div id="page_kokpit">
+    echo '
 	<div id="content_kokpit">
 		<div style="margin-bottom: 20px;">';
 		
@@ -221,7 +240,7 @@ class kokpit_stage
 	echo'	</div>
 		
 	</div>
-	<!-- end content -->';
+	<!-- end content_kokpit -->';
 	}
 	public function WyswietlSidebar()
 	{
@@ -282,15 +301,13 @@ class kokpit_stage
 			</div>
 		</div>
 	</div>
-	<!-- end sidebar -->
-	<div style="clear: both;">&nbsp;</div>
-     </div>';
-     }
+	<!-- end sidebar_kokpit -->';
+    }
      
      public function WyswietlFooter()
     {
-      echo '<div id="footer">
-	<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+        echo '<footer id="footer">';//<div id="footer">
+	echo'<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 	<p id="links">Autor witryny: Wiktor Stącel, wiktor.stacel(at)hotmail.com. Wszelkie prawa zastrzeżone.</p>';
      
 		echo'<div id="flash3"></div>
@@ -302,7 +319,7 @@ class kokpit_stage
                                // ]]>
                                </script>
 	
-     </div>';
+        </footer>';//</div>';
     }
      
     }

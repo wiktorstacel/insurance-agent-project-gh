@@ -104,7 +104,7 @@ hr {
 }
 
 #header {
-	width: 700px;        /*to jest tylko prostok�t w szarym kolorze - ca�y zastawiony obrazkiem img02.jpg*/
+	width: 700px;        /*to jest tylko prostokąt w szarym kolorze - cały zastawiony obrazkiem img02.jpg*/
 	height: 235px;
 	margin: 0 auto;
 	background: #A4C0C8 url(images/img02.jpg) no-repeat;
@@ -188,11 +188,11 @@ hr {
 	padding: 30px 0;
 }
 
-#page_edycja {
-	width: 700px;
+/*#page_edycja {
+	width: 900px;
 	margin: 0 auto;
-	padding: 30px 0;
-}
+	padding: 30px 100px;       
+}*/
 
 /* Content */
 
@@ -203,8 +203,8 @@ hr {
 }
 
 #content_edycja {
-	width: 700px;
-	padding-top: 8px;
+	width: 900px;
+	padding: 8px;
 }
 
 #content {

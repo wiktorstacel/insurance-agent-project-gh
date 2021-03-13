@@ -15,18 +15,6 @@ class login extends Strona2
         }
     }
     
-    public function WyswietlPage()
-    {
-      echo '<div id="page">
-        <div id="content" style="float:right;">
-            <div style="margin-bottom: 20px;">';
-            
-                //<!-- write content here -->
-        
-            echo'</div>
-        </div>';
-    }
-    
     public function WyswietlSidebar()
     {
 	echo'<div id="sidebar" style="float:left;">
@@ -52,16 +40,18 @@ class login extends Strona2
 			</div>
 		</div>
 	</div>
-	<!-- end sidebar -->
-	<div style="clear: both;">&nbsp;</div>
-     </div><!-- end page -->';
+	<!-- end sidebar -->';
+
     }
 
 }
 
 $header_type = 2;
+$show_content = false;
+$show_sidebar = true; 
+$show_motto = true;
 
-$login = new login($header_type);
+$login = new login($header_type, $show_content, $show_sidebar, $show_motto);
 
 $login -> title = 'Logowanie';
 
