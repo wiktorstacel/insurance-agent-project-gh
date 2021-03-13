@@ -9,6 +9,8 @@ class edycja_articles extends kokpit_stage
     public function WyswietlStyle()
     {
       echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../css/css_agent.css\" />\n";
+      echo '<link rel="icon" type="image/png" sizes="16x16" href="../../css/images/favicon.png">';
+      echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">';
     }
     
     public function WyswietlSkrypty()

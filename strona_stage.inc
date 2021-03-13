@@ -23,7 +23,7 @@ class Strona2
                                    'Kontakt' => 'kontakt.htm',
                                    'Ciekawe Linki' => 'linki.htm'
                               );
-    public $stopka = 'Autor witryny: Wiktor Stącel, wiktor.stacel@hotmail.com. Wszelkie prawa zastrzeżone.';
+    public $stopka = 'Autor witryny: Wiktor Stącel, wiktor.stacel@hotmail.com. &copy;2021 Wszelkie prawa zastrzeżone.';
     
     public function __construct($header_type, $show_content, $show_sidebar, $show_motto) {
         $this->header_type = $header_type;
@@ -138,6 +138,8 @@ class Strona2
     public function WyswietlStyle()
     {
         echo '<link rel="stylesheet" type="text/css" href="css/css_agent.css" />';
+        echo '<link rel="icon" type="image/png" sizes="16x16" href="/css/images/favicon.png">';
+        echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">';
     }
 
     public function WyswietlSkrypty()
@@ -163,7 +165,7 @@ class Strona2
                 
                 <div id="logo">
                         <h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
-                        <h2><a href="index.php">informacje, artykuły, porady</a></h2>';//UWAGA: login i register !!!
+                        <h4><a href="index.php">informacje, artykuły, porady</a></h4>';//UWAGA: login i register !!!
                 echo'</div>
                     
                 <div id="menu">
@@ -253,7 +255,7 @@ class Strona2
                 $sanitazed_title = $this->rewrite($row[1]);
 
                 echo'<article>';
-                echo'<header><h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1></header>';
+                echo'<header><h3 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h3></header>';
                 echo '<br />';
                 //echo $row[2];
                 $no_html = strip_tags($row[2]);
@@ -354,7 +356,7 @@ class Strona2
         //echo '<div id="footer" >'; //data-test="This is a test!" data-longer-name="TYTYTYTYZZZ"
         echo '<footer id="footer">';
         
-            echo '<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>';
+            //echo '<p id="legal">&copy;2015 Center Stage. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>';
             echo '<p id="links">'.$this->stopka.'</p>';
 
 

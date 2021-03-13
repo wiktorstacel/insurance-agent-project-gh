@@ -9,6 +9,7 @@ class edycja_pages extends kokpit_stage
     public function WyswietlStyle()
     {
       echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../css/css_agent.css\" />\n";
+      echo '<link rel="icon" type="image/png" sizes="16x16" href="../../css/images/favicon.png">';
     }
     
     public function WyswietlSkrypty()
