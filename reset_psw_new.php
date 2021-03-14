@@ -43,7 +43,7 @@ class reset_psw_new extends Strona2
     {
         echo '
                 <div id="rejestra_field">
-                    <h1 class="title">Resetowanie hasła</h1>
+                    <h3 class="title" style="text-align:center;">Resetowanie hasła</h3>
                     <div id="res_psw_div">
                     <form id="new_psw_form" method="POST" action="reset_psw_new.php">
                             <fieldset>';

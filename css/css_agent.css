@@ -114,10 +114,24 @@ hr {
 }
 
 #header {
-	width: 700px;       
+	width: 700px;     
 	height: 235px;
 	margin: 0 auto;
 	background: #A4C0C8 url(images/img02.jpg) no-repeat;
+}
+
+@media (max-width: 700px) {
+  #header {
+    background: #c2d5db;
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  #kont_inquiry {
+    width: 95%;
+    height: 250px;
+  }
 }
 
 /* Logo */
@@ -190,9 +204,15 @@ hr {
 /* Page */
 
 #page {
-	width: 1000px; /*800px;*/
-	margin: 0 auto;
+	width: 1000px;
+	/*margin: 0 auto;*/
 	padding: 30px 0;
+}
+
+@media (max-width: 768px) {
+  #page {
+    width: 95%;
+  }
 }
 
 #page_kokpit {
@@ -213,6 +233,11 @@ hr {
 	float: left;
 	width: 700px;
 	padding-top: 8px;
+}
+@media (max-width: 768px) {
+  #content {
+    width: 95%;
+  }
 }
 
 #content_kokpit {

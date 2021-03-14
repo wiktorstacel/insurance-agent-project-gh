@@ -53,8 +53,8 @@ class article_load extends Strona2
     public function WyswietlPage()
     {
       echo '
-        <div id="content" style="float:left;">
-            <main style="margin-bottom: 20px;">';
+        <div id="content" class="row">
+            <main style="margin-bottom: 20px;">';//style="float:left;"
             
                 //<!-- write content here -->
                 require 'config_db.php';
@@ -66,7 +66,7 @@ class article_load extends Strona2
                 if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
                 
-                echo '<article>';
+                echo '<div class="col-sm-12"><article>';
                 echo '<header><h2 class="title">'.$row[1].'</h2></header>';
                 echo '<br />';
                 echo $row[2];
@@ -80,7 +80,7 @@ class article_load extends Strona2
                 echo '</div>';
                 echo '... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
                 echo '</footer>';
-                echo'</article>';
+                echo'</article></div>';
                 
                 
                 mysqli_close($conn);               

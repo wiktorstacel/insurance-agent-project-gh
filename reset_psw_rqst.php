@@ -9,7 +9,7 @@ class reset_psw_rqst extends Strona2
     {
         echo '
                 <div id="rejestra_field">
-                    <h1 class="title">Odzyskiwanie hasła</h1>
+                    <h3 class="title" style="text-align:center;">Odzyskiwanie hasła</h3>
                     <div id="res_psw_div">
                     <form id="res_psw_form" method="POST" action="reset_psw.php">
                             <fieldset>

@@ -8,7 +8,7 @@ class regulamin extends Strona2
     public function WyswietlPage()
     {
       echo '
-        <div id="content" style="float:left;">
+        <div id="content" class="row">
             <main style="margin-bottom: 20px;"><aside>';
             
              echo'<header><h1>Regulamin</h1><header><br>

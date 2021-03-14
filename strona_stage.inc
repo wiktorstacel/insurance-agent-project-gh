@@ -51,7 +51,7 @@ class Strona2
             $this -> WyswietlSkrypty();
         echo "</head>\n<body>\n";           
             $this -> WyswietlHeader();
-            echo '<div id="page">';//class="container"
+            echo '<div id="page" class="container">';// 
             if($this -> show_content){$this -> WyswietlPage();}
             if($this -> show_sidebar)$this -> WyswietlSidebar();
             echo '<div style="clear: both;">&nbsp;</div></div>';//<!-- end of page (from WyswietlPage()) -->
@@ -241,7 +241,7 @@ class Strona2
     
     public function WyswietlMotto() 
     {
-        echo '<aside id="motto" style="margin-top: 100px;">
+        echo '<div class="d-none d-md-block"><aside id="motto" style="margin-top: 100px;">
         <p style="text-align:justify;"><strong>Ubezpieczenia i Odszkodowania</strong> jest serwisem internetowym, w którym specjaliści, 
         dorardcy zamieszczają wartościowe artykuły związane z tematmi, z którymi pracuja na codzień. 
         Można znaleźć tutaj wartościowe informacje i porady, zapoznać się z trendami rynkowymi. 
@@ -252,6 +252,7 @@ class Strona2
         <blockquote>
                 <p>&ldquo;Wiedza na temat tego, gdzie znaleźć informacje i jak je wykorzystać - to sekret sukcesu. &rdquo;Albert Einstein</p>
         </blockquote>
+        </div>
         
         <div class="twocols">
             <div class="col1">';
@@ -259,7 +260,7 @@ class Strona2
                     <p>...i chcesz współtworzyć ten serwis - załóż darmowe konto, które umożliwia pisanie artykułów, na końcu których znajduje się formularz przesyłający wiadomości od zainteresowanych osób bezpośrednio do na Twoją skrzynkę pocztową.</p>
                     <p><a href="regulamin.php">Regulamin&hellip;</a></p>                               
             </div>
-            <div class="col2">
+            <div class="col2 d-none d-md-block">
                     <h3 class="title">WYBRANE KATEGORIE</h3>
                     <ul class="list">';
                     
@@ -282,7 +283,7 @@ class Strona2
     
     public function WyswietlPage()
     {
-        echo '<div id="content">';
+        echo '<div id="content" class="row">';
             echo'<main style="margin-bottom: 20px;">';	//MAIN		
   
             include 'config_db.php';
@@ -296,7 +297,7 @@ class Strona2
                 //$str_row_1 = str_replace(" ", "-", $row[1]);
                 $sanitazed_title = $this->rewrite($row[1]);
 
-                echo'<article>';
+                echo'<div class="col-sm-12"><article>';//
                 echo'<header><h3 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h3></header>';
                 echo '<br />';
                 //echo $row[2];
@@ -315,7 +316,7 @@ class Strona2
                 echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
                 echo '<br /><br /><br /><br /><br /><br />';
-                echo '</article>';
+                echo '</article></div>';
             }	
 			
             

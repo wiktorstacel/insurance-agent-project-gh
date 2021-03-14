@@ -23,7 +23,7 @@ class article_loadCategory extends Strona2
     public function WyswietlPage()
     {
       echo '
-        <div id="content" style="float:left;">
+        <div id="content" class="row">
             <main style="margin-bottom: 20px;">';
             
                 //<!-- write content here -->
@@ -43,7 +43,7 @@ class article_loadCategory extends Strona2
                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                     {
                         $sanitazed_title = $this->rewrite($row[1]);
-                        echo'<article>';
+                        echo'<div class="col-sm-12"><article>';
                         echo'<header><h3 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h3></header>';
                         echo '<br />';
                         $no_html = strip_tags($row[2]);
@@ -51,7 +51,7 @@ class article_loadCategory extends Strona2
                         echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> ...Czytaj dalej</a>';
                         echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
                         echo '<br /><br /><br /><br />';
-                        echo'</article>';
+                        echo'</article></div>';
                     }
 
                 }
