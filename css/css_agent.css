@@ -110,7 +110,7 @@ hr {
 /* Header */
 
 #header_parent {
-	background: #FFFFFF url(images/img01.gif) repeat-x;     
+	background: #FFFFFF url(images/img01.gif) repeat-x;    
 }
 
 #header {
@@ -165,7 +165,7 @@ hr {
 }
 
 #menu a {
-	padding: 2px 15px;
+	padding: 0px 15px 10px 15px;
 	text-decoration: none;
 	font-size: 110%;
 	color: #610720;
@@ -209,6 +209,12 @@ hr {
 
 /* Content */
 
+#content {
+	float: left;
+	width: 700px;
+	padding-top: 8px;
+}
+
 #content_kokpit {
 	float: right;
 	width: 700px;
@@ -218,12 +224,6 @@ hr {
 #content_edycja {
 	width: 1000px;
 	padding: 8px;
-}
-
-#content {
-	float: left;
-	width: 700px;/*500px;*/
-	padding-top: 8px;
 }
 
 .twocols {

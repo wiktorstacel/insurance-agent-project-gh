@@ -51,7 +51,7 @@ class Strona2
             $this -> WyswietlSkrypty();
         echo "</head>\n<body>\n";           
             $this -> WyswietlHeader();
-            echo '<div id="page">';
+            echo '<div id="page">';//class="container"
             if($this -> show_content){$this -> WyswietlPage();}
             if($this -> show_sidebar)$this -> WyswietlSidebar();
             echo '<div style="clear: both;">&nbsp;</div></div>';//<!-- end of page (from WyswietlPage()) -->
@@ -129,6 +129,9 @@ class Strona2
                   <meta name="author" content="wiktor stącel" />
                   <meta http-equiv="reply-to" content="w-e@wp.pl" />
                   <meta name="copyright" content="Wiktor Stącel" />
+                  
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
                   <meta http-equiv="Content-Script-Type" content="text/javascript">
                   <base href="/" />';//SEO friendly URL 
@@ -145,6 +148,7 @@ class Strona2
     public function WyswietlSkrypty()
     {
         echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>';
         echo '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/js_agent.js"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/jquery_agent.js"></script>';
@@ -323,7 +327,7 @@ class Strona2
         
     public function WyswietlSidebar()
     {
-	echo'<div id="sidebar"><aside>';
+	echo'<div id="sidebar" class="d-none d-lg-block"><aside>';
             echo'<div id="log_box">';
             if(isset($_SESSION['zalogowany']))
             {
