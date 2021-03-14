@@ -145,6 +145,7 @@ class Strona2
     public function WyswietlSkrypty()
     {
         echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+        echo '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/js_agent.js"></script>';
         echo '<script language="JavaScript" type="text/javascript" src="js/jquery_agent.js"></script>';
         echo '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
@@ -164,34 +165,70 @@ class Strona2
             echo '<div id="header">
                 
                 <div id="logo">
+
                         <h1><a href="index.php">Ubezpieczenia i Odszkodowania</a></h1>
                         <h4><a href="index.php">informacje, artykuły, porady</a></h4>';//UWAGA: login i register !!!
                 echo'</div>
                     
                 <div id="menu">
-                        <nav><ul>';
+                    ';
+                
+                    
                         if($this->header_type === 1)
-                        {
-                            require 'config_db.php';
-                            $result = mysqli_query($conn, "SELECT * FROM pages WHERE stan=1 ORDER BY page_id ASC");
-                            if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                            $count = 1;
-                            $max = mysqli_num_rows($result);
-                            while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-                            {
-                                print("<li id=\"m".$count."\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=".$row[0]."'),swiec('".$count."', '".$max."');\">".$row[1]."</a></li>");
-                                $count++;
-                            }
+                        {?>
+                            <nav class="navbar navbar-light navbar-expand-md order-last" id="navbar1">
+                            <button class="navbar-toggler" id="navbarToggler1" onclick="changeMenuColor()" style="padding: 0px;" type="button" data-toggle="collapse" data-target="#main_menu" aria-expanded="false" aria-controls="main_menu" aria-label="przełącznik nawigacji">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            
+                            <div class="collapse navbar-collapse" id="main_menu">
+                            
+                          <?php  
+                            echo '<ul class="navbar-nav">';
+                                require 'config_db.php';
+                                
+                                echo '<li class="noactive nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu" aria-haspopup="true"> Kategorie </a>
+                                    <div class="dropdown-menu" aria-labelledby="submenu">';
+                                
+                                        $result = mysqli_query($conn, "SELECT * FROM artcategories ORDER BY name");
+                                        if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
+                                        while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                                        {       
+                                            $sanitazed_name = $this->rewrite($row[1]);
+                                            echo'<a class="dropdown-item" href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a>';
+                                        }
+                                    
+                                    echo'</div>
+                                </li>';
+                                
+                                $result = mysqli_query($conn, "SELECT * FROM pages WHERE stan=1 ORDER BY page_id ASC");
+                                if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                                $count = 1;
+                                $max = mysqli_num_rows($result);
+                                while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+                                {
+                                    print("<li id=\"m".$count."\" class=\"noactive nav-item\"><a class=\"nav-link\" href=\"javascript:load_content('page_load.php?g=".$row[0]."'),swiec('".$count."', '".$max."');\">".$row[1]."</a></li>");
+                                    $count++;
+                                }
+                                //print("<li id=\"m".$count."\" class=\"noactive\"><a href=\"javascript:load_content('page_load.php?g=".$row[0]."'),swiec('".$count."', '".$max."');\">Kategorie</a></li>");
+                            echo'</ul>';
+                            echo '</div></nav>'; //end of main_menu
                         }
                         elseif($this->header_type === 2)
                         {
-                            print("<li class=\"noactive\"><a style=\"color: white;\" href=\"index.php\">Powrót na stronę główną</a></li>");
+                            echo '<nav><ul>';
+                                print("<li class=\"noactive\"><a style=\"color: white;\" href=\"index.php\">Powrót na stronę główną</a></li>");
+                            echo'</ul></nav>';
                         }
                         elseif(($this->header_type === 3))
                         {
-                            echo '<li class="active"><a href="../../kokpit_articlesUser.php">Powrót do kokpitu</a></li>';
+                            echo '<nav><ul>';
+                                echo '<li class="active"><a href="../../kokpit_articlesUser.php">Powrót do kokpitu</a></li>';
+                            echo'</ul></nav>';
                         }
-                    echo'</ul></nav>
+                    
+                        
+                    echo '
                 </div>
             </div>';//end of header
         echo '</header>';

@@ -36,6 +36,14 @@ function swiec(a, maks)
            document.getElementById("m"+ir).className = "noactive";
          }
         document.getElementById("m"+a).className = "active";
+        //const elem = document.getElementById("navbarToggler1");
+        //elem.setAttribute("aria-expanded", "false");
+        //document.getElementById("navbarToggler1").classList.add("collapsed");
+        //document.getElementById("navbarToggler1").collapse('hide');
+        $('.navbar-collapse').collapse('hide');
+        setTimeout(() => {
+            document.getElementById("navbar1").classList.remove("bg-belka");
+        }, 300)
 }
 
 function sprawdz1(formularz)
@@ -57,4 +65,21 @@ function flash(id, kolor, czas, kolor2, czas2)
 {
 	document.getElementById(id).style.color = kolor;
 	setTimeout('flash("' + id + '","' + kolor2 + '",' + czas2 + ',"' + kolor + '",' + czas + ')', czas);
+}
+
+function changeMenuColor()
+{
+    const elem = document.getElementById("navbarToggler1");
+    const a = elem.getAttribute("aria-expanded");
+    //alert(a);
+    if(a == "false")
+    {
+        document.getElementById("navbar1").classList.add("bg-belka");
+    }
+    else if(a == "true")
+    {       
+        setTimeout(() => {
+            document.getElementById("navbar1").classList.remove("bg-belka");
+        }, 300)       
+    }
 }

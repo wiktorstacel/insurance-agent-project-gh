@@ -114,7 +114,7 @@ hr {
 }
 
 #header {
-	width: 700px;        /*to jest tylko prostokąt w szarym kolorze - cały zastawiony obrazkiem img02.jpg*/
+	width: 700px;       
 	height: 235px;
 	margin: 0 auto;
 	background: #A4C0C8 url(images/img02.jpg) no-repeat;
@@ -152,7 +152,7 @@ hr {
 
 #menu ul {
 	margin: 0;
-	padding: 10px 0 0 0;
+	padding: 0 0 0 0;
 	list-style: none;
 	line-height: normal;
 	text-align: center;
@@ -165,10 +165,9 @@ hr {
 }
 
 #menu a {
-	padding: 0 20px;
+	padding: 2px 15px;
 	text-decoration: none;
-	font-size: 120%;
-	/*font-weight: bold;*/
+	font-size: 110%;
 	color: #610720;
 }
 
@@ -181,7 +180,11 @@ hr {
 }
 
 #menu .noactive a {
-	color: #363232/*#3F586B;/*#000000;*/
+	color: #363232;
+}
+
+.bg-belka {
+        background-color: #ff5723;
 }
 
 /* Page */
