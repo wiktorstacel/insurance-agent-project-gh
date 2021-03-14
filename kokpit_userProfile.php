@@ -21,7 +21,7 @@ class kokpit_userProfile extends kokpit_stage
                       . '<div class="user_profile_right_title">Użytkownika</div>';
                     echo'<div style="clear:both"></div>';
     
-                    echo'<div class="user_profile_left">Nazwa użytkownika - login</div>'
+                    echo'<div class="user_profile_left">Login</div>'
                       . '<div class="user_profile_right">'.$row['login'].'</div>';
                     echo'<div style="clear:both"></div>';
 

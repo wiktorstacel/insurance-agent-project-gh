@@ -144,9 +144,9 @@ class edycja_articles extends kokpit_stage
               {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
               ?>
               <br />
-              <input type="submit" name="submit" value="Dodaj">
+              <input type="submit" name="submit" value="Dodaj" class="btn btn-primary">
               </form>
-              <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+              <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="" class="btn btn-secondary">Anuluj</button></a>
               <?php
             }
             else //EDYCJA ISTNIEJĄCEGO ARTYKUŁU
@@ -230,9 +230,9 @@ class edycja_articles extends kokpit_stage
               {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
               ?>
               <br />
-              <input type="submit" name="submit" value="Zapisz">
+              <input type="submit" name="submit" value="Zapisz" class="btn btn-primary">
               </form>
-              <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+              <a href="../../kokpit_articlesUser.php"><button style="margin-top: 6px;" type="" class="btn btn-secondary">Anuluj</button></a>
               <?php       
              }//koniec seksji edycja istniejącego artykułu
       }	

@@ -42,8 +42,8 @@ class article_deleteConfirm extends kokpit_stage
                         }
                         echo'<td class="tytul">'.$row[1].'</td>';
                         echo'<td class="data">'.$row[3].'</td>';
-                        echo'<td class="plus"><a href="article_deleteConfirm.php?article_id_confirmation='.$row[0].'"><button type="">Usuń</button></a>'
-                        . '<a href="kokpit_articlesUser.php"><button style="margin-left: 6px;" type="">Anuluj</button></a></td>';
+                        echo'<td class="plus"><a href="article_deleteConfirm.php?article_id_confirmation='.$row[0].'"><button type="" class="btn btn-danger">Usuń</button></a>'
+                        . '<a href="kokpit_articlesUser.php"><button style="margin-left: 6px;" type="" class="btn btn-secondary">Anuluj</button></a></td>';
                         echo '</tr>';
                     }
 

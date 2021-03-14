@@ -37,13 +37,13 @@ if(isset($_GET['user_id']))
             <input id="kont_telefon" type="text" name="kont_telefon" value="" />
             <br /><br />
 
-            <label><input id="kont_regulamin" type="checkbox" name="kont_regulamin" />Akceptuję </label>
+            <label><input id="kont_regulamin" class="form-check-input" type="checkbox" name="kont_regulamin" /> Akceptuję </label>
             <a href="regulamin.php">regulamin</a>
             <br /><br />
             <div id="captcha_container" class="google-cpatcha"></div>
             <br />
             <input id="kont_submit" type="submit" value="Wyślij" />
-            <br />
+            <br /><br />
             <p id="kont_message"></p>
             </fieldset>
     </form>

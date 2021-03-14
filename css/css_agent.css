@@ -167,8 +167,8 @@ hr {
 #menu a {
 	padding: 0 20px;
 	text-decoration: none;
-	font-size: 110%;
-	font-weight: bold;
+	font-size: 120%;
+	/*font-weight: bold;*/
 	color: #610720;
 }
 
@@ -193,7 +193,7 @@ hr {
 }
 
 #page_kokpit {
-	width: 900px;
+	width: 1000px;
 	margin: 0 auto;
 	padding: 30px 0;
 }
@@ -208,12 +208,12 @@ hr {
 
 #content_kokpit {
 	float: right;
-	width: 600px;
+	width: 700px;
 	padding-top: 8px;
 }
 
 #content_edycja {
-	width: 900px;
+	width: 1000px;
 	padding: 8px;
 }
 
@@ -224,6 +224,7 @@ hr {
 }
 
 .twocols {
+        margin-top: 40px;
 }
 
 .twocols .title {
@@ -232,7 +233,7 @@ hr {
 }
 
 .twocols .col1, .twocols .col2 {
-	width: 200px;
+	width: 300px;
 }
 
 .twocols .col1 {
@@ -267,12 +268,12 @@ hr {
 }
 
 .boxed .title {
-	width: 250px;
+	width: 260px;
 	height: 35px;
 	margin: 0;
 	padding: 10px 0 0 10px;
 	background: #A8C3CB url(images/img03.jpg) no-repeat;
-	font-size: 136%;
+	font-size: 16px;
 	color: #144B6B;
 }
 
@@ -372,10 +373,11 @@ hr {
 
 table.lista_art tr.listwa{
 
-       background-color: #A4C0C8;
-       color:#000;
-       font-weight: bold;
-       
+       background-color: #c2d5db;/*#A4C0C8;*/
+       /*border-right: 1px solid #000;*/
+       /*color:#000;*/
+       /*font-weight: 400;*/
+       /*text-decoration: underline;*/
 }
 
 td.tytul{
@@ -491,9 +493,9 @@ table.lista_art tr.linia2 td{
         margin-top: 18px;
         text-align: right;
         padding: 0 10px;
-        background-color: #A4C0C8;
-        color:#000;
-        font-weight: bold;
+        background-color: #c2d5db;/*#A4C0C8;*/
+        /*color:#000;
+        font-weight: bold;*/
 }
 
 .user_profile_right_title{
@@ -502,9 +504,9 @@ table.lista_art tr.linia2 td{
         margin-top: 18px;
         border-left: 1px solid #97C984;
         padding: 0 10px;
-        background-color: #A4C0C8;
-        color:#000;
-        font-weight: bold;
+        background-color: #c2d5db;/*#A4C0C8;*/
+        /*color:#000;
+        font-weight: bold;*/
 }
 
 .user_profile_left{

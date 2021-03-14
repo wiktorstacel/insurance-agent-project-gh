@@ -25,7 +25,7 @@ class login extends Strona2
 					<fieldset>
                                         <label for="log_login">Login: </label>
 					<input id="log_login" type="text" name="log_login" value="" />
-                                        <br /><br />
+                                        <br />
                                         <label for="log_haslo">Hasło: </label>
                                         <input id="log_haslo" type="password" name="log_haslo" value="" />
                                         <br /><br />
@@ -33,7 +33,7 @@ class login extends Strona2
                                         <p id="log_message">';
                                             if(isset($_SESSION['blad'])){echo $_SESSION['blad'];unset($_SESSION['blad']);}
                                    echo'</p>
-                                        <br /><br /><br />
+                                        <br /><br />
                                         <label><a href="reset_psw_rqst.php">Nie pamiętam hasła.</a></label>
 					</fieldset>
 				</form>

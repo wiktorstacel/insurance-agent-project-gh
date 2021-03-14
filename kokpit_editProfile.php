@@ -21,7 +21,7 @@ class kokpit_editProfile extends kokpit_stage
                       . '<div class="user_profile_right_title">Użytkownika</div>';
                     echo'<div style="clear:both"></div>';
     
-                    echo'<div class="user_profile_left">Nazwa użytkownika - login</div>'
+                    echo'<div class="user_profile_left">Login</div>'
                       . '<div class="user_profile_right"><input id="edit_login" type="text" name="edit_login" disabled value="'.$row['login'].'" /></div>';
                     echo'<div style="clear:both"></div>';
 
@@ -68,7 +68,7 @@ class kokpit_editProfile extends kokpit_stage
                     echo'<div style="clear:both"></div>';
                     
                     echo'<div class="user_profile_left">Zatwierdź zmianę danych</div>'
-                      . '<div class="user_profile_right"><button id="edit_submit" type="">Zapisz</button><br><br><span id="edit_message" style="font-size: 11px;"></span></div>';
+                      . '<div class="user_profile_right"><button id="edit_submit" type="button" class="btn btn-primary">Zapisz</button><br><br><span id="edit_message" ></span></div>';
                     echo'<div style="clear:both"></div>';
     
                     mysqli_close($conn);

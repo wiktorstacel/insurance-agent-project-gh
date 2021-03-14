@@ -67,7 +67,7 @@ class article_load extends Strona2
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
                 
                 echo '<article>';
-                echo '<header><h1 class="title">'.$row[1].'</h1></header>';
+                echo '<header><h2 class="title">'.$row[1].'</h2></header>';
                 echo '<br />';
                 echo $row[2];
                 echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3].', wyświetleń: '.$row[6];

@@ -32,7 +32,7 @@ class article_loadSearch extends Strona2
                     {
                     $sanitazed_title = $this->rewrite($row[1]);
                     echo'<article>';
-                    echo'<header><h1 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h1></header>';
+                    echo'<header><h3 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h3></header>';
                     echo '<br />';
                     $no_html = strip_tags($row[2]);
                     echo substr($no_html, 0, 900);
@@ -51,7 +51,7 @@ class article_loadSearch extends Strona2
                         echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> ...Czytaj całość</a>';
                     }
                     echo '<br><br><b>Autor:</b> '.$row[4].', '.$row[3];
-                    echo '<br /><br />';
+                    echo '<br /><br /><br /><br />';
                     echo'</article>';
                     }
                 }

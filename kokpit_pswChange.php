@@ -35,8 +35,8 @@ class kokpit_pswChange extends kokpit_stage
                             <label for="cha_psw_haslo2">Powtórz Hasło: </label>
                             <input id="cha_psw_haslo2" type="password" name="cha_psw_haslo2" value="" />
                              <br /><br />
-                            <input id="cha_psw_submit" type="submit" value="Zatwierdź" />
-                            <br />
+                            <input id="cha_psw_submit" type="submit" value="Zatwierdź" class="btn btn-primary" />
+                            <br /><br />
                             <p id="cha_psw_message">Zmień hasło na nowe.</p>
                             </fieldset>
                     </form>

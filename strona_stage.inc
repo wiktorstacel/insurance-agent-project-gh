@@ -205,6 +205,7 @@ class Strona2
         dorardcy zamieszczają wartościowe artykuły związane z tematmi, z którymi pracuja na codzień. 
         Można znaleźć tutaj wartościowe informacje i porady, zapoznać się z trendami rynkowymi. 
         <em>Życzymy owocnego czytania :)</em></p>
+        <br>
         <h2>Złote myśli</h2>
         <p>Zwycięzcy i ludzie sukcesu problemy traktują jako wyzwanie i szansę do własnego rozwoju i pomocy sobie i innym.</p>
         <blockquote>
@@ -272,7 +273,7 @@ class Strona2
                 }
                 echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> Czytaj dalej</a>';
                 echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
-                echo '<br /><br /><br />';
+                echo '<br /><br /><br /><br /><br /><br />';
                 echo '</article>';
             }	
 			
@@ -322,8 +323,8 @@ class Strona2
                                     {       
                                         $sanitazed_title = $this->rewrite($row[1]);
 					echo'<li class="first">
-						<h3>'.$row[3].'</h3>
-						<p><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'&hellip;</a></p>
+						<p>'.$row[3].'</p>
+						<p><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></p>
 					</li>';
                                     }
 				echo'</ul>

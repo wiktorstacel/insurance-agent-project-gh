@@ -10,6 +10,7 @@ class edycja_pages extends kokpit_stage
     {
       echo "<link rel=\"Stylesheet\" type=\"text/css\" href=\"../../css/css_agent.css\" />\n";
       echo '<link rel="icon" type="image/png" sizes="16x16" href="../../css/images/favicon.png">';
+      echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">';
     }
     
     public function WyswietlSkrypty()
@@ -110,9 +111,9 @@ class edycja_pages extends kokpit_stage
           {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
           ?>
           <br />
-          <input type="submit" name="submit" value="Dodaj">
+          <input type="submit" name="submit" value="Dodaj" class="btn btn-primary">
           </form>
-          <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+          <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="" class="btn btn-secondary">Anuluj</button></a>
         <?php
         }
         else//EDYCJA STRONY
@@ -161,9 +162,9 @@ class edycja_pages extends kokpit_stage
           {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
           ?>
           <br />
-          <input type="submit" name="submit" value="Zapisz">		
+          <input type="submit" name="submit" value="Zapisz" class="btn btn-primary">		
           </form>      
-          <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="">Anuluj</button></a>
+          <a href="../../kokpit_pagesList.php"><button style="margin-top: 6px;" type="" class="btn btn-secondary">Anuluj</button></a>
           <?php          
          }//koniec seksji edycji strony
       }//koniec if od sprawdzania usera

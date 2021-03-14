@@ -210,7 +210,7 @@ class kokpit_stage
             $row_number = mysqli_num_rows($result);
             if($row_number > 10)
             {
-                echo '<a href="kokpit_articlesList.php?articlesSum=10"><button style="float: right;" id="button_more_articles">Dalej >></button></a>';
+                echo '<a href="kokpit_articlesList.php?articlesSum=10"><button style="float: right;" id="button_more_articles" class="btn btn-light">Dalej >></button></a>';
             }
         }
         else
@@ -225,14 +225,14 @@ class kokpit_stage
             {
                 $articlesSum_10more = $articlesSum+10;
                 $articlesSum_10less = $articlesSum-10;
-                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10more.'"><button style="float: right;" id="button_more_articles">Dalej >></button></a>';
+                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10more.'"><button style="float: right;" id="button_more_articles" class="btn btn-light">Dalej >></button></a>';
                 if($articlesSum >= 10)
-                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10less.'"><button style="float: right; margin-right:6px;" id="button_more_articles"><< Wstecz</button></a>';
+                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10less.'"><button style="float: right; margin-right:6px;" id="button_more_articles" class="btn btn-light"><< Wstecz</button></a>';
             }
             else
             {
                 $articlesSum_10less = $articlesSum-10;
-                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10less.'"><button style="float: right; margin-right:6px;" id="button_more_articles"><< Wstecz</button></a>';
+                echo '<a href="kokpit_articlesList.php?articlesSum='.$articlesSum_10less.'"><button style="float: right; margin-right:6px;" id="button_more_articles" class="btn btn-light"><< Wstecz</button></a>';
             }
         }
 

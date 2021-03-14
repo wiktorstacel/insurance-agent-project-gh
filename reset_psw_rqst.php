@@ -17,7 +17,7 @@ class reset_psw_rqst extends Strona2
                             <input id="res_psw_email" type="text" name="res_psw_email" value="" />
                             <br /><br />                        
                             <input id="res_psw_submit" type="submit" value="Wyślij" />
-                            <br />
+                            <br /><br />
                             <p id="res_psw_message">Na podany adres zostanie wysłany link, który należy kliknąć, 
                             aby przejść do strony tworzenia nowego hasła.</p>
                             </fieldset>
