@@ -256,7 +256,7 @@ class Strona2
         
         <div class="twocols">
             <div class="col1">';
-                    echo'<h3 class="title">Jeśłi jesteś doradcą</h3>
+                    echo'<h3 class="title">Jeśli jesteś doradcą</h3>
                     <p>...i chcesz współtworzyć ten serwis - załóż darmowe konto, które umożliwia pisanie artykułów, na końcu których znajduje się formularz przesyłający wiadomości od zainteresowanych osób bezpośrednio do na Twoją skrzynkę pocztową.</p>
                     <p><a href="regulamin.php">Regulamin&hellip;</a></p>                               
             </div>

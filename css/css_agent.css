@@ -612,7 +612,7 @@ table.lista_art tr.linia2 td{
     bottom: 0;
 }
 .cookie_button{
-    /*background: #c2d5db;*//*#ff5723;*/background: #A8C3CB url(images/img03.jpg) no-repeat;
+    /*background: #c2d5db;*//*#ff5723;*/background: #c2d5db;/* #A8C3CB url(images/img03.jpg) no-repeat;*/
     border: 0;
     color: #144B6B;/*#f5f6fa;*/
     padding: 12px 48px;
