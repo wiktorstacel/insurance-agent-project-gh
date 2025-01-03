@@ -67,9 +67,6 @@ class article_load extends Strona2
                 $article_id = $_GET['article_id'] ?? 0; // Domyślnie 0, jeśli brak danych
                 $article_id = intval($article_id); // Rzutowanie na liczbę całkowitą dla bezpieczeństwa
 
-                // Pobranie artykułu z modelu
-                $row = $articleModel->getArticleById($article_id);
-
                 /* OSTATECZNY KOD wykorzystujący 'prepare stetament' - przeniesiony do osobnego pliku w folderze models
                 $stmt = $conn->prepare(
                     "SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views 
@@ -120,23 +117,34 @@ class article_load extends Strona2
                 //Wyświetlanie danych (np. $row[1] lub $row[2]) jest podatne na XSS (Cross-Site Scripting), 
                 //ponieważ dane z bazy danych nie są oczyszczane przed ich wyświetleniem w HTML.
                 //Zabezpiecz dane: Użyj htmlspecialchars, aby zapobiec wstrzyknięciu niebezpiecznego kodu HTML/JavaScript:
-                echo '<div class="col-sm-12"><article>';
-                echo '<header><h2 class="title">'. htmlspecialchars($row[1], ENT_QUOTES, 'UTF-8') .'</h2></header>';
-                echo '<br />';
-                echo htmlspecialchars($row[2], ENT_QUOTES, 'UTF-8');
-                echo '<br><br><b>Autor:</b> '.htmlspecialchars($row[4], ENT_QUOTES, 'UTF-8').', '.htmlspecialchars($row[3], ENT_QUOTES, 'UTF-8').', wyświetleń: '.htmlspecialchars($row[6], ENT_QUOTES, 'UTF-8');
-                echo '<br /><br />';
-                
-                echo '<footer>';
-                //Tak, potrzebujesz zabezpieczyć dane w atrybutach HTML, nawet jeśli nie są bezpośrednio widoczne w przeglądarce.
-                echo '<div class="user_profile_kontakt" id="kontaktform_div'.htmlspecialchars($row[5], ENT_QUOTES, 'UTF-8').'">';
-                echo '<br><img src="css\images\envelop2.png" width="16" height="16" alt="alt"/>'
-                . '<button class="kontaktform_loadButt" value="'.htmlspecialchars($row[5], ENT_QUOTES, 'UTF-8').'"> &nbspNapisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
-                echo '</div>';
-                echo '... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
-                echo '</footer>';
-                echo'</article></div>';
-                
+
+                try 
+                {
+                    // Pobranie artykułu z modelu
+                    $row = $articleModel->getArticleById($article_id);
+
+                    echo '<div class="col-sm-12"><article>';
+                    echo '<header><h2 class="title">'. htmlspecialchars($row[1], ENT_QUOTES, 'UTF-8') .'</h2></header>';
+                    echo '<br />';
+                    echo htmlspecialchars($row[2], ENT_QUOTES, 'UTF-8');
+                    echo '<br><br><b>Autor:</b> '.htmlspecialchars($row[4], ENT_QUOTES, 'UTF-8').', '.htmlspecialchars($row[3], ENT_QUOTES, 'UTF-8').', wyświetleń: '.htmlspecialchars($row[6], ENT_QUOTES, 'UTF-8');
+                    echo '<br /><br />';
+                    
+                    echo '<footer>';
+                    //Tak, potrzebujesz zabezpieczyć dane w atrybutach HTML, nawet jeśli nie są bezpośrednio widoczne w przeglądarce.
+                    echo '<div class="user_profile_kontakt" id="kontaktform_div'.htmlspecialchars($row[5], ENT_QUOTES, 'UTF-8').'">';
+                    echo '<br><img src="css\images\envelop2.png" width="16" height="16" alt="alt"/>'
+                    . '<button class="kontaktform_loadButt" value="'.htmlspecialchars($row[5], ENT_QUOTES, 'UTF-8').'"> &nbspNapisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
+                    echo '</div>';
+                    echo '... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
+                    echo '</footer>';
+                    echo'</article></div>';
+                }
+                catch(Exception $e)
+                {
+                    // Obsługa błędu
+                    echo '<p>Wystąpił błąd podczas pobierania artykułu: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
+                }
                 
                 mysqli_close($conn);               
  

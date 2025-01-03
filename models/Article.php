@@ -15,9 +15,22 @@ class Article {
              INNER JOIN users u ON a.user_id = u.user_id 
              WHERE a.article_id = ?"
         );
+
+        if (!$stmt) {
+            throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
+        }
+
         $stmt->bind_param("i", $article_id);
-        $stmt->execute();
+
+        if (!$stmt->execute()) {
+            throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
+        }
+
         $result = $stmt->get_result();
+        if (!$result) {
+            throw new Exception("Błąd pobierania wyniku: " . $stmt->error);
+        }
+
         $row = mysqli_fetch_array($result, MYSQLI_NUM);
         return $row;
     }
