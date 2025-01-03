@@ -58,11 +58,19 @@ class article_load extends Strona2
             
                 //<!-- write content here -->
                 require 'config_db.php';
+                require_once 'models/Article.php'; // Załadowanie klasy
+
+                // Utworzenie obiektu klasy Article
+                $articleModel = new Article($conn);
+
                 // Pobranie i walidacja ID artykułu
                 $article_id = $_GET['article_id'] ?? 0; // Domyślnie 0, jeśli brak danych
                 $article_id = intval($article_id); // Rzutowanie na liczbę całkowitą dla bezpieczeństwa
 
-                // Przygotowanie zapytania
+                // Pobranie artykułu z modelu
+                $row = $articleModel->getArticleById($article_id);
+
+                /* OSTATECZNY KOD wykorzystujący 'prepare stetament' - przeniesiony do osobnego pliku w folderze models
                 $stmt = $conn->prepare(
                     "SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views 
                     FROM articles a 
@@ -79,6 +87,7 @@ class article_load extends Strona2
 
                 // Pobranie wyników
                 $result = $stmt->get_result();
+                */
 
                 //PIERWOTNY KOD z 01.2021
                 //$result = mysqli_query($conn,
@@ -104,8 +113,8 @@ class article_load extends Strona2
                 //podatna na SQL Injection.
 
                 
-                if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                //if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
+                //$row = mysqli_fetch_array($result, MYSQLI_NUM);
                 
 
                 //Wyświetlanie danych (np. $row[1] lub $row[2]) jest podatne na XSS (Cross-Site Scripting), 
