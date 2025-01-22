@@ -58,17 +58,38 @@ class ContactPage extends Page {
     }
 }
 
-// Router prosty bez frameworka
-$pageType = $_GET['page'] ?? 'home';
-$page = match ($pageType) {
-    'home' => new HomePage(),
-    'article' => new ArticlePage("Tytuł artykułu", "Treść artykułu."),
-    'contact' => new ContactPage(),
-    default => new HomePage()
-};
+class Router {
+    private static int $requestCount = 0;
+    
+    public static function handleRequest($pageType) {
+        // Zwiększ licznik wywołań
+        self::$requestCount++;
+        
+        return match ($pageType) {
+            'home' => new HomePage(),
+            'article' => new ArticlePage("Tytuł artykułu", "Treść artykułu."),
+            'contact' => new ContactPage(),
+            default => new HomePage(),
+        };
+    }
 
-// Renderowanie strony
+    public static function getRequestCount(): int {
+        return self::$requestCount;
+    }
+}
+
+// Odczytanie typu strony z parametru GET
+$pageType = $_GET['page'] ?? 'home';
+
+// Dopasowanie strony za pomocą statycznej funkcji
+$page = Router::handleRequest($pageType); //trzeba tą linię kodu skopiować i wywołać tutaj 2 razy, żeby ilość obsłużonych żądań była 2!
+
+
+// Wywołanie metody render na utworzonym obiekcie (zakładamy, że każda klasa ma metodę render)
 echo $page->render();
+
+// Wyświetli liczbę żądań - w celu zastosowania składowej statycznej - $requestCount
+echo "Ilość obsłużonych żądań: " . Router::getRequestCount(); 
 
 
 /*Polimorfizm w akcji:
