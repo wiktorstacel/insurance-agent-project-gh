@@ -1,0 +1,9 @@
+{
+    "name": "wikto/insurance-agent-project-gh",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Wikto\\InsuranceAgentProjectGh\\": ""
+        }
+}
+}

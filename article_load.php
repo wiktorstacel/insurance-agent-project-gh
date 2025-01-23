@@ -1,6 +1,9 @@
 <?php
 
 require ('strona_stage.inc');
+require_once 'vendor/autoload.php';
+
+use Wikto\InsuranceAgentProjectGh\models\Article; //to odzwierciedla strukturę katalogów zgodnie z zasadami PSR-4
 
 class article_load extends Strona2
 {
@@ -58,7 +61,7 @@ class article_load extends Strona2
             
                 //<!-- write content here -->
                 require 'config_db.php';
-                require_once 'models/Article.php'; // Załadowanie klasy
+                //require_once 'models/Article.php'; // Załadowanie klasy - teraz poprzez "namespace" - patrz początek pliku
 
                 // Utworzenie obiektu klasy Article
                 $articleModel = new Article($conn);

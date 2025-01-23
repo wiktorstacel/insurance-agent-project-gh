@@ -12,3 +12,5 @@ Agent_CMS.clpprj
 
 freerte/*
 !freerte/examples/
+
+/vendor/

@@ -1,5 +1,7 @@
 <?php
 
+namespace Wikto\InsuranceAgentProjectGh\models;
+
 class Article {
     private $conn;
 
