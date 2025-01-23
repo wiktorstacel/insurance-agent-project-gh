@@ -84,12 +84,23 @@ $pageType = $_GET['page'] ?? 'home';
 // Dopasowanie strony za pomocą statycznej funkcji
 $page = Router::handleRequest($pageType); //trzeba tą linię kodu skopiować i wywołać tutaj 2 razy, żeby ilość obsłużonych żądań była 2!
 
-
 // Wywołanie metody render na utworzonym obiekcie (zakładamy, że każda klasa ma metodę render)
 echo $page->render();
 
 // Wyświetli liczbę żądań - w celu zastosowania składowej statycznej - $requestCount
 echo "Ilość obsłużonych żądań: " . Router::getRequestCount(); 
+
+//Badanie metod i składowych klas
+echo "<br> Badanie klasy Router - metody: ";
+print_r(get_class_methods('Router'));
+echo "<br> Badanie klasy Router - właściwości: ";
+print_r(get_class_vars('Router'));
+echo "<br> Badanie klasy bazowej dla HomePage: ";
+print(get_parent_class('HomePage'));
+echo "<br> Badanie klasy ContactPage czy istnieje: ";
+if (class_exists('ContactPage')) {
+    echo "Klasa istnieje!";
+}
 
 
 /*Polimorfizm w akcji:
