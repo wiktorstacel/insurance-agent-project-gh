@@ -103,6 +103,38 @@ if (class_exists('ContactPage')) {
 }
 
 
+echo "<br><br>BADANIE KLASY ROUTER z UŻYCIEM Reflection API: <br>";
+// Tworzymy obiekt ReflectionClass dla klasy Router
+$reflection = new ReflectionClass('Router');
+
+// Wyświetlenie nazwy klasy
+echo "Nazwa klasy: " . $reflection->getName() . "<br>";
+
+// Wyświetlenie właściwości klasy
+echo "Właściwości klasy:<br>";
+foreach ($reflection->getProperties() as $property) {
+    echo " - " . $property->getName() . " (" . implode(' ', Reflection::getModifierNames($property->getModifiers())) . ")<br>";
+}
+
+// Wyświetlenie metod klasy
+echo "Metody klasy:<br>";
+foreach ($reflection->getMethods() as $method) {
+    echo " - " . $method->getName() . " (" . implode(' ', Reflection::getModifierNames($method->getModifiers())) . ")<br>";
+}
+
+// Wyświetlenie czy klasa jest abstrakcyjna
+echo "Czy klasa jest abstrakcyjna? " . ($reflection->isAbstract() ? "Tak" : "Nie") . "<br>";
+
+// Sprawdzenie, czy klasa ma konstruktor
+if ($reflection->hasMethod('__construct')) {
+    echo "Klasa ma konstruktor.<br>";
+} else {
+    echo "Klasa nie ma konstruktora.<br>";
+}
+
+
+
+
 /*Polimorfizm w akcji:
 
 Wszystkie klasy (HomePage, ArticlePage, ContactPage) dziedziczą po Page.
