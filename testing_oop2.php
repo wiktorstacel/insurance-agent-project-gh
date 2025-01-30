@@ -4,7 +4,7 @@
 
 abstract class Lesson {
     private $duration;
-    private $costStrategy;
+    public $costStrategy;
 
     function __construct($duration, CostStrategy $strategy) {
         $this->duration = $duration;
@@ -33,6 +33,7 @@ class Seminar extends Lesson {
 }
 
 abstract class CostStrategy {
+    public $test_flag = 5;
     abstract function cost(Lesson $lesson);
     abstract function chargeType();
 }
@@ -61,9 +62,11 @@ class FixedCostStrategy extends CostStrategy {
 
 $lessons[] = new Seminar(4, new TimedCostStrategy);
 $lessons[] = new Seminar(4, new FixedCostStrategy);
-
 foreach ($lessons as $lesson) {
-    print "Koszt lekcji: {$lesson->cost()}.";
+    print_r($lesson); //Wyświetlenie całego obiektu
+    print "Koszt lekcji: {$lesson->cost()}.";   
+    print "Flaga: {$lesson->costStrategy->test_flag}.";//Dostęp do właściwości obiektu podrzędnego przez obiekt nadrzędny w kompozycji
+    //To częsta praktyka w programowaniu obiektowym, gdy jedna klasa zarządza inną!
     print "Sposób rozliczania: {$lesson->chargeType()}.<br>";
 }
 
@@ -71,6 +74,7 @@ foreach ($lessons as $lesson) {
 //TESTOWANIE RĘCZNE M.Zandstra str. 383
 class UserStore {
     private $users;
+    public $data_r1;
     function addUser($name, $mail, $pass){
         if(isset($this->users[$mail])){
             throw new Exception(
@@ -102,6 +106,7 @@ class Validator{
         $this->store = $store;
     }
     public function validateUser($mail, $pass){
+        $this->store->data_r1 = 2; //przypisane wartości do zmiennej z obiektu typu UserStore
         print_r($this->store);//UserStore Object ( [users:UserStore:private] => Array ( [bob@example.com] => Array ( [pass] => 12345 [mail] => bob@example.com [name] => bob williams ) ) )
         if(!is_array($user = $this->store->getUser($mail))){ //w PHP można przekazywać obiekt jako parametr do konstruktora innej klasy i wykonywać na nim metody
             return false;
