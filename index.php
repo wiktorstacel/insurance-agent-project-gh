@@ -16,5 +16,7 @@ $index -> keywords = 'ubezpieczenia, odszkodowania, komunikacyjne, wypadkowe';
 $index -> description = 'Artykuły od doradców, specjalistów od ubezpieczeń i odszkodowań.';
 
 $index -> Wyswietl();
+//print_r($index);// wyświetlanie obiektu - skonkretyzowanej klasy Strona2
+
 
 ?>

@@ -33,8 +33,8 @@ class Article {
             throw new Exception("Błąd pobierania wyniku: " . $stmt->error);
         }
 
-        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-        return $row;
+        $article = mysqli_fetch_assoc($result);
+        return $article;
     }
 }
 

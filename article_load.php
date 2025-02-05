@@ -54,112 +54,27 @@ class article_load extends Strona2
     }
     
     public function WyswietlPage()
-    {
-      echo '
-        <div id="content" class="row">
-            <main style="margin-bottom: 20px;">';//style="float:left;"
-            
-                //<!-- write content here -->
-                require 'config_db.php';
-                //require_once 'models/Article.php'; // Załadowanie klasy - teraz poprzez "namespace" - patrz początek pliku
-
-                // Utworzenie obiektu klasy Article
-                $articleModel = new Article($conn);
-
-                // Pobranie i walidacja ID artykułu
-                $article_id = $_GET['article_id'] ?? 0; // Domyślnie 0, jeśli brak danych
-                $article_id = intval($article_id); // Rzutowanie na liczbę całkowitą dla bezpieczeństwa
-
-                /* OSTATECZNY KOD wykorzystujący 'prepare stetament' - przeniesiony do osobnego pliku w folderze models
-                $stmt = $conn->prepare(
-                    "SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views 
-                    FROM articles a 
-                    INNER JOIN users u ON a.user_id = u.user_id 
-                    WHERE a.article_id = ? 
-                    ORDER BY a.date DESC"
-                );
-
-                // Powiązanie parametru
-                $stmt->bind_param("i", $article_id); // "i" oznacza, że parametr jest liczbą całkowitą
-
-                // Wykonanie zapytania
-                $stmt->execute();
-
-                // Pobranie wyników
-                $result = $stmt->get_result();
-                */
-
-                //PIERWOTNY KOD z 01.2021
-                //$result = mysqli_query($conn,
-                //            sprintf("SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views FROM articles a, users u WHERE a.user_id = u.user_id AND a.article_id = '%d' ORDER BY a.date DESC",
-                //            mysqli_real_escape_string($conn, $article_id)
-                //                )); 
-                //Błąd w powyższym kodzie: Masz podatność na SQL Injection, ponieważ używasz sprintf z mysqli_real_escape_string. 
-                //To połączenie jest niepotrzebne i niezalecane. Dla typu liczbowego (%d) nie musisz stosować mysqli_real_escape_string, 
-                //ponieważ sprintf('%d', $article_id) automatycznie rzutuje zmienną na liczbę całkowitą. 
- 
-                //PRÓBA POPRAWY:
-                //$query = sprintf(
-                //    "SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views 
-                //     FROM articles a 
-                //     INNER JOIN users u ON a.user_id = u.user_id 
-                //     WHERE a.article_id = %d 
-                //     ORDER BY a.date DESC",
-                //    $article_id
-                //);
-                //$result = mysqli_query($conn, $query);
-                //sprintf: Używając sprintf, sam musisz zadbać o odpowiednie oczyszczenie danych (np. intval dla liczb lub 
-                //mysqli_real_escape_string dla tekstów). Jeśli zrobisz to nieprawidłowo lub coś pominiesz, aplikacja może być 
-                //podatna na SQL Injection.
-
-                
-                //if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                //$row = mysqli_fetch_array($result, MYSQLI_NUM);
-                
-
-                //Wyświetlanie danych (np. $row[1] lub $row[2]) jest podatne na XSS (Cross-Site Scripting), 
-                //ponieważ dane z bazy danych nie są oczyszczane przed ich wyświetleniem w HTML.
-                //Zabezpiecz dane: Użyj htmlspecialchars, aby zapobiec wstrzyknięciu niebezpiecznego kodu HTML/JavaScript:
-
-                try 
-                {
-                    // Pobranie artykułu z modelu
-                    $row = $articleModel->getArticleById($article_id);
-
-                    echo '<div class="col-sm-12"><article>';
-                    echo '<header><h2 class="title">'. htmlspecialchars($row[1], ENT_QUOTES, 'UTF-8') .'</h2></header>';
-                    echo '<br />';
-                    echo htmlspecialchars($row[2], ENT_QUOTES, 'UTF-8');
-                    echo '<br><br><b>Autor:</b> '.htmlspecialchars($row[4], ENT_QUOTES, 'UTF-8').', '.htmlspecialchars($row[3], ENT_QUOTES, 'UTF-8').', wyświetleń: '.htmlspecialchars($row[6], ENT_QUOTES, 'UTF-8');
-                    echo '<br /><br />';
-                    
-                    echo '<footer>';
-                    //Tak, potrzebujesz zabezpieczyć dane w atrybutach HTML, nawet jeśli nie są bezpośrednio widoczne w przeglądarce.
-                    echo '<div class="user_profile_kontakt" id="kontaktform_div'.htmlspecialchars($row[5], ENT_QUOTES, 'UTF-8').'">';
-                    echo '<br><img src="css\images\envelop2.png" width="16" height="16" alt="alt"/>'
-                    . '<button class="kontaktform_loadButt" value="'.htmlspecialchars($row[5], ENT_QUOTES, 'UTF-8').'"> &nbspNapisz zapytanie o ofertę handlową lub spotkanie do autora...</button>';
-                    echo '</div>';
-                    echo '... lub wyszukaj kontakt do doradcy w Twojej okolicy w zakładce <u>Kontakt</u>';
-                    echo '</footer>';
-                    echo'</article></div>';
-                }
-                catch(Exception $e)
-                {
-                    // Obsługa błędu
-                    echo '<p>Wystąpił błąd podczas pobierania artykułu: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
-                }
-                
-                mysqli_close($conn);               
- 
-                //$this -> title = $row[1]; jak ustawić z tego miejsca title na poziomie klasy. ODP:$this -> setSomething($s);
-
-                                
-            echo '</main>';//END OF MAIN
-            if($this->show_motto)$this->WyswietlMotto();
-
-        echo'</div>'; //end of content
+    {  
+        // Pobranie i walidacja ID artykułu
+        $article_id = $_GET['article_id'] ?? 0; // Domyślnie 0, jeśli brak danych
+        $article_id = intval($article_id); // Rzutowanie na liczbę całkowitą dla bezpieczeństwa       
+        $this->getArticle($article_id);            
     }
     
+    public function getArticle($article_id)  //Kontroler pobierania artykułu
+    {
+        require 'config_db.php';
+        $articleModel = new Article($conn);// Utworzenie obiektu klasy Article z modelu
+        try 
+        {        
+            $article = $articleModel->getArticleById($article_id);// Pobranie artykułu z modelu
+            include 'views/article.php';//załadowanie widoku
+        }
+        catch(Exception $e)
+        {
+            echo '<p>Wystąpił błąd podczas pobierania artykułu: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
+        }
+    }
 
 }
 
