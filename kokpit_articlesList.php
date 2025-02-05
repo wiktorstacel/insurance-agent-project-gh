@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_kokpit_stage.inc');
+require ('strona_kokpit_stage.php');
 
 $header_type = 2;
 $show_content = true;

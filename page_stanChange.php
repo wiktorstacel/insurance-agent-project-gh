@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_kokpit_stage.inc');
+require ('strona_kokpit_stage.php');
 
 class page_stanChange extends kokpit_stage
 {

@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_stage.inc');
+require ('strona_stage.php');
 require_once 'vendor/autoload.php';
 
 use Wikto\InsuranceAgentProjectGh\models\Article; //to odzwierciedla strukturę katalogów zgodnie z zasadami PSR-4

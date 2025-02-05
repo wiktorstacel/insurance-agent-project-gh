@@ -1,6 +1,6 @@
 <?php
 
-require_once ('strona_kokpit_stage.inc');
+require_once ('strona_kokpit_stage.php');
 
 class page_save extends kokpit_stage
 {

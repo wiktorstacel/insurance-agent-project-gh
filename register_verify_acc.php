@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-require ('strona_stage.inc');
+require ('strona_stage.php');
 
 class verify_account extends Strona2
 {

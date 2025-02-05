@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_stage.inc');
+require ('strona_stage.php');
 
 class login extends Strona2
 {

@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_stage.inc');
+require ('strona_stage.php');
 
 class regulamin extends Strona2
 {

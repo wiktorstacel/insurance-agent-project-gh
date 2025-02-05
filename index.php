@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_stage.inc');
+require ('strona_stage.php');
 
 $header_type = 1;
 $show_content = true;

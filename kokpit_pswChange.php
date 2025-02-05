@@ -1,6 +1,6 @@
 <?php
 
-require ('strona_kokpit_stage.inc');
+require ('strona_kokpit_stage.php');
 
 class kokpit_pswChange extends kokpit_stage
 {
