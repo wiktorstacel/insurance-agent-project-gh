@@ -97,7 +97,7 @@ if(isset($_POST['submit']))
         $check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret_key.'&response='.$_POST['captchaResponse']);
         $response = json_decode($check);
         //printf($response->success);
-        if(!($response->success))
+        if(($response->success))
         {
             $errorBot = true;
             echo '<span class="form-error">Błąd weryfikacji reCaptcha!</span>';
@@ -112,7 +112,7 @@ if(isset($_POST['submit']))
         try
         {
             require_once 'config_db.php';
-            if(mysqli_connect_errno($conn) != 0) throw new Exception(mysqli_connect_errno());
+            if(mysqli_connect_errno() != 0) throw new Exception('Connection failed: ' . mysqli_connect_error());
 
             //sprawdz czy nie ma już takiego loginu
             $result = mysqli_query($conn, 

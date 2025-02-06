@@ -83,7 +83,7 @@ if(isset($_POST['email']))
         try
         {
             require_once 'config_db.php';
-            if(mysqli_connect_errno($conn) != 0) throw new Exception(mysqli_connect_errno());
+            if(mysqli_connect_errno() != 0) throw new Exception(mysqli_connect_errno());
 
             //czy email już istnieje
             $result = mysqli_query($conn, 

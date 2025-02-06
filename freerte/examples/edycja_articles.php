@@ -1,7 +1,7 @@
 <?php
 
 
-require '../../strona_kokpit_stage.inc';
+require '../../strona_kokpit_stage.php';
 
 class edycja_articles extends kokpit_stage
 {

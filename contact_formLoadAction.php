@@ -100,7 +100,7 @@ if(isset($_POST['submit']))
         try
         {
             require_once 'config_db.php';
-            if(mysqli_connect_errno($conn) != 0) throw new Exception(mysqli_connect_errno());
+            if(mysqli_connect_errno() != 0) throw new Exception(mysqli_connect_errno());
 
             //sprawdz czy nie ma już takiego loginu
             $result = mysqli_query($conn, 

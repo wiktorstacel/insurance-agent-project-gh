@@ -1,7 +1,7 @@
 <?php
 
 
-require '../../strona_kokpit_stage.inc';     //strona_kokpit_stage.inc nie mo�e dziedziczy� do niczego innego, to nie zadzia�a
+require '../../strona_kokpit_stage.php';     //strona_kokpit_stage.php nie mo�e dziedziczy� do niczego innego, to nie zadzia�a
 
 class edycja_pages extends kokpit_stage
 {  	
