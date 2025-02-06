@@ -69,7 +69,7 @@ class article_load extends Strona2
         {        
             $article = $articleModel->getArticleById($article_id);// Pobranie artykułu z modelu
             //include 'views/article.php';//załadowanie widoku
-            $this->render('views/article.php', ['article' => $article]);//Widok w wzorcach MVC powinien otrzymywać dane od kontrolera w postaci zmiennych, które będą używane do dynamicznego generowania treści strony.
+            $this->render('views/article_load.php', ['article' => $article]);//Widok w wzorcach MVC powinien otrzymywać dane od kontrolera w postaci zmiennych, które będą używane do dynamicznego generowania treści strony.
         }
         catch(Exception $e)
         {

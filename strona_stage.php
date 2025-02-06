@@ -1,5 +1,9 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
+use Wikto\InsuranceAgentProjectGh\models\Article;
+
 class Strona2
 {
     public $tresc;
@@ -283,47 +287,29 @@ class Strona2
     
     public function WyswietlPage()
     {
-        echo '<div id="content" class="row">';
-            echo'<main style="margin-bottom: 20px;">';	//MAIN		
-  
             include 'config_db.php';
-  
-  
-            $result = mysqli_query($conn, "SELECT a.article_id, a.title, a.content, a.date, u.surname FROM articles a, users u WHERE a.user_id = u.user_id AND a.stan=1 ORDER BY a.date DESC");
-            if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-            //$row = mysqli_fetch_array($result, MYSQLI_NUM);
-            while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-            {
-                //$str_row_1 = str_replace(" ", "-", $row[1]);
-                $sanitazed_title = $this->rewrite($row[1]);
+            $articleModel = new Article($conn);
+            $articles = $articleModel->getAllArticles();
 
-                echo'<div class="col-sm-12"><article>';//
-                echo'<header><h3 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h3></header>';
-                echo '<br />';
-                //echo $row[2];
-                $no_html = strip_tags($row[2]);
-                //echo substr($no_html, 0, 500);
-                //Use wordwrap() to truncate the string without breaking words if the string is longer than 50 characters, and just add ... at the end
-                if( strlen($no_html) > 600) {
+            foreach($articles as $key => $article) //formatowanie tytułu i kontentu - dopisanie tych wartości do $article pod nowymi kluczami, żeby w widoku wyświetlić tytlko zmienne a nie mieć tam logiki php
+            {
+                $articles[$key]['sanitazed_title'] = $this->rewrite($article['title']);
+
+                $no_html = strip_tags(htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8'));
+                if( strlen($no_html) > 600) 
+                {
+                    $articles[$key]['flag'] = 1;
                     $str = explode( "\n", wordwrap($no_html, 600));
-                    $str = $str[0] . '...';
-                    echo $str;
+                    $articles[$key]['content_str'] = $str[0] . '...';
                 }
                 else
                 {
-                    echo $no_html;
+                    $articles[$key]['flag'] = 0;
+                    $articles[$key]['content_str'] = $no_html;
                 }
-                echo'<a style="text-decoration: none;" href="article/'.$row[0].'/'.$sanitazed_title.'"> Czytaj dalej</a>';
-                echo '<br /><br /><b>Autor:</b> '.$row[4].', '.$row[3];
-                echo '<br /><br /><br /><br /><br /><br />';
-                echo '</article></div>';
-            }	
-			
-            
-            echo'</main>';//END OF MAIN
-        if($this->show_motto)$this->WyswietlMotto();
-	echo'</div>
-	<!-- end content -->';
+            }
+
+            include 'views/articles_list.php';
     }
         
     public function WyswietlSidebar()
