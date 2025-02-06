@@ -3,6 +3,9 @@
 
 class kokpit_stage
 {
+    public $title = 'Kokpit';
+    public $keywords = 'kokpit';
+    public $description = 'kokpit';
     protected $header_type;
     protected $show_content;
     protected $show_sidebar;

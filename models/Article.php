@@ -4,9 +4,31 @@ namespace Wikto\InsuranceAgentProjectGh\models;
 
 class Article {
     private $conn;
+    private $title;
+    private $content;
+    private $stan =1;
+    private $user_id;
+    private $category_id;
 
     public function __construct($conn) {
         $this->conn = $conn;
+    }
+
+    public function setArticleData($title, $content, $user_id, $category_id) {
+        $this->title = $title;
+        $this->content = $content;
+        $this->user_id = $user_id;
+        $this->category_id = $category_id;
+
+        return $this; // Dzięki temu możliwe jest wywołanie łańcuchowe
+    }
+
+    public function create() {
+        $stmt = $this->conn->prepare(
+            "INSERT INTO articles (article_id, title, content, date, stan, user_id, category_id) VALUES (DEFAULT, ?, ?, CURDATE(), ?, ?, ?)"
+        );
+        $stmt->bind_param("ssiii", $this->title, $this->content, $this->stan, $this->user_id, $this->category_id);;
+        $stmt->execute();
     }
 
     // Metoda do pobierania artykułu po ID

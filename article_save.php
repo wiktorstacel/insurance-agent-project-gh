@@ -1,6 +1,9 @@
 <?php
 
 require ('strona_kokpit_stage.php');
+require_once 'vendor/autoload.php';
+
+use Wikto\InsuranceAgentProjectGh\models\Article;
 
 class article_save extends kokpit_stage
 {
@@ -10,8 +13,8 @@ class article_save extends kokpit_stage
             <div id="content_kokpit">
                     <main style="margin-bottom: 20px;">';
        
-        $category_id = htmlentities($_POST['category_id'], ENT_QUOTES, "UTF-8");
-        $title = htmlentities($_POST['title'], ENT_QUOTES, "UTF-8"); 
+        $category_id = $_POST['category_id'];
+        $title = $_POST['title']; 
         $content = $_POST['freeRTE_content'];
         
         //Walidacja
@@ -151,6 +154,18 @@ class article_save extends kokpit_stage
      </div>
 	<!-- end content -->';
 	
+    }
+
+    public function ArticleSaveController()
+    {
+        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+        $content = isset($_POST['freeRTE_content']) ? trim($_POST['freeRTE_content']) : '';
+        $user_id = $_SESSION['user_id'] ?? 0;
+        $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : 0;
+        
+        include 'config_db.php';
+        $articleModel = new Article($conn);
+        $articleModel->setArticleData($title, $content, $user_id, $category_id)->create();//setArticleData() musi zwracać $this, żeby było możliwe wywołanie łańcuchowe
     }
 }
 
