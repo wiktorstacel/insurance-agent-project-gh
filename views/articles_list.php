@@ -15,7 +15,9 @@
 
                     <?php if($article['flag'] == 1): ?>
                         <?= $article['content_str'] ?>
-                        <a style="text-decoration: none;" href="article/<?= htmlspecialchars($article['article_id'], ENT_QUOTES, 'UTF-8') ?>/<?= htmlspecialchars($article['sanitazed_title'], ENT_QUOTES, 'UTF-8') ?>"> Czytaj dalej</a>
+                        <a style="text-decoration: none;" href="article/<?= htmlspecialchars($article['article_id'], ENT_QUOTES, 'UTF-8') ?>/<?= htmlspecialchars($article['sanitazed_title'], ENT_QUOTES, 'UTF-8') ?>">
+                             Czytaj dalej
+                        </a>
                     <?php else: ?>
                         <?= $article['content_str'] ?>
                     <?php endif; ?>

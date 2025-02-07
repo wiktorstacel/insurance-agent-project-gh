@@ -14,6 +14,22 @@ class Article {
         $this->conn = $conn;
     }
 
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getContent() {
+        return $this->content;
+    }
+
+    public function getUserId() {
+        return $this->user_id;
+    }
+
+    public function getCategoryId() {
+        return $this->category_id;
+    }
+
     public function setArticleData($title, $content, $user_id, $category_id) {
         $this->title = $title;
         $this->content = $content;

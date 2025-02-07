@@ -4,10 +4,11 @@ require ('strona_kokpit_stage.php');
 require_once 'vendor/autoload.php';
 
 use Wikto\InsuranceAgentProjectGh\models\Article;
+use Wikto\InsuranceAgentProjectGh\validators\Article_Validator;
 
 class article_save extends kokpit_stage
 {
-    public function WyswietlPage()
+    public function WyswietlPage_old()
     {
         echo '
             <div id="content_kokpit">
@@ -17,57 +18,7 @@ class article_save extends kokpit_stage
         $title = $_POST['title']; 
         $content = $_POST['freeRTE_content'];
         
-        //Walidacja
-        if(isset($_POST['submit']))
-        {
-            $validation_OK = true;
-            
-            if($category_id == 0)
-            {
-                $validation_OK = false;
-                $_SESSION['e_category'] = "Przypisz artykuł do kategorii!";
-            }
-            
-            if(strlen($title) < 15 || strlen($title) > 128)
-            {
-                $validation_OK = false;
-                $_SESSION['e_title'] = "Tytuł musi mieć długość od 15 do 128 znaków!";
-            }           
-            elseif(!preg_match("/^(ą|ę| |\,|\.|\-|\?|\!|\%|ź|ć|ń|ó|&oacute;|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[0-9]|[a-z]|[A-Z]){15,64}$/", $title))
-            {
-                $validation_OK = false;
-                $_SESSION['e_title'] = "Dozwolone litery, cyfry, spacja oraz !?,.-!";
-            }
-            
-            if(strlen($content) < 100 || strlen($content) >100000)
-            {
-                $validation_OK = false;
-                $_SESSION['e_content'] = "Artykuł musi mieć długość od 100 do 100000 znaków!";
-            }
-            
-            $no_html_content = strip_tags($content);
-            $content_array = explode(" ", $no_html_content);
-            foreach($content_array as $word)
-            {
-                if(strlen($word) > 60)// && preg_match('/[^><a-zA-Z\d]/', $word)
-                {
-                    $validation_OK = false;
-                    $_SESSION['e_content'] = "Artykuł nie może zawierać ciągu znaków bez spacji powyżej 60! Tekst: ".substr($word, 0, 8)."...";;
-                    break;
-                }
-            }    
-            
-            //Usuwanie wyrażeń regularnych, kwestia pytania ile takich niebezpiecznych jest.
-            //Można wracać z informacją o usnięciu czegoś albo zablokować dostęp do konta.
-            $count = 0;
-            $vowels = array("<script>", "</script>", "onerror", "alert", "cookie", "kurwa", "chuj", "pierdol", "cipa", "dupa", "pizda");
-            $content = str_replace($vowels, " ", $content, $count);
-            if($count > 0)
-            {
-                $validation_OK = false;
-                $_SESSION['e_content'] = "Znaleziono w treści $count wyrażenia niedozwolone!";
-            }
-        }
+        
         //Walidacha nieudana, wracamy do edycji z zapamiętanymi danymi
         if($validation_OK == false) 
         {
@@ -156,7 +107,7 @@ class article_save extends kokpit_stage
 	
     }
 
-    public function ArticleSaveController()
+    public function WyswietlPage()//ArticleSaveController()
     {
         $title = isset($_POST['title']) ? trim($_POST['title']) : '';
         $content = isset($_POST['freeRTE_content']) ? trim($_POST['freeRTE_content']) : '';
@@ -165,7 +116,25 @@ class article_save extends kokpit_stage
         
         include 'config_db.php';
         $articleModel = new Article($conn);
-        $articleModel->setArticleData($title, $content, $user_id, $category_id)->create();//setArticleData() musi zwracać $this, żeby było możliwe wywołanie łańcuchowe
+        $articleModel->setArticleData($title, $content, $user_id, $category_id);//->create();//setArticleData() musi zwracać $this, żeby było możliwe wywołanie łańcuchowe
+    
+        if (isset($_POST['submit'])) {
+            $title = $_POST['title'] ?? '';
+            $content = $_POST['content'] ?? '';
+        
+            $articleValidator = new Article_Validator($articleModel);
+            //echo "<br> Badanie klasy Article - metody: ";
+            //print_r(get_class_methods($articleModel));
+            //echo "<br> Badanie klasy Article - właściwości: ";
+            //print_r(get_class_vars(Article::class));
+            if ($articleValidator->validate()) {
+                echo "Dane poprawne!";
+                $articleModel->create();
+            } else {
+                echo "Błędy: ";
+                print_r($articleValidator->getErrors());
+            }
+        }
     }
 }
 
