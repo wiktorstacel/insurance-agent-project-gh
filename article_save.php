@@ -28,25 +28,27 @@ class article_save extends kokpit_stage
             if ($articleValidator->validate()) {
                 //echo "Dane poprawne!";
                 if(isset($_POST['article_id'])){
-                    $message = $articleModel->update($_POST['article_id']);
+                    $message = $articleModel->update($_POST['article_id']);//rozważyć osobny kontroler dla update() i create() wg MVC
                 }
                 else{
-                    $message = $articleModel->create();
+                    $message = $articleModel->create();//rozważyć osobny kontroler dla update() i create() wg MVC
                 }
                 $this->render('views/article_save.php', ['message' => $message]);
             } else {
                 //echo "Błędy: ";
-                //print_r($articleValidator->getErrors());
                 $_SESSION['errors'] = $articleValidator->getErrors();
                 $_SESSION['mem_category_id'] = $category_id;
                 $_SESSION['mem_title'] = $title;
                 $_SESSION['mem_content'] = $_POST['freeRTE_content'];
                 if(isset($_POST['article_id'])) 
                 {header('location: freerte/examples/edycja_articles.php?article_id='.$_POST['article_id']);}
-                else 
+                else
                 {header('location: freerte/examples/edycja_articles.php?article_id=new');}
                 exit();
             }
+        }
+        else{
+            $this->render('views/article_save.php', ['message' => 'Artykuł nie został zapisany poprawnie. Edytuj artykuł z listy a następnie zatwierdź zmiany za pomocą przycisku ZAPISZ.']);
         }
     }
 }
