@@ -40,6 +40,12 @@ class kokpit_stage
 
       echo "</body>\n</html>\n";
     }
+
+    protected function render($view, $data = [])
+    {
+        extract($data);//extract($data) konwertuje tablicę ['article' => $article] na zmienną $article, która jest dostępna w pliku article.php (widoku).
+        include $view;
+    }
     
     public function ObsluzSesje()
     {

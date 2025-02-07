@@ -124,14 +124,14 @@ class edycja_articles extends kokpit_stage
               ?>
               </select>
               <?php
-              if(isset($_SESSION['e_category']))
-              {echo '<span class="form-error-little">'.$_SESSION['e_category'].'</span>'; unset($_SESSION['e_category']);}
+              if(isset($_SESSION['errors']['category']))
+              {echo '<span class="form-error-little">'.$_SESSION['errors']['category'].'</span>'; unset($_SESSION['errors']['category']);}
               ?>
               <br /><br />
               Tytuł: <input name="title" type="text" size="50" maxlength="70" style="text-align:left; color: black" value="<?php echo $title?>">
               <?php
-              if(isset($_SESSION['e_title']))
-              {echo '<span class="form-error-little">'.$_SESSION['e_title'].'</span>'; unset($_SESSION['e_title']);}
+              if(isset($_SESSION['errors']['title']))
+              {echo '<span class="form-error-little">'.$_SESSION['errors']['title'].'</span>'; unset($_SESSION['errors']['title']);}
               ?>
               <br /><br />
               <!-- Include the Free Rich Text Editor Runtime -->
@@ -143,8 +143,8 @@ class edycja_articles extends kokpit_stage
               initRTE('<?= $content ?>', 'example.css');
               </script>
               <?php
-              if(isset($_SESSION['e_content']))
-              {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
+              if(isset($_SESSION['errors']['content']))
+              {echo '<span class="form-error-little">'.$_SESSION['errors']['content'].'</span><br>'; unset($_SESSION['errors']['content']);}
               ?>
               <br />
               <input type="submit" name="submit" value="Dodaj" class="btn btn-primary">
@@ -210,14 +210,14 @@ class edycja_articles extends kokpit_stage
               ?>
               </select>
               <?php
-              if(isset($_SESSION['e_category']))
-              {echo '<span class="form-error-little">'.$_SESSION['e_category'].'</span>'; unset($_SESSION['e_category']);}
+              if(isset($_SESSION['errors']['category']))
+              {echo '<span class="form-error-little">'.$_SESSION['errors']['category'].'</span>'; unset($_SESSION['errors']['category']);}
               ?>
               <br /><br />
               Tytuł: <input name="title" type="text" size="50" maxlength="200" value="<?php echo $title?>" style="text-align:left; color: black">
               <?php
-              if(isset($_SESSION['e_title']))
-              {echo '<span class="form-error-little">'.$_SESSION['e_title'].'</span>'; unset($_SESSION['e_title']);}
+              if(isset($_SESSION['errors']['title']))
+              {echo '<span class="form-error-little">'.$_SESSION['errors']['title'].'</span>'; unset($_SESSION['errors']['title']);}
               ?>
               <br /><br />
               <!-- Include the Free Rich Text Editor Runtime -->
@@ -229,8 +229,8 @@ class edycja_articles extends kokpit_stage
               initRTE('<?= $content ?>', 'example.css');
               </script>
               <?php
-              if(isset($_SESSION['e_content']))
-              {echo '<span class="form-error-little">'.$_SESSION['e_content'].'</span><br>'; unset($_SESSION['e_content']);}
+              if(isset($_SESSION['errors']['content']))
+              {echo '<span class="form-error-little">'.$_SESSION['errors']['content'].'</span><br>'; unset($_SESSION['errors']['content']);}
               ?>
               <br />
               <input type="submit" name="submit" value="Zapisz" class="btn btn-primary">

@@ -68,19 +68,13 @@ class article_load extends Strona2
         try 
         {        
             $article = $articleModel->getArticleById($article_id);// Pobranie artykułu z modelu
-            //include 'views/article.php';//załadowanie widoku
+            //include 'views/article_load.php';//załadowanie widoku
             $this->render('views/article_load.php', ['article' => $article]);//Widok w wzorcach MVC powinien otrzymywać dane od kontrolera w postaci zmiennych, które będą używane do dynamicznego generowania treści strony.
         }
         catch(Exception $e)
         {
             echo '<p>Wystąpił błąd podczas pobierania artykułu: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
         }
-    }
-
-    private function render($view, $data = [])//rozważyć umieszczenie w strona_stage.php, jednak jest to coś z MVC, że powinno być private przy kontrolorze- trzeba doczytać.
-    {
-        extract($data);//extract($data) konwertuje tablicę ['article' => $article] na zmienną $article, która jest dostępna w pliku article.php (widoku).
-        include $view;
     }
 
 }

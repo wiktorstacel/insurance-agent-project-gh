@@ -27,15 +27,16 @@ class Article_Validator
         {
             $this->errors['title'] = "Tytuł musi mieć długość od 15 do 128 znaków!";
         }           
-        elseif(!preg_match("/^(ą|ę| |\,|\.|\-|\?|\!|\%|ź|ć|ń|ó|&oacute;|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[0-9]|[a-z]|[A-Z]){15,64}$/", $this->article->getTitle()))
+        //if(!preg_match("/^(ą|ę| |\,|\.|\-|\?|\!|\%|ź|ć|ń|ó|&oacute;|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[0-9]|[a-z]|[A-Z])$/", $this->article->getTitle()))
+        if(!preg_match("/^[ąćęóźćńóśżłĄĘŹĆŃÓŚŻ0-9a-zA-Z ,.\-!?%]*$/", $this->article->getTitle()))
         {
             //!preg_match('/^[\p{L}\p{N} ,.!\-?%]+$/u', $title) - do przetestowania
-            $this->errors['title'] = "Dozwolone litery, cyfry, spacja oraz !?,.-!";
+            $this->errors['title'] .= " Dozwolone litery, cyfry, spacja oraz !?,.-!";
         }
 
         if(strlen($this->article->getContent()) < 100 || strlen($this->article->getContent()) >100000)
         {
-            $this->errors['content_long'] = "Artykuł musi mieć długość od 100 do 100000 znaków!";
+            $this->errors['content'] = "Artykuł musi mieć długość od 100 do 100000 znaków!";
         }
 
         $no_html_content = strip_tags($this->article->getContent());
@@ -44,7 +45,7 @@ class Article_Validator
         {
             if(strlen($word) > 60)// && preg_match('/[^><a-zA-Z\d]/', $word)
             {
-                $this->errors['content_word'] = "Artykuł nie może zawierać ciągu znaków bez spacji powyżej 60! Tekst: ".substr($word, 0, 8)."...";;
+                $this->errors['content'] .= " Artykuł nie może zawierać ciągu znaków bez spacji powyżej 60! Tekst: ".substr($word, 0, 8)."...";;
                 break;
             }
         }
@@ -64,7 +65,7 @@ class Article_Validator
             // Tworzymy komunikat zawierający wykryte słowa
             $forbidden_words = implode(', ', array_unique($matches[0]));
             // Przypisujemy komunikat o błędzie
-            $this->errors['content_wulg'] = "Znaleziono w treści $count wyrażenia niedozwolone: $forbidden_words";
+            $this->errors['content'] .= " Znaleziono w treści $count wyrażenia niedozwolone: $forbidden_words";
         }
 
         return empty($this->errors);

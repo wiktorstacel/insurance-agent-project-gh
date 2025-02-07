@@ -65,6 +65,12 @@ class Strona2
             echo '<script language="JavaScript" type="text/javascript" src="js/listeners_agent.js"></script>';
         echo "</body>\n</html>\n";
     }
+
+    protected function render($view, $data = [])//rozważyć umieszczenie w strona_stage.php, jednak jest to coś z MVC, że powinno być private przy kontrolorze- trzeba doczytać.
+    {
+        extract($data);//extract($data) konwertuje tablicę ['article' => $article] na zmienną $article, która jest dostępna w pliku article.php (widoku).
+        include $view;
+    }
     
     public function ObsluzSesje()
     {
