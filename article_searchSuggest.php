@@ -1,20 +1,6 @@
 <?php
 
-function rewrite($string){ 
-  $a = array( 'Ę', 'Ó', 'Ą', 'Ś', 'Ł', 'Ż', 'Ź', 'Ć', 'Ń', 'ę', 'ó', 'ą',
-              'ś', 'ł', 'ż', 'ź', 'ć', 'ń' );
-  $b = array( 'E', 'O', 'A', 'S', 'L', 'Z', 'Z', 'C', 'N', 'e', 'o', 'a',
-              's', 'l', 'z', 'z', 'c', 'n' );
-
-      $string = str_replace("&oacute;", "o", $string );//2021-01-29: dodane, może tylko moja klawiatura daje to zamiast ó
-      $string = str_replace( $a, $b, $string );
-      $string = preg_replace( '#[^a-z0-9]#is', ' ', $string );
-      $string = trim( $string );
-      $string = preg_replace( '#\s{2,}#', ' ', $string );
-      $string = str_replace( ' ', '-', $string );
-      $string = strtolower($string);
-      return $string;
-}
+require ('strona_stage.php');
 
 if(isset($_POST['suggestion']) && $_POST['suggestion'] != NULL)
 {
@@ -27,7 +13,7 @@ if(isset($_POST['suggestion']) && $_POST['suggestion'] != NULL)
 
     while($rekord=mysqli_fetch_assoc($q))
     {
-        $sanitazed_title = rewrite($rekord['title']);
+        $sanitazed_title = Strona2::rewrite($rekord['title']); //Ważne: użycie metody statycznej bez tworzenia obiektu lub konieczności skopiowania funkcji rewrite($string) to tego pliku
         echo '<a style="color:inherit;" href="article/'.$rekord['article_id'].'/'.$sanitazed_title.'">'.$rekord['title'].'</a>';
         echo "<br>";
 //            echo strpos($rekord['title'], $name);

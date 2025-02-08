@@ -15,7 +15,7 @@ class index extends Strona2
 
             foreach($articles as $key => $article) //formatowanie tytułu i kontentu - dopisanie tych wartości do $article pod nowymi kluczami, żeby w widoku wyświetlić tytlko zmienne a nie mieć tam logiki php
             {
-                $articles[$key]['sanitazed_title'] = $this->rewrite($article['title']);
+                $articles[$key]['sanitazed_title'] = self::rewrite($article['title']);
 
                 $no_html = strip_tags(htmlspecialchars($article['content'], ENT_QUOTES, 'UTF-8'));
                 if( strlen($no_html) > 600) 

@@ -30,7 +30,7 @@ class article_loadSearch extends Strona2
                 {
                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                     {
-                    $sanitazed_title = $this->rewrite($row[1]);
+                    $sanitazed_title = self::rewrite($row[1]);
                     echo'<div class="col-sm-12"><article>';
                     echo'<header><h3 class="title"><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></h3></header>';
                     echo '<br />';

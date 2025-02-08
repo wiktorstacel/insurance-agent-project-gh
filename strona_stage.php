@@ -96,7 +96,7 @@ abstract class Strona2 //klasa abstrakcyjna nie może być instancjonowana (nie 
         }
     }
     
-    protected function rewrite($string)
+    static function rewrite($string)
     { 
         $a = array( 'Ę', 'Ó', 'Ą', 'Ś', 'Ł', 'Ż', 'Ź', 'Ć', 'Ń', 'ę', 'ó', 'ą',
                   'ś', 'ł', 'ż', 'ź', 'ć', 'ń' );
@@ -210,7 +210,7 @@ abstract class Strona2 //klasa abstrakcyjna nie może być instancjonowana (nie 
                                         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                                         {       
-                                            $sanitazed_name = $this->rewrite($row[1]);
+                                            $sanitazed_name = self::rewrite($row[1]);
                                             echo'<a class="dropdown-item" href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a>';
                                         }
                                     
@@ -281,7 +281,7 @@ abstract class Strona2 //klasa abstrakcyjna nie może być instancjonowana (nie 
                         if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                         while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                         {
-                            $sanitazed_name = $this->rewrite($row[1]);
+                            $sanitazed_name = self::rewrite($row[1]);
                             echo'<li class="first">
                                     <p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
                             </li>';
@@ -330,7 +330,7 @@ abstract class Strona2 //klasa abstrakcyjna nie może być instancjonowana (nie 
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                                     {       
-                                        $sanitazed_title = $this->rewrite($row[1]);
+                                        $sanitazed_title = self::rewrite($row[1]);
 					echo'<li class="first">
 						<p>'.$row[3].'</p>
 						<p><a href="article/'.$row[0].'/'.$sanitazed_title.'">'.$row[1].'</a></p>
@@ -348,7 +348,7 @@ abstract class Strona2 //klasa abstrakcyjna nie może być instancjonowana (nie 
                                     if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}                        
                                     while($row = mysqli_fetch_array($result, MYSQLI_NUM))
                                     {       
-                                        $sanitazed_name = $this->rewrite($row[1]);
+                                        $sanitazed_name = self::rewrite($row[1]);
 					echo'<li class="first">
 						<p><a href="category/'.$row[0].'/'.$sanitazed_name.'">'.$row[1].'</a></p>
 					</li>';
