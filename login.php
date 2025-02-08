@@ -14,6 +14,11 @@ class login extends Strona2
             exit();
         }
     }
+
+    public function WyswietlPage()
+    {
+        //
+    }
     
     public function WyswietlSidebar()
     {
