@@ -1,56 +1,37 @@
 <?php
 
 require ('strona_stage.php');
+require_once 'vendor/autoload.php';
 
-class register extends Strona2
+use Wikto\InsuranceAgentProjectGh\models\Register;
+
+class register_page extends Strona2
 {
-    
+    private $registerModel;
     public function WyswietlPage()
     {
-        echo '
-                <div id="rejestra_field">
-                    <h3 class="title" style="text-align: center;">Utwórz konto</h3>
-                    <div id="rejestra_div">
-                    <form id="rejestra_form" method="POST" action="register.php">
-                            <fieldset>
-                            <label for="rej_login">Login: </label>
-                            <input id="rej_login" type="text" name="rej_login" value="" />
-                            <br /><br />
-                            <label for="rej_email">E-mail: </label>
-                            <input id="rej_email" type="text" name="rej_email" value="" />
-                            <br /><br />
-                            <label for="rej_haslo">Twoje Hasło: </label>
-                            <input id="rej_haslo" type="password" name="rej_haslo" value="" />
-                            <br /><br />
-                            <label for="rej_haslo2">Powtórz Hasło: </label>
-                            <input id="rej_haslo2" type="password" name="rej_haslo2" value="" />
-                            <br /><br />Płeć: 
-                            <label id="rej_male" style="padding: 3px 4px 0 0;"><input id="rej_male_inp" type="radio" class="form-check-input" name="gender" value="male"> M</label> 
-                            <label id="rej_female" style="padding: 3px 4px 0 0;"><input id="rej_female_inp" type="radio" class="form-check-input" name="gender" value="female"> K</label>
-                            <br /><br />
-                            <label for="rej_haslo2">Znajomość języków obcych*: </label>
-                            <br />
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language1" value="angielski" > angielski </label>
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language2" value="niemiecki" > niemiecki </label>
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language3" value="francuski" > francuski </label>
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language4" value="ukrainski" > ukraiński </label>
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language5" value="hiszpanski" > hiszpański </label>
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language6" value="wloski"> włoski </label>
-                            <label><input type="checkbox" class="form-check-input" name="language" id="language7" value="rosyjski" > rosyjski </label>
-                            <br /><br />
-                            <label><input id="rej_regulamin" type="checkbox" class="form-check-input" name="rej_regulamin" /> Akceptuję </label>
-                            <a href="regulamin.php">regulamin</a>
-                            <br /><br />
-                            <div style="width: 304px; margin: auto;" class="g-recaptcha" data-sitekey="6LfV2UUaAAAAAKkcskYoAimOqSAJMW0XLM78uu9d"></div> 
-                            <br />
-                            <input id="rejestra_submit" type="submit" value="Utwórz konto" />
-                            <br /><br />
-                            <p id="rejestra_message"></p>
-                            </fieldset>
-                    </form>
-                    </div>
-                </div>
-        ';
+        $this->render('views/register.php');
+    }
+
+    public static function form_begin($action, $method, $id)
+    {
+        return sprintf('<form action="%s" method="%s" id="%s">', $action, $method, $id);
+    }
+
+    public static function form_end()
+    {
+        return '</form>';
+    }
+
+    public static function form_field($label, $attribute)
+    {
+        return sprintf('
+                    <label for="rej_%s">%s: </label>
+                    <input id="rej_%s" type="text" name="rej_%s" value="" />', 
+                    $attribute,
+                    $label,  
+                    $attribute,
+                    $attribute);
     }
 
 }
@@ -60,7 +41,7 @@ $show_content = true;
 $show_sidebar = false; 
 $show_motto = true;
 
-$register = new register($header_type, $show_content, $show_sidebar, $show_motto);
+$register = new register_page($header_type, $show_content, $show_sidebar, $show_motto);
 
 $register -> title = 'Rejestracja - utwórz konto';
 
