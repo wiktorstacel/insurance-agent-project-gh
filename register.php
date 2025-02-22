@@ -23,13 +23,14 @@ class register_page extends Strona2
         return '</form>';
     }
 
-    public static function form_field($label, $attribute)
+    public static function form_field($label, $attribute, $type)
     {
         return sprintf('
                     <label for="rej_%s">%s: </label>
-                    <input id="rej_%s" type="text" name="rej_%s" value="" />', 
+                    <input type="%s" id="rej_%s" name="rej_%s" value="" />', 
                     $attribute,
-                    $label,  
+                    $label,
+                    $type,  
                     $attribute,
                     $attribute);
     }

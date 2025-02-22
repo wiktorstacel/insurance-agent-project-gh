@@ -4,13 +4,13 @@
         <?php echo register_page::form_begin('register.php', 'POST', 'rejestra_form');?>
         <!--<form action="register.php" method="POST" id="rejestra_form">-->
             <fieldset>
-            <?php echo register_page::form_field('Login', 'login');?>
+            <?php echo register_page::form_field('Login', 'login', 'text');?>
             <br /><br />
-            <?php echo register_page::form_field('E-mail', 'email');?>
+            <?php echo register_page::form_field('E-mail', 'email', 'text');?>
             <br /><br />
-            <?php echo register_page::form_field('Twoje Hasło', 'haslo');?>
+            <?php echo register_page::form_field('Twoje Hasło', 'haslo', 'password');?>
             <br /><br />
-            <?php echo register_page::form_field('Powtórz Hasło', 'haslo2');?>
+            <?php echo register_page::form_field('Powtórz Hasło', 'haslo2', 'password');?>
             <br /><br />Płeć: 
             <label id="rej_male" style="padding: 3px 4px 0 0;"><input id="rej_male_inp" type="radio" class="form-check-input" name="gender" value="male"> M</label> 
             <label id="rej_female" style="padding: 3px 4px 0 0;"><input id="rej_female_inp" type="radio" class="form-check-input" name="gender" value="female"> K</label>
