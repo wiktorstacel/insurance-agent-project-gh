@@ -45,7 +45,7 @@ $(document).ready(function(){
             gender: gender,
             languages: languages,
             submit: submit
-        }, function(response) {
+        }, function(response) { //Przetwarzanie JSON otrzymanego od PHP
             //$("#rejestra_message").html(response);
             for (let key in response) { //iteracja po error gdyż indeksy zawierające message np 'empty', 'login itd. mogą być różne
                 if (response.hasOwnProperty(key)) {

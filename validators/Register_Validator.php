@@ -56,7 +56,15 @@ class Register_Validator
         elseif(!$this->register->getRegulamin())//czy zaakceptowano regulamin
         {
             $this->errors['regulamin'] = "Potwierdź akceptację regulaminu!";
-        }   
+        }
+        elseif(!$this->register->isLoginUnique($this->register->getLogin())) 
+        {
+            $this->errors['login'] = "Istnieje już konto z takim loginem!";
+        }  
+        elseif(!$this->register->isEmailUnique($this->register->getEmail())) 
+        {
+            $this->errors['email'] = "Istnieje już konto z takim e-mail!";
+        }  
         /*elseif(empty($_POST['captchaResponse']))
         {
             //reCapcha

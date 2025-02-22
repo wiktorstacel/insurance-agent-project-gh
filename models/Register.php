@@ -2,9 +2,7 @@
 
 namespace Wikto\InsuranceAgentProjectGh\models;
 
-class Register {
-    private $conn;
-
+class Register extends Model{
     private $login;
     private $email;
     private $haslo;
@@ -13,10 +11,6 @@ class Register {
     private $languages;
     private $regulamin;
     //private $haslo_hash;
-
-    public function __construct($conn) {
-        $this->conn = $conn;
-    }
 
     public function getLogin() {
         return $this->login;
@@ -57,6 +51,43 @@ class Register {
 
         return $this; // Dzięki temu możliwe jest wywołanie łańcuchowe
     }
+
+    public function createUser($token)
+    {
+        $haslo_hash = password_hash($this->haslo, PASSWORD_DEFAULT);
+        
+        $query = "INSERT INTO users (`login`, `pass`, `email`, `gender`, `languages`, `token`) 
+                VALUES (?, ?, ?, ?, ?, ?)";
+        
+        $params = [$this->login, $haslo_hash, $this->email, $this->gender, $this->languages, $token];
+        $types = "ssssss";//UWAGA: nie generuje błędu jak jest tutaj namieszane np "ssssssfgj";
+
+        $stmt = $this->executeQuery($query, $params, $types);
+        $stmt->close();
+
+        return true;
+    }
+
+
+    //Sprawdza, że login podany w rejestracji jest unikalny
+    public function isLoginUnique($login)
+    {
+        $stmt = $this->executeQuery("SELECT COUNT(*) FROM users WHERE login = ?", [$login], "s");
+        $count = $this->fetchSingleResult($stmt);
+    
+        return $count === 0;
+    }
+
+    //Sprawdza, że email podany w rejestracji jest unikalny
+    public function isEmailUnique($email)
+    {
+        $stmt = $this->executeQuery("SELECT COUNT(*) FROM users WHERE email = ?", [$email], "s");
+        $count = $this->fetchSingleResult($stmt);
+    
+        return $count === 0;
+    }
+    
+
 }
 
 ?>

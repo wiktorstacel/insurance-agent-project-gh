@@ -6,6 +6,8 @@ require_once 'vendor/autoload.php';
 use Wikto\InsuranceAgentProjectGh\models\Register;
 use Wikto\InsuranceAgentProjectGh\validators\Register_Validator;
 
+//use PHPMailer\PHPMailer\PHPMailer;
+
 class register_page extends Strona2
 {
     private $registerModel;
@@ -49,7 +51,6 @@ class register_page extends Strona2
             $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_SPECIAL_CHARS);
             $languages = isset($_POST['languages']) ? trim($_POST['languages']) : '';
             $regulamin = filter_var($_POST['regulamin'], FILTER_VALIDATE_BOOLEAN);
-            //$haslo_hash = password_hash($haslo, PASSWORD_DEFAULT);
         }
         else
         {
@@ -63,10 +64,61 @@ class register_page extends Strona2
 
         $registerValidator = new Register_Validator($registerModel);
  
-        if (!$registerValidator->validate()) {
+        if (!$registerValidator->validate()) 
+        {
             echo $registerValidator->getErrorsAsJson();
-        } else {
-            echo json_encode(['success' => 'Rejestracja udana!']);
+        } 
+        else 
+        {
+            try {
+                if($token = $this->sendVerificationEmail($email))
+                {
+                    if ($registerModel->createUser($token)) 
+                    {
+                        echo json_encode(['success' => 'Nowe konto utworzone! Sprawdź skrzynkę pocztową i potwierdź rejestrację.']);
+                    } 
+                    else 
+                    {
+                        echo json_encode(['error' => 'Nie udało się utworzyć konta.']);
+                    }
+                }
+            } catch (Exception $e) {
+                echo json_encode(['error' => 'Wystąpił błąd: ' . $e->getMessage()]);
+            }
+        }
+    }
+
+    public function sendVerificationEmail($email) //do przerobienia: ogólnie jedna funkcja wysyłająca e-mail w różnym celu
+    {
+        //Tworzenie tokena do weryfikacji e-maila
+        $token = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789!/)(*';
+        $token = str_shuffle($token);
+        $token = substr($token, 0, 20);
+
+        //Wysłanie email do użytkownika w celu weryfikacji
+        include_once "PHPMailer/PHPMailer.php";
+        include_once "PHPMailer/SMTP.php";
+        include_once "PHPMailer/Exception.php";
+
+        require_once 'config_smtp.php';
+        //Email Settings
+        $mail->isHTML(true);
+        $mail->CharSet = "UTF-8";
+        $mail->setFrom('info@ubezpieczenia-odszkodowania.pl');
+        $mail->FromName="ubezpieczenia-odszkodowania";
+        $mail->addAddress($email);
+        $mail->Subject = "Weryfikacja adresu e-mail - serwis Ubezpieczenia i Odszkodowania";
+        $mail->Body = "
+            Kliknij poniższy link w celu weryfikacji adresu e-mail:<br><br>
+
+            <a href='https://ubezpieczenia-odszkodowania.pl/register_verify_acc.php?email=$email&token=$token'>Weryfikacja</a>
+        ";
+        if (!$mail->send()) {
+            throw new Exception("Błąd podczas wysyłania wiadomości: " . $mail->ErrorInfo);
+        }
+        else
+        {
+            return $token;
         }
     }
     
@@ -85,6 +137,7 @@ $register -> keywords = 'ubezpieczenia, komunikacyjne, rzeszów, podkarpackie';
 
 $register -> description = 'Rejestracja - utwórz konto';
 
+//Kontroler - jedna klasa, która wyświetla formularz a potem przetwarza z niego dane po 'submit'
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $register->processRegisterForm();  // Odbiór danych
 } else {
