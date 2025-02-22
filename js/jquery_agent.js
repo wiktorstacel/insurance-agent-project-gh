@@ -31,11 +31,11 @@ $(document).ready(function(){
         });
         var languages = selectedLanguage.toString();
         //alert("Number of selected Languages: "+selectedLanguage.length+"\n"+"And, they are: "+selectedLanguage);
-        var regulamin = $("#rej_regulamin").prop('checked');         //checkbox pojedyńczy
-        //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset()
+        var regulamin = $("#rej_regulamin").prop('checked');         //checkbox pojedyńczy - uwaga wystawia "true" lub "false" i potrzeba w PHP FILTER_VALIDATE_BOOLEAN, że rozpoznawało jako boolean
+        //console.log(regulamin); //wyswietla true lub false, nie da się obsłużyć standardowo isset() //register_add_accAction.php
         var captchaResponse = grecaptcha.getResponse();
         var submit = $("#rejestra_submit").val();
-        $("#rejestra_message").load("register_add_accAction.php", {
+        $.post("register.php", {
             login: login,
             email: email,
             haslo: haslo,
@@ -45,7 +45,18 @@ $(document).ready(function(){
             gender: gender,
             languages: languages,
             submit: submit
-        });
+        }, function(response) {
+            //$("#rejestra_message").html(response);
+            for (let key in response) { //iteracja po error gdyż indeksy zawierające message np 'empty', 'login itd. mogą być różne
+                if (response.hasOwnProperty(key)) {
+                    $("#rejestra_message").html("<p style='color: red;'>" + response[key] + "</p>");
+                    break; // Zatrzymuje się po pierwszym błędzie
+                }
+            }
+            if (response.success) {
+                $("#rejestra_message").html("<p style='color: green;'>" + response.success + "</p>");
+            }
+        }, "json");//*/});
     });
     
 });

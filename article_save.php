@@ -8,7 +8,7 @@ use Wikto\InsuranceAgentProjectGh\validators\Article_Validator;
 
 class article_save extends kokpit_stage
 {
-    public function WyswietlPage()//ArticleSaveController()
+    public function WyswietlPage()//ArticleSaveController() - może właściwsza nazwa processArticleData()
     {
         $title = isset($_POST['title']) ? trim($_POST['title']) : '';
         $content = isset($_POST['freeRTE_content']) ? trim($_POST['freeRTE_content']) : '';

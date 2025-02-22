@@ -12,6 +12,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 if(isset($_POST['submit']))
 {
+    $errors = [];
+
     $login = htmlentities($_POST['login'], ENT_QUOTES, "UTF-8");
     $email = htmlentities($_POST['email'], ENT_QUOTES, "UTF-8");
     $haslo = htmlentities($_POST['haslo'], ENT_QUOTES, "UTF-8");
@@ -35,53 +37,63 @@ if(isset($_POST['submit']))
     
     if(empty($login) || empty($email) || empty($haslo) || empty($haslo2))//czy jest jakieś puste pole
     {
-        echo '<span class="form-error">Wypełnij wszystkie pola!</span>';
         $errorEmpty = true;
+        echo '<span class="form-error">Wypełnij wszystkie pola!</span>';
+        $errors['empty'] = "Wypełnij wszystkie pola!";
     }
     elseif(ctype_alnum($login) == false)//sprawdź odpowiednie znaki login
     {
         $errorLogin = true;
         echo '<span class="form-error">Login może składać się tylko z liter i cyfr (bez polskich znaków)!</span>';
+        $errors['login'] = "Login może składać się tylko z liter i cyfr (bez polskich znaków)!";
     }
     elseif(strlen($login) < 3 || strlen($login) > 20)//sprawdz długość login
     {
         $errorLogin = true;
         echo '<span class="form-error">Login musi posiadać od 3 do 20 znaków!</span>';
+        $errors['login'] .= " Login musi posiadać od 3 do 20 znaków!";
     }
     elseif ((!filter_var($emailB, FILTER_VALIDATE_EMAIL)) || $email != $emailB) //sprawdz poprawnosc email
     {
         $errorEmail = true;
         echo '<span class="form-error">Wprowadź poprawny e-mail!</span>';   
+        $errors['email'] = "Wprowadź poprawny e-mail!";
     }
     elseif((strlen($haslo) < 8) || (strlen($haslo) > 20))//sprawdz poprawność hasla
     {
         $errorHaslo = true;
         echo '<span class="form-error">Hasło musi posiadać od 8 do 20 znaków!</span>';
+        $errors['haslo'] = "Hasło musi posiadać od 8 do 20 znaków!";
     }
     elseif (!preg_match("#[0-9]+#", $haslo)) 
     {
         $errorHaslo = true;
         echo '<span class="form-error">Hasło musi posiadać co najmniej jedną cyfrę!</span>';
+        $errors['haslo'] .= " Hasło musi posiadać od 8 do 20 znaków!";
     }
     elseif (!preg_match("#[a-zA-Z]+#", $haslo)) 
     {
         $errorHaslo = true;
         echo '<span class="form-error">Hasło musi posiadać co najmniej jedną literę!</span>';
+        $errors['haslo'] .= " Hasło musi posiadać co najmniej jedną literę!";
     }
     elseif($haslo != $haslo2)//sprawdz zgodność 2 haseł
     {
         $errorHaslo2 = true;
         echo '<span class="form-error">Podane hasła nie są identyczne!</span>';
+        $errors['haslo2'] = "Podane hasła nie są identyczne!";
     }
     elseif(!isset($_POST['gender']))//sprawdz czy zaznaczono płeć
     {
         $errorGender = true;
         echo '<span class="form-error">Zaznacz pole płeć!</span>';
+        $errors['gender'] = "Zaznacz pole płeć!";
     }
     elseif($regulamin != 1)//czy zaakceptowano regulamin
     {
         $errorRegulamin = true;
         echo '<span class="form-error">Potwierdź akceptację regulaminu!</span>';
+        $errors['regulamin'] = "Potwierdź akceptację regulaminu!";
     }   
     elseif(empty($_POST['captchaResponse']))
     {
@@ -90,6 +102,7 @@ if(isset($_POST['submit']))
         //w js(jquery) i przesyłam do tego pliku pod inną nazwą
         $errorBot = true;
         echo '<span class="form-error">Potwierdź, że nie jesteś robotem!</span>';
+        $errors['bot'] = "Potwierdź, że nie jesteś robotem!";
     }
     else
     {
@@ -101,6 +114,7 @@ if(isset($_POST['submit']))
         {
             $errorBot = true;
             echo '<span class="form-error">Błąd weryfikacji reCaptcha!</span>';
+            $errors['bot'] = "Błąd weryfikacji reCaptcha!";
         }
     }
     
