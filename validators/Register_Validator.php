@@ -39,11 +39,11 @@ class Register_Validator
         }
         elseif (!preg_match("#[0-9]+#", $this->register->getHaslo())) 
         {
-            $this->errors['haslo'] .= " Hasło musi posiadać od 8 do 20 znaków!";
+            $this->errors['haslo'] = "Hasło musi posiadać co najmniej jedną cyfrę!";
         }
         elseif (!preg_match("#[a-zA-Z]+#", $this->register->getHaslo())) 
         {
-            $this->errors['haslo'] .= " Hasło musi posiadać co najmniej jedną literę!";
+            $this->errors['haslo'] = "Hasło musi posiadać co najmniej jedną literę!";
         }
         elseif($this->register->getHaslo() !== $this->register->getHaslo2())//sprawdz zgodność 2 haseł
         {

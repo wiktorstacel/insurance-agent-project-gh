@@ -46,15 +46,31 @@ $(document).ready(function(){
             languages: languages,
             submit: submit
         }, function(response) { //Przetwarzanie JSON otrzymanego od PHP
-            //$("#rejestra_message").html(response);
+            $("#rejestra_message").html(response);
+            $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female, #rej_regulamin").removeClass("input-error");
             for (let key in response) { //iteracja po error gdyż indeksy zawierające message np 'empty', 'login itd. mogą być różne
                 if (response.hasOwnProperty(key)) {
                     $("#rejestra_message").html("<p style='color: red;'>" + response[key] + "</p>");
+                    if(key == 'empty')
+                    {
+                        $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2").addClass("input-error");
+                    }
+                    else if (key == 'gender')
+                    {
+                        $("#rej_male, #rej_female").addClass("input-error");
+                    }
+                    else
+                    {
+                        $("#rej_"+key).addClass("input-error");
+                    }
                     break; // Zatrzymuje się po pierwszym błędzie
                 }
             }
             if (response.success) {
                 $("#rejestra_message").html("<p style='color: green;'>" + response.success + "</p>");
+                $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2, #rej_male, #rej_female").val("");
+                $("#language1, #language2, #language3, #language4, \n\
+                #language5, #language6, #language7, #rej_male_inp, #rej_female_inp, #rej_regulamin").prop('checked', false);
             }
         }, "json");//*/});
     });

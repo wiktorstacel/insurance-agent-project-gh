@@ -69,7 +69,7 @@ if(isset($_POST['submit']))
     {
         $errorHaslo = true;
         echo '<span class="form-error">Hasło musi posiadać co najmniej jedną cyfrę!</span>';
-        $errors['haslo'] .= " Hasło musi posiadać od 8 do 20 znaków!";
+        $errors['haslo'] .= " Hasło musi posiadać co najmniej jedną cyfrę!";
     }
     elseif (!preg_match("#[a-zA-Z]+#", $haslo)) 
     {
