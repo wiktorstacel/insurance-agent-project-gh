@@ -11,6 +11,15 @@ abstract class Model
         $this->conn = $conn;
     }
 
+    public function loadData($data)
+    {
+        foreach ($data as $key => $value) { //Przechodzi przez wszystkie klucze i wartości w $data (foreach).
+            if(property_exists($this, $key)) { //Sprawdza, czy dany klucz ($key) istnieje jako właściwość w obiekcie (property_exists($this, $key)).
+                $this->{$key} = $value; //Jeśli tak, przypisuje wartość do tej właściwości ($this->{$key} = $value;).
+            }
+        }
+    }
+
     protected function executeQuery($query, $params, $types = "")
     {
         try

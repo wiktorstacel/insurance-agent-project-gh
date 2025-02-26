@@ -3,13 +3,13 @@
 namespace Wikto\InsuranceAgentProjectGh\models;
 
 class Register extends Model{
-    private $login;
-    private $email;
-    private $haslo;
-    private $haslo2;
-    private $gender;
-    private $languages;
-    private $regulamin;
+    protected $login;
+    protected $email;
+    protected $haslo;
+    protected $haslo2;
+    protected $gender;
+    protected $languages;
+    protected $regulamin;
     //private $haslo_hash;
 
     public function getLogin() {

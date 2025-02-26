@@ -51,6 +51,16 @@ class register_page extends Strona2
             $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_SPECIAL_CHARS);
             $languages = isset($_POST['languages']) ? trim($_POST['languages']) : '';
             $regulamin = filter_var($_POST['regulamin'], FILTER_VALIDATE_BOOLEAN);
+
+            $data = [
+                'login' => $login,
+                'email' => $email,
+                'haslo' => $haslo,
+                'haslo2' => $haslo2,
+                'gender' => $gender,
+                'languages' => $languages,
+                'regulamin' => $regulamin,
+            ];
         }
         else
         {
@@ -60,7 +70,8 @@ class register_page extends Strona2
         
         include 'config_db.php';
         $registerModel = new Register($conn);
-        $registerModel->setRegisterData($login, $email, $haslo, $haslo2, $gender, $languages, $regulamin);
+        $registerModel->loadData($data);
+        //$registerModel->setRegisterData($login, $email, $haslo, $haslo2, $gender, $languages, $regulamin);
 
         $registerValidator = new Register_Validator($registerModel);
  
@@ -71,14 +82,10 @@ class register_page extends Strona2
         else 
         {
             try {
-                if($token = $this->sendVerificationEmail($email))
-                {
-                    if ($registerModel->createUser($token)) 
-                    {
+                if($token = $this->sendVerificationEmail($email)) {
+                    if ($registerModel->createUser($token)) {
                         echo json_encode(['success' => 'Nowe konto utworzone! Sprawdź skrzynkę pocztową i potwierdź rejestrację.']);
-                    } 
-                    else 
-                    {
+                    } else {
                         echo json_encode(['error' => 'Nie udało się utworzyć konta.']);
                     }
                 }
