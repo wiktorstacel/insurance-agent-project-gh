@@ -88,12 +88,18 @@ class Register extends Model{
         return true;
     }
 
+    public function getUserById($id) {
+        $query = "SELECT * FROM users WHERE user_id = ?";
+        $stmt = $this->executeQuery($query, [$id], "i");    
+        return $this->fetchSingleResult($stmt);
+    }
+    
 
     //Sprawdza, że login podany w rejestracji jest unikalny
     public function isLoginUnique($login)
     {
         $stmt = $this->executeQuery("SELECT COUNT(*) FROM users WHERE login = ?", [$login], "s");
-        $count = $this->fetchSingleResult($stmt);
+        $count = $this->fetchSingleColumnResult($stmt);
     
         return $count === 0;
     }
@@ -102,7 +108,7 @@ class Register extends Model{
     public function isEmailUnique($email)
     {
         $stmt = $this->executeQuery("SELECT COUNT(*) FROM users WHERE email = ?", [$email], "s");
-        $count = $this->fetchSingleResult($stmt);
+        $count = $this->fetchSingleColumnResult($stmt);
     
         return $count === 0;
     }

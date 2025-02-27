@@ -50,7 +50,8 @@ abstract class Model
         }
     }
 
-    protected function fetchSingleResult($stmt)
+    //Jeśli zapytanie zwraca tylko jedną wartość (np. COUNT(*)), kod działa poprawnie
+    protected function fetchSingleColumnResult($stmt)
     {
         try {
             $stmt->bind_result($result);
@@ -64,7 +65,54 @@ abstract class Model
             throw new Exception("Wystąpił błąd podczas pobierania danych.");
         }
     }
+
+    //Jeśli zapytanie zwraca więcej kolumn, musisz użyć dynamicznego bind_result() 
+    //- to obsługuje jak zwracana jest jedna kolumna lub wiele... podobno, bo nie zadziałało dla jednej
+    /*protected function fetchSingleResult($stmt)
+    {
+        try {
+            $meta = $stmt->result_metadata();
+            $fields = [];
+            $row = [];
+
+            while ($field = $meta->fetch_field()) {
+                $fields[] = &$row[$field->name];
+            }
+
+            call_user_func_array([$stmt, 'bind_result'], $fields);
+
+            if (!$stmt->fetch()) {
+                throw new Exception("Błąd podczas pobierania wyniku.");
+            }
+
+            $stmt->close();
+
+            return $row; // Zwraca wszystkie dane jako tablica asocjacyjna
+        } catch (Exception $e) {
+            error_log("Błąd: " . $e->getMessage());
+            throw new Exception("Wystąpił błąd podczas pobierania danych.");
+        }
+    }*/
+
+    public function fetchSingleResult($stmt)
+    {
+        try {
+            $result = $stmt->get_result();
+            if (!$result) {
+                throw new Exception("Błąd pobierania wyników: " . $stmt->error);
+            }
     
+            $data = $result->fetch_assoc(); // Pobiera tylko JEDEN wiersz
+            $stmt->close();
+    
+            return $data ?: null; // Jeśli brak wyników, zwracamy null
+        } catch (Exception $e) {
+            error_log("Błąd bazy danych: " . $e->getMessage());
+            throw new Exception("Wystąpił błąd podczas pobierania danych.");
+        }
+    }
+    
+
     public function fetchAllResults($stmt)
     {
         try {
