@@ -51,9 +51,7 @@ $(document).ready(function(){
             for (let key in response) { //iteracja po error gdyż indeksy zawierające message np 'empty', 'login itd. mogą być różne
                 if (response.hasOwnProperty(key)) {
                     $("#rejestra_message").html("<p style='color: red;'>" + response[key] + "</p>");
-                    if(key == 'empty') {
-                        $("#rej_login, #rej_email, #rej_haslo, #rej_haslo2").addClass("input-error");
-                    } else if (key == 'gender') {
+                    if (key == 'gender') {
                         $("#rej_male, #rej_female").addClass("input-error");
                     } else {
                         $("#rej_"+key).addClass("input-error");

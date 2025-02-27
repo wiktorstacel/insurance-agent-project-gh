@@ -48,7 +48,7 @@ class register_page extends Strona2
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
             $haslo = isset($_POST['haslo']) ? trim($_POST['haslo']) : '';
             $haslo2 = isset($_POST['haslo2']) ? trim($_POST['haslo2']) : '';
-            $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_SPECIAL_CHARS);
+            $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
             $languages = isset($_POST['languages']) ? trim($_POST['languages']) : '';
             $regulamin = filter_var($_POST['regulamin'], FILTER_VALIDATE_BOOLEAN);
 

@@ -17,54 +17,125 @@ class Register_Validator
 
     public function validate()
     {
-        if(empty($this->register->getLogin()) || empty($this->register->getEmail()) || empty($this->register->getHaslo()) || empty($this->register->getHaslo2()))
+        if($this->register->getLogin() !== null)
         {
-            $this->errors['empty'] = "Wypełnij wszystkie pola!";
+            if(empty($this->register->getLogin()))
+            {
+                $this->errors['login'] = "Pole Login jest wymagane!";
+            }
+            elseif(ctype_alnum($this->register->getLogin()) === false)//sprawdź odpowiednie znaki login
+            {
+                $this->errors['login'] = "Login może składać się tylko z liter i cyfr (bez polskich znaków)!";
+            }
+            elseif(strlen($this->register->getLogin()) < 3 || strlen($this->register->getLogin()) > 20)//sprawdz długość login
+            {
+                $this->errors['login'] = "Login musi posiadać od 3 do 20 znaków!";
+            }
+            elseif(!$this->register->isLoginUnique($this->register->getLogin())) 
+            {
+                $this->errors['login'] = "Istnieje już konto z takim loginem!";
+            }  
         }
-        elseif(ctype_alnum($this->register->getLogin()) === false)//sprawdź odpowiednie znaki login
+
+        if($this->register->getEmail() !== null)
         {
-            $this->errors['login'] = "Login może składać się tylko z liter i cyfr (bez polskich znaków)!";
+            if(empty($this->register->getEmail()))
+            {
+                $this->errors['email'] = "Pole E-mail jest wymagane!";
+            }
+            elseif ((!filter_var($this->register->getEmail(), FILTER_VALIDATE_EMAIL))) //sprawdz poprawnosc email
+            {  
+                $this->errors['email'] = "Wprowadź poprawny e-mail!";
+            }
+            elseif(!$this->register->isEmailUnique($this->register->getEmail())) 
+            {
+                $this->errors['email'] = "Istnieje już konto z takim e-mail!";
+            } 
         }
-        elseif(strlen($this->register->getLogin()) < 3 || strlen($this->register->getLogin()) > 20)//sprawdz długość login
+
+        if($this->register->getHaslo() !== null)
         {
-            $this->errors['login'] = "Login musi posiadać od 3 do 20 znaków!";
+            if(empty($this->register->getHaslo()))
+            {
+                $this->errors['haslo'] = "Pole Twoje Hasło jest wymagane!";
+            }
+            elseif((strlen($this->register->getHaslo()) < 8) || (strlen($this->register->getHaslo()) > 20))//sprawdz poprawność hasla
+            {
+                $this->errors['haslo'] = "Hasło musi posiadać od 8 do 20 znaków!";
+            }
+            elseif (!preg_match("#[0-9]+#", $this->register->getHaslo())) 
+            {
+                $this->errors['haslo'] = "Hasło musi posiadać co najmniej jedną cyfrę!";
+            }
+            elseif (!preg_match("#[a-zA-Z]+#", $this->register->getHaslo())) 
+            {
+                $this->errors['haslo'] = "Hasło musi posiadać co najmniej jedną literę!";
+            }
         }
-        elseif ((!filter_var($this->register->getEmail(), FILTER_VALIDATE_EMAIL))) //sprawdz poprawnosc email
-        {  
-            $this->errors['email'] = "Wprowadź poprawny e-mail!";
+
+        if($this->register->getHaslo2() !== null)
+        {
+            if(empty($this->register->getHaslo2()))
+            {
+                $this->errors['haslo2'] = "Pole Powtórz Hasło jest wymagane!";
+            }
+            elseif($this->register->getHaslo() !== $this->register->getHaslo2())//sprawdz zgodność 2 haseł
+            {
+                $this->errors['haslo2'] = "Podane hasła nie są identyczne!";
+            }
         }
-        elseif((strlen($this->register->getHaslo()) < 8) || (strlen($this->register->getHaslo()) > 20))//sprawdz poprawność hasla
+    
+        if($this->register->getGender() !== null)
         {
-            $this->errors['haslo'] = "Hasło musi posiadać od 8 do 20 znaków!";
+            if(!in_array($this->register->getGender(), ['male', 'female']))//sprawdz czy zaznaczono płeć
+            {
+                $this->errors['gender'] = "Zaznacz pole płeć!";
+            }
         }
-        elseif (!preg_match("#[0-9]+#", $this->register->getHaslo())) 
+
+        if($this->register->getRegulamin() !== null)
         {
-            $this->errors['haslo'] = "Hasło musi posiadać co najmniej jedną cyfrę!";
+            if(!$this->register->getRegulamin())//czy zaakceptowano regulamin
+            {
+                $this->errors['regulamin'] = "Potwierdź akceptację regulaminu!";
+            }
         }
-        elseif (!preg_match("#[a-zA-Z]+#", $this->register->getHaslo())) 
+
+        if($this->register->getSurname() !== null)
         {
-            $this->errors['haslo'] = "Hasło musi posiadać co najmniej jedną literę!";
+            if(!preg_match("/^(ą|ę| |ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,40}$/", $this->register->getSurname()))//sprawdź odpowiednie znaki surname
+            {
+                $this->errors['surname'] = "Pole Imię i nazwisko może składać się tylko z liter(w tym polskich) oraz spacji, 0-40 znaków!";           
+            }
         }
-        elseif($this->register->getHaslo() !== $this->register->getHaslo2())//sprawdz zgodność 2 haseł
+
+        if($this->register->getAddress() !== null)
         {
-            $this->errors['haslo2'] = "Podane hasła nie są identyczne!";
+            if(strlen($this->register->getAddress()) > 150)//sprawdź odpowiednie znaki surname
+            {
+                $this->errors['address'] = "Pole Adres może składać się z 0-150 znaków!";        
+            }
         }
-        elseif(!in_array($this->register->getGender(), ['male', 'female']))//sprawdz czy zaznaczono płeć
+
+        if($this->register->getTel_num() !== null)
         {
-            $this->errors['gender'] = "Zaznacz pole płeć!";
+            if(!preg_match("/^(\-|\+|\)|\(|\ |[0-9]){0,20}$/", $this->register->getTel_num()))//sprawdź odpowiednie znaki surname
+            {
+                $this->errors['tel_num'] = "Pole Numer Telefonu może składać się tylko z cyfr i znaków +-() 0-20 znaków!";            
+            }
         }
-        elseif(!$this->register->getRegulamin())//czy zaakceptowano regulamin
+
+        if($this->register->getBusi_area() !== null)
         {
-            $this->errors['regulamin'] = "Potwierdź akceptację regulaminu!";
+            if(strlen($this->register->getBusi_area()) > 1000)//sprawdź odpowiednie znaki surname
+            { 
+                $this->errors['busi_area'] = "Pole Obszar dzialności może składać się z 0-1000 znaków!";         
+            }
+            elseif(preg_match('/[^?!@%.,;ĄąĆćĘęŁłŃńÓóŚśŻżŹźa-zA-Z\s\d]/', $this->register->getBusi_area()))//sprawdź odpowiednie znaki surname
+            {
+                $this->errors['busi_area'] = "Pole Obszar dzialności może składać się tylko z liter(w tym polskich) oraz spacji i znaków ,.;?!%@";
+            }
         }
-        elseif(!$this->register->isLoginUnique($this->register->getLogin())) 
-        {
-            $this->errors['login'] = "Istnieje już konto z takim loginem!";
-        }  
-        elseif(!$this->register->isEmailUnique($this->register->getEmail())) 
-        {
-            $this->errors['email'] = "Istnieje już konto z takim e-mail!";
-        }  
         /*elseif(empty($_POST['captchaResponse']))
         {
             //reCapcha

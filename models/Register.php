@@ -10,6 +10,10 @@ class Register extends Model{
     protected $gender;
     protected $languages;
     protected $regulamin;
+    protected $surname;
+    protected $address;
+    protected $tel_num;
+    protected $busi_area;
     //private $haslo_hash;
 
     public function getLogin() {
@@ -38,6 +42,22 @@ class Register extends Model{
 
     public function getRegulamin() {
         return $this->regulamin;
+    }
+
+    public function getSurname() {
+        return $this->surname;
+    }
+
+    public function getAddress() {
+        return $this->address;
+    }
+
+    public function getTel_num() {
+        return $this->tel_num;
+    }
+
+    public function getBusi_area() {
+        return $this->busi_area;
     }
 
     public function setRegisterData($login, $email, $haslo, $haslo2, $gender, $languages, $regulamin) {
