@@ -88,6 +88,27 @@ class Register extends Model{
         return true;
     }
 
+    public function updateUser(int $userId, array $data): bool {
+        if (empty($data)) {
+            return false; // Nic do aktualizacji
+        }
+    
+        // Tworzenie dynamicznego SET `column = ?`
+        $setClause = implode(", ", array_map(fn($key) => "$key = ?", array_keys($data)));
+        $sql = "UPDATE users SET $setClause WHERE user_id = ?";
+    
+        // Tworzenie typów dla bind_param
+        $types = str_repeat("s", count($data)) . "i"; // Wszystkie pola jako string, ID jako int
+        $values = array_values($data);
+        $values[] = $userId; // Dodajemy ID użytkownika
+    
+        $stmt = $this->executeQuery($sql, $values, $types);
+
+        return $stmt !== false; // Zwrot `true` jeśli `executeQuery()` działa, `false` jeśli błąd
+    }
+    
+    
+
     public function getUserById($id) {
         $query = "SELECT * FROM users WHERE user_id = ?";
         $stmt = $this->executeQuery($query, [$id], "i");    

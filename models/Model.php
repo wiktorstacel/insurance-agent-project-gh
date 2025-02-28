@@ -11,6 +11,7 @@ abstract class Model
         $this->conn = $conn;
     }
 
+    //setuje składowe w modelu, ale tylko te, które przyszy w $data
     public function loadData($data)
     {
         foreach ($data as $key => $value) { //Przechodzi przez wszystkie klucze i wartości w $data (foreach).
@@ -18,6 +19,20 @@ abstract class Model
                 $this->{$key} = $value; //Jeśli tak, przypisuje wartość do tej właściwości ($this->{$key} = $value;).
             }
         }
+    }
+
+    //wyciąga tablicę składowych modelu i ich wawrtości, ale tylko te które są zasetowane (nie null)
+    //problem: zaciąga $conn !
+    public function getNotNullAttributes(): array {
+        $data = [];
+        
+        foreach (get_class_vars(self::class) as $key => $default) {
+            if (isset($this->$key)) {
+                $data[$key] = $this->$key;
+            }
+        }
+
+        return $data;
     }
 
     protected function executeQuery($query, $params, $types = "")

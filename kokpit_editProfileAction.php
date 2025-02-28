@@ -116,7 +116,7 @@ if(isset($_POST['email']))
         } 
         catch (Exception $ex) 
         {
-            echo '<span class="form-error">Błąd serwera - prosimy o rejestrację w innym terminie.</span>';
+            echo '<span class="form-error">Błąd podczas zapisu danych!</span>';
             echo '<br>Informacja deweloperska: '.$ex;
         }
     }

@@ -61,6 +61,11 @@ class register_page extends Strona2
                 'languages' => $languages,
                 'regulamin' => $regulamin,
             ];
+            /*$data = [];
+            foreach ($_POST as $key => $value) {
+              $data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            }*/
+            //UWAGA w przypadku Regulamin - boolean FILTER_SANITIZE_SPECIAL_CHARS przerobi na string "false", które w if("false") zwraca true - niepusty string traktowany jest jako prawda w warunkach logicznych       
         }
         else
         {

@@ -37,6 +37,7 @@ class Register_Validator
             }  
         }
 
+        //Problem: potrzebne różne metody walidacji na różnych etapach np przy rejestr trzeba isEmailUnique, przy profileUpdate już nie
         if($this->register->getEmail() !== null)
         {
             if(empty($this->register->getEmail()))
@@ -90,6 +91,14 @@ class Register_Validator
             if(!in_array($this->register->getGender(), ['male', 'female']))//sprawdz czy zaznaczono płeć
             {
                 $this->errors['gender'] = "Zaznacz pole płeć!";
+            }
+        }
+
+        if($this->register->getLanguages() !== null)
+        {
+            if(!preg_match("/^(ą|ę| |\,|\.|\;|ź|ć|ń|ó|ś|ż|ł|Ą|Ę|Ź|Ć|Ń|Ó|Ś|Ż|[a-z]|[A-Z]){0,40}$/", $this->register->getLanguages()))
+            {
+                $this->errors['languages'] = "Pole Języki obce może składać się tylko z liter(w tym polskich) oraz spacji i znaków ,.; 0-40 znaków!";            
             }
         }
 

@@ -10,7 +10,7 @@
                     <div style="clear:both"></div>
 
                     <div class="user_profile_left">Adres e-mail</div>
-                    <div class="user_profile_right"><input id="edit_email" type="text" name="edit_email" value="<?= htmlspecialchars($userProfile->getEmail(), ENT_QUOTES, 'UTF-8')?>" /></div>
+                    <div class="user_profile_right"><input id="edit_email" type="text" name="edit_email" disabled value="<?= htmlspecialchars($userProfile->getEmail(), ENT_QUOTES, 'UTF-8')?>" /></div>
                     <div style="clear:both"></div>
 
                     <div class="user_profile_left">Imię i Nazwisko</div>

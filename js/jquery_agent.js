@@ -119,18 +119,30 @@ $(document).ready(function(){
         var busi_area = $("#edit_busi_area").val();
         var gender = $("#edit_gender").val();
         var languages = $("#edit_languages").val();
-        $.post("kokpit_editProfileAction.php", {
-            login: login,
-            email: email,
+        $.post("kokpit_editProfile.php", {
+            //login: login, - login ma nie być walidowany ani updatowany - input disabled by go nie wysłało POSTem
+            //email: email, - zablokowana zmiana e-mail, bo przeba by zrobić wysyłanie tokena do potwierdzenia
             surname: surname,
             address: address,
             tel_num: tel_num,
             busi_area: busi_area,
             gender: gender,
             languages: languages
-        }, function(data, status){
-            $("#edit_message").html(data);
-        });
+        }, function(response){
+            //$("#edit_message").html(response);
+            $("#edit_email, #edit_surname, #edit_address, #edit_tel_num, #edit_busi_area, #edit_languages").removeClass("input-error");
+            for (let key in response) { //iteracja po error gdyż indeksy zawierające message np 'empty', 'login itd. mogą być różne
+                if (response.hasOwnProperty(key)) {
+                    $("#edit_message").html("<p style='color: red;'>" + response[key] + "</p>");
+                    $("#edit_"+key).addClass("input-error");
+                    break;
+                }
+            }
+            if (response.success) {
+                $("#edit_message").html("<p style='color: green;'>" + response.success + "</p>");
+                $("#edit_email, #edit_surname, #edit_address, #edit_tel_num, #edit_busi_area, #edit_gender, #edit_languages, #edit_submit").prop( "disabled", true );
+            }
+        }, "json");//*/});
     });
     
 });
