@@ -78,7 +78,7 @@ class register_page extends Strona2
         $registerModel->loadData($data);
         //$registerModel->setRegisterData($login, $email, $haslo, $haslo2, $gender, $languages, $regulamin);
 
-        $registerValidator = new User_Validator($registerModel);
+        $registerValidator = new User_Validator($registerModel, User_Validator::MODE_REGISTRATION);
  
         if (!$registerValidator->validate()) 
         {

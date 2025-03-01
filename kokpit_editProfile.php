@@ -26,11 +26,12 @@ class kokpit_editProfile extends kokpit_stage
         $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);//przerobi wszystkie dane na string
         }
         //UWAGA w przypadku Regulamin - boolean FILTER_SANITIZE_SPECIAL_CHARS przerobi na string "false", które w if("false") zwraca true - niepusty string traktowany jest jako prawda w warunkach logicznych
+        $body['user_id'] = $_SESSION['user_id'];
         include 'config_db.php';
         $profileModel = new User($conn); //Dyskusyjne: korzystanie z modelu do rejestracji
         $profileModel->loadData($body);
 
-        $profileValidator = new User_Validator($profileModel); //Dyskusyjne: korzystanie z walidatora do rejestracji
+        $profileValidator = new User_Validator($profileModel, User_Validator::MODE_PROFILE_UPDATE); //Dyskusyjne: korzystanie z walidatora do rejestracji
  
         if (!$profileValidator->validate()) 
         {
@@ -39,7 +40,7 @@ class kokpit_editProfile extends kokpit_stage
         else 
         {
             try {
-                if ($profileModel->updateUser($_SESSION['user_id'], $body)) {
+                if ($profileModel->updateUser($body)) {
                     echo json_encode(['success' => 'Zmiany zostały zapisane.']);
                 } else {
                     echo json_encode(['error' => 'Błąd podczas zapisu danych!']);

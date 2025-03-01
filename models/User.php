@@ -3,8 +3,10 @@
 namespace Wikto\InsuranceAgentProjectGh\models;
 
 class User extends Model{
+    protected $user_id; //UWAGA: nie zawsze dobrą praktyką jest to mieć w modelu, lepiej bezpośrednio przekazywać do funkcji $_SESSION['user_id']
     protected $login;
     protected $email;
+    protected $haslo0; //na potrzeby zmiany hasła - jest to dotychczasowe hasło
     protected $haslo;
     protected $haslo2;
     protected $gender;
@@ -22,6 +24,10 @@ class User extends Model{
 
     public function getEmail() {
         return $this->email;
+    }
+
+    public function getHaslo0() {
+        return $this->haslo0;
     }
 
     public function getHaslo() {
@@ -88,7 +94,7 @@ class User extends Model{
         return true;
     }
 
-    public function updateUser(int $userId, array $data): bool 
+    public function updateUser(array $data): bool 
     {
         if (empty($data)) {
             return false; // Nic do aktualizacji
@@ -101,12 +107,37 @@ class User extends Model{
         // Tworzenie typów dla bind_param
         $types = str_repeat("s", count($data)) . "i"; // Wszystkie pola jako string, ID jako int
         $values = array_values($data);
-        $values[] = $userId; // Dodajemy ID użytkownika
+        $values[] = $this->user_id; // Dodajemy ID użytkownika
+
+        if (!isset($this->user_id)) {
+            throw new \Exception("Błąd: user_id nie jest ustawione przed wykonaniem zapytania SQL!");
+        }
     
         $stmt = $this->executeQuery($sql, $values, $types);
 
         return $stmt !== false; // Zwrot `true` jeśli `executeQuery()` działa, `false` jeśli błąd
     }
+
+    public function updateUserPassword(): bool
+    {
+        if (empty($this->user_id)) {
+            throw new \Exception("Błąd: user_id nie jest ustawione!");
+        }
+
+        // Haszowanie nowego hasła
+        $hashedPassword = password_hash($this->haslo, PASSWORD_DEFAULT);
+        
+        // Wykonanie zapytania SQL
+        $query = "UPDATE users SET pass = ? WHERE user_id = ?";
+        $params = [$hashedPassword, $this->user_id];
+        $types = "si"; // "s" - string (hasło), "i" - int (user_id)
+
+        $stmt = $this->executeQuery($query, $params, $types);
+
+        // Sprawdzenie, czy update się powiódł
+        return $stmt->affected_rows > 0;
+    }
+
     
     public function getUserById($id) 
     {
@@ -133,7 +164,25 @@ class User extends Model{
         return $count === 0;
     }
     
-
+    public function isOldPasswordCorrect()
+    {
+        if (!isset($this->user_id)) {
+            throw new \Exception("Błąd: user_id nie jest ustawione przed wykonaniem zapytania SQL!");
+        }
+        // Pobranie zaszyfrowanego hasła użytkownika z bazy
+        $stmt = $this->executeQuery("SELECT pass FROM users WHERE user_id = ?", [$this->user_id], "i");
+        $hashedPassword = $this->fetchSingleColumnResult($stmt);
+    
+        // Jeśli brak hasła w bazie → zwróć false
+        if (!$hashedPassword) {
+            return false;
+        }
+    
+        // Sprawdzenie poprawności hasła
+        return password_verify($this->haslo0, $hashedPassword);
+    }
+    
+    
 }
 
 ?>

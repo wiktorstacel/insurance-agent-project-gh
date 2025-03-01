@@ -121,7 +121,7 @@ $(document).ready(function(){
         var languages = $("#edit_languages").val();
         $.post("kokpit_editProfile.php", {
             //login: login, - login ma nie być walidowany ani updatowany - input disabled by go nie wysłało POSTem
-            //email: email, - zablokowana zmiana e-mail, bo przeba by zrobić wysyłanie tokena do potwierdzenia
+            email: email, //- chwilę była zablokowana zmiana e-mail, bo przeba by zrobić wysyłanie tokena do potwierdzenia
             surname: surname,
             address: address,
             tel_num: tel_num,
@@ -152,18 +152,33 @@ $(document).ready(function(){
     
     $("#cha_psw_form").submit(function(event){
         event.preventDefault();                                     //wyłącza domyślne action i method
-        var login = $("#cha_psw_login").val();
+        //var login = $("#cha_psw_login").val();
         var haslo0 = $("#cha_psw_haslo0").val();
         var haslo = $("#cha_psw_haslo").val();
         var haslo2 = $("#cha_psw_haslo2").val();
         var submit = $("#cha_psw_submit").val();
-        $("#cha_psw_message").load("kokpit_pswChangeAction.php", {
-            login: login,
+        $.post("kokpit_pswChange.php", {
+            //login: login,
             haslo0: haslo0,
             haslo: haslo,
             haslo2: haslo2,
             submit: submit
-        });
+        }, function(response){
+            //$("#cha_psw_message").html(response);
+            $("#cha_psw_haslo0, #cha_psw_haslo, #cha_psw_haslo2").removeClass("input-error");
+            for (let key in response) { //iteracja po error gdyż indeksy zawierające message np 'empty', 'login itd. mogą być różne
+                if (response.hasOwnProperty(key)) {
+                    $("#cha_psw_message").html("<p style='color: red;'>" + response[key] + "</p>");
+                    $("#cha_psw_"+key).addClass("input-error");
+                    break;
+                }
+            }
+            if (response.success) {
+                $("#cha_psw_message").html("<p style='color: green;'>" + response.success + "</p>");
+                $("#cha_psw_haslo0, #cha_psw_haslo, #cha_psw_haslo2").val("");
+                $("#cha_psw_haslo0, #cha_psw_haslo, #cha_psw_haslo2, #cha_psw_submit").prop( "disabled", true );
+            }
+        }, "json");//*/});
     });
     
 });

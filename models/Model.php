@@ -41,27 +41,31 @@ abstract class Model
         {
             $stmt = $this->conn->prepare($query);
             if (!$stmt) {
-                throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
+                throw new \Exception("Błąd przygotowania zapytania: " . $this->conn->error);
+            }
+
+            if (strlen($types) !== count($params)) {
+                throw new \Exception("Błędna liczba typów parametrów! Oczekiwano: " . count($params) . ", podano: " . strlen($types));
             }
 
             if ($params && $types) {
                 if (!$stmt->bind_param($types, ...$params)) {
                     $stmt->close();
-                    throw new Exception("Błąd wiązania parametrów: " . $stmt->error);
+                    throw new \Exception("Błąd wiązania parametrów: " . $stmt->error);
                 }
             }
 
             if (!$stmt->execute()) {
                 $stmt->close();
-                throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
+                throw new \Exception("Błąd wykonania zapytania: " . $stmt->error);
             }
 
             return $stmt;
         }
-        catch (Exception $e) 
+        catch (\Exception $e) 
         {
             error_log("Błąd: " . $e->getMessage());
-            throw new Exception("Wystąpił błąd podczas pobierania danych.");
+            throw new \Exception("Wystąpił błąd podczas pobierania danych. ". $e->getMessage()); //UWAGA: na produkcji nie wyświetlać tego
         }
     }
 
@@ -71,13 +75,13 @@ abstract class Model
         try {
             $stmt->bind_result($result);
             if (!$stmt->fetch()) {
-                throw new Exception("Błąd podczas pobierania wyniku.");
+                throw new \Exception("Błąd podczas pobierania wyniku.");
             }
             $stmt->close();
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             error_log("Błąd: " . $e->getMessage());
-            throw new Exception("Wystąpił błąd podczas pobierania danych.");
+            throw new \Exception("Wystąpił błąd podczas pobierania danych.");
         }
     }
 
@@ -114,16 +118,16 @@ abstract class Model
         try {
             $result = $stmt->get_result();
             if (!$result) {
-                throw new Exception("Błąd pobierania wyników: " . $stmt->error);
+                throw new \Exception("Błąd pobierania wyników: " . $stmt->error);
             }
     
             $data = $result->fetch_assoc(); // Pobiera tylko JEDEN wiersz
             $stmt->close();
     
             return $data ?: null; // Jeśli brak wyników, zwracamy null
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             error_log("Błąd bazy danych: " . $e->getMessage());
-            throw new Exception("Wystąpił błąd podczas pobierania danych.");
+            throw new \Exception("Wystąpił błąd podczas pobierania danych.");
         }
     }
     
@@ -133,16 +137,16 @@ abstract class Model
         try {
             $result = $stmt->get_result();
             if (!$result) {
-                throw new Exception("Błąd pobierania wyników: " . $stmt->error);
+                throw new \Exception("Błąd pobierania wyników: " . $stmt->error);
             }
 
             $data = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
 
             return $data;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             error_log("Błąd bazy danych: " . $e->getMessage());
-            throw new Exception("Wystąpił błąd podczas pobierania danych.");
+            throw new \Exception("Wystąpił błąd podczas pobierania danych.");
         }
     }
     /*

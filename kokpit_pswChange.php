@@ -1,54 +1,50 @@
 <?php
 
 require ('strona_kokpit_stage.php');
+require_once 'vendor/autoload.php';
+
+use Wikto\InsuranceAgentProjectGh\models\User;
+use Wikto\InsuranceAgentProjectGh\validators\User_Validator;
 
 class kokpit_pswChange extends kokpit_stage
 {
 
     public function WyswietlPage()
     {
+        $this->render('views/kokpit/psw_change.php');
+    }
 
-    echo '
-	<div id="content_kokpit">
-		<div style="margin-bottom: 20px;">';
-    
-                    require_once 'config_db.php';
-                    $result = mysqli_query($conn, "SELECT * FROM users WHERE user_id=".$_SESSION['user_id']."");
-                    if($result != TRUE){echo 'Bład zapytania MySQL, odpowiedź serwera: '.mysqli_error($conn);}
-                    $row = mysqli_fetch_assoc($result);
-                    
-                    echo'<div class="user_profile_left_title">Zmiana hasła</div>'
-                      . '<div class="user_profile_right_title">Zachowaj bezpieczeństwo</div>';
-                    echo'<div style="clear:both"></div>';
-	
-            echo'<div id="rejestra_field">
-                    <div id="res_psw_div">
-                    <form id="cha_psw_form" method="POST" action="kokpit_pswChangeAction.php">
-                            <fieldset>';
-                            echo '<input id="cha_psw_login" type="hidden" name="cha_psw_login" value="'.$row['login'].'" />';
-                            echo'<label for="cha_psw_haslo0">Stare Hasło: </label>
-                            <input id="cha_psw_haslo0" type="password" name="new_psw_haslo0" value="" />
-                            <br /><br />
-                            <label for="cha_psw_haslo">Nowe Hasło: </label>
-                            <input id="cha_psw_haslo" type="password" name="cha_psw_haslo" value="" />
-                            <br /><br />
-                            <label for="cha_psw_haslo2">Powtórz Hasło: </label>
-                            <input id="cha_psw_haslo2" type="password" name="cha_psw_haslo2" value="" />
-                             <br /><br />
-                            <input id="cha_psw_submit" type="submit" value="Zatwierdź" class="btn btn-primary" />
-                            <br /><br />
-                            <p id="cha_psw_message">Zmień hasło na nowe.</p>
-                            </fieldset>
-                    </form>
-                    </div>
-                </div>';
-    
-                    mysqli_close($conn);
-		
-	echo'	</div>
-		
-	</div>
-	<!-- end content -->';
+    public function processProfileForm()
+    {
+        $body = [];
+        foreach ($_POST as $key => $value) {
+        $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);//przerobi wszystkie dane na string
+        }
+        //UWAGA w przypadku Regulamin - boolean FILTER_SANITIZE_SPECIAL_CHARS przerobi na string "false", które w if("false") zwraca true - niepusty string traktowany jest jako prawda w warunkach logicznych
+        $body['user_id'] = $_SESSION['user_id'];
+
+        include 'config_db.php';
+        $changePswModel = new User($conn); //Dyskusyjne: korzystanie z modelu do rejestracji
+        $changePswModel->loadData($body);
+
+        $changePswValidator = new User_Validator($changePswModel, User_Validator::MODE_PASSWORD_CHANGE); //Dyskusyjne: korzystanie z walidatora do rejestracji
+ 
+        if (!$changePswValidator->validate()) 
+        {
+            echo $changePswValidator->getErrorsAsJson();
+        } 
+        else 
+        {
+            try {
+                if ($changePswModel->updateUserPassword()) {
+                    echo json_encode(['success' => 'Zmiany zostały zapisane.']);
+                } else {
+                    echo json_encode(['error' => 'Błąd podczas zapisu danych!']);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['error' => 'Wystąpił błąd: ' . $e->getMessage()]);
+            }
+        }
     }
 
 }
@@ -65,6 +61,13 @@ $kokpit_pswChange -> keywords = 'kokpit';
 
 $kokpit_pswChange -> description = 'kokpit';
 
-$kokpit_pswChange -> Wyswietl();
+//Kontroler - jedna klasa, która wyświetla formularz a potem przetwarza z niego dane po 'submit'
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $kokpit_pswChange->ObsluzSesje();
+    $kokpit_pswChange->processProfileForm();  // Odbiór danych
+} else {
+    //ObsluzSesję jest wywołana w Wyswietl() domoślnie
+    $kokpit_pswChange->Wyswietl(); // Wyświetlenie formularza
+}
 
 ?>

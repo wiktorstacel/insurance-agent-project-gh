@@ -8,11 +8,17 @@ use Wikto\InsuranceAgentProjectGh\models\User;
 
 class User_Validator
 {
+    const MODE_REGISTRATION = 'registration';
+    const MODE_PROFILE_UPDATE = 'profile_update';
+    const MODE_PASSWORD_CHANGE = 'password_change';
+
     private $userModel;
+    private string $validationMode;
     private $errors = [];
 
-    public function __construct(User $userModel) {
+    public function __construct(User $userModel, string $validationMode) {
         $this->userModel = $userModel;
+        $this->validationMode = $validationMode;
     }
 
     public function validate()
@@ -31,7 +37,7 @@ class User_Validator
             {
                 $this->errors['login'] = "Login musi posiadać od 3 do 20 znaków!";
             }
-            elseif(!$this->userModel->isLoginUnique($this->userModel->getLogin())) 
+            elseif(!$this->userModel->isLoginUnique($this->userModel->getLogin()) && $this->validationMode === self::MODE_REGISTRATION) 
             {
                 $this->errors['login'] = "Istnieje już konto z takim loginem!";
             }  
@@ -48,10 +54,22 @@ class User_Validator
             {  
                 $this->errors['email'] = "Wprowadź poprawny e-mail!";
             }
-            elseif(!$this->userModel->isEmailUnique($this->userModel->getEmail())) 
+            elseif(!$this->userModel->isEmailUnique($this->userModel->getEmail()) && $this->validationMode === self::MODE_REGISTRATION) 
             {
-                $this->errors['email'] = "Istnieje już konto z takim e-mail!";
+                $this->errors['email'] = "Istnieje już konto z takim e-mail!";//UWAGA: omija walidację w edycji profilu, ale użytkownik może wpisać e-mail innego użtykownika, w dodatku zmiana e-mail powinna być z wysłaniem potwierdzenia z tokenem
             } 
+        }
+
+        if($this->userModel->getHaslo0() !== null)
+        {
+            if(empty($this->userModel->getHaslo0()))
+            {
+                $this->errors['haslo0'] = "Pole Stare Hasło jest wymagane!";
+            }
+            elseif(!$this->userModel->isOldPasswordCorrect())
+            {
+                $this->errors['haslo0'] = "Dotychczasowe hasło zostało wpisane niepoprawnie!";
+            }
         }
 
         if($this->userModel->getHaslo() !== null)
