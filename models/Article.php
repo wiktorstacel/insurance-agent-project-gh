@@ -2,17 +2,12 @@
 
 namespace Wikto\InsuranceAgentProjectGh\models;
 
-class Article {
-    private $conn;
+class Article extends Model{
     private $title;
     private $content;
     private $stan =1;
     private $user_id;
     private $category_id;
-
-    public function __construct($conn) {
-        $this->conn = $conn;
-    }
 
     public function getTitle() {
         return $this->title;
@@ -39,138 +34,116 @@ class Article {
         return $this; // Dzięki temu możliwe jest wywołanie łańcuchowe
     }
 
-    public function create() {
+    
+    public function create() 
+    {
+        if (empty($this->user_id)) {
+            throw new \Exception("Błąd: user_id nie jest ustawione!");
+        }
+    
         // Sprawdzenie, czy użytkownik dodał artykuł dzisiaj
         $this->stan = $this->hasUserSubmittedToday($this->user_id) ? 0 : 1;
-        $stmt = $this->conn->prepare(
-            "INSERT INTO articles (article_id, title, content, date, stan, user_id, category_id) VALUES (DEFAULT, ?, ?, CURDATE(), ?, ?, ?)"
-        );
+    
+        // Zapytanie SQL
+        $query = "INSERT INTO articles (title, content, date, stan, user_id, category_id) VALUES (?, ?, CURDATE(), ?, ?, ?)";
+        $params = [$this->title, $this->content, $this->stan, $this->user_id, $this->category_id];
+        $types = "ssiii"; // "ss" = string, "iii" = int
+    
+        // Wykonanie zapytania
+        $stmt = $this->executeQuery($query, $params, $types);
 
-        if (!$stmt) {
-            throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
-        }
-
-        $stmt->bind_param("ssiii", $this->title, $this->content, $this->stan, $this->user_id, $this->category_id);
-
-        if (!$stmt->execute()) {
-            throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
-        }
-
-        $stmt->close();
-
-        // Zwrócenie odpowiedniego komunikatu w zależności od stanu
-        if ($this->stan == 0) {
-            return "Artykuł został zapisany, jednak ponieważ dodałeś już dzisiaj co najmniej 1 artykuł, stan będzie nieaktywny. Możesz aktywować artykuł od jutra.";
+        // Sprawdzenie, czy insert się powiódł
+        if ($stmt->affected_rows > 0) {
+            return $this->stan == 0 
+                ? "Artykuł został zapisany, jednak ponieważ dodałeś już dzisiaj co najmniej 1 artykuł, stan będzie nieaktywny. Możesz aktywować artykuł od jutra." 
+                : "Artykuł zapisany i aktywny w serwisie.";
         } else {
-            return "Artykuł zapisany i aktywny w serwisie.";
+            throw new \Exception("Błąd: nie udało się dodać artykułu!");
         }
     }
+
 
     // Sprawdzanie, czy użytkownik dodał artykuł danego dnia
-    public function hasUserSubmittedToday($user_id) {
-        $stmt = $this->conn->prepare(
-            "SELECT COUNT(*) FROM articles WHERE user_id = ? AND date = CURDATE() AND stan = 1"
-        );
-
-        if (!$stmt) {
-            throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
+    public function hasUserSubmittedToday($user_id) 
+    {
+        if (empty($user_id)) {
+            throw new \Exception("Błąd: user_id nie jest ustawione!");
         }
-
-        $stmt->bind_param("i", $user_id);
-        if (!$stmt->execute()) {
-            throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
-        }
-
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
-
+    
+        // Zapytanie SQL
+        $query = "SELECT COUNT(*) FROM articles WHERE user_id = ? AND date = CURDATE() AND stan = 1";
+        
+        // Wykonanie zapytania
+        $stmt = $this->executeQuery($query, [$user_id], "i");
+    
+        // Pobranie wyniku jako pojedyncza wartość
+        $count = $this->fetchSingleColumnResult($stmt);
+    
         return $count > 0;
     }
+    
 
-    public function update($article_id) {
-        $stmt = $this->conn->prepare(
-            "UPDATE `articles` SET `title` = ?, `category_id` = ?, `content` = ? WHERE `article_id` = ? AND `user_id` = ? LIMIT 1"
-        );
-
-        if (!$stmt) {
-            throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
+    public function update($article_id) 
+    {
+        if (empty($this->user_id)) {
+            throw new \Exception("Błąd: user_id nie jest ustawione!");
         }
-        $stmt->bind_param("sisii", $this->title, $this->category_id, $this->content, $article_id, $this->user_id);
-
-        if (!$stmt->execute()) {
-            throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
-        }
-
-        $affected_rows = $stmt->affected_rows;
-        
-        $stmt->close();
-
-        // Zwrócenie odpowiedniego komunikatu w zależności od stanu
-        if ($affected_rows > 0) {
-            return "Artykuł został zaktualizowany.";
-        } else {
-            return "Nie dokonano żadnych zmian. Artykuł pozostał w niezmienionej formie.";
-        }
+    
+        // Zapytanie SQL
+        $query = "UPDATE articles SET title = ?, category_id = ?, content = ? WHERE article_id = ? AND user_id = ? LIMIT 1";
+        $params = [$this->title, $this->category_id, $this->content, $article_id, $this->user_id];
+        $types = "sisii"; // "s" = string, "i" = int
+    
+        // Wykonanie zapytania
+        $stmt = $this->executeQuery($query, $params, $types);
+    
+        // Sprawdzenie, czy jakiekolwiek rekordy zostały zmodyfikowane
+        return $stmt->affected_rows > 0 
+            ? "Artykuł został zaktualizowany." 
+            : "Nie dokonano żadnych zmian. Artykuł pozostał w niezmienionej formie.";
     }
+    
 
     // Metoda do pobierania artykułu po ID
     public function getArticleById($article_id) {
-        $stmt = $this->conn->prepare(
-            "SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views 
-             FROM articles a 
-             INNER JOIN users u ON a.user_id = u.user_id 
-             WHERE a.article_id = ?"
-        );
-
-        if (!$stmt) {
-            throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
+        if (empty($article_id)) {
+            throw new \Exception("Błąd: article_id nie jest ustawione!");
         }
-
-        $stmt->bind_param("i", $article_id);
-
-        if (!$stmt->execute()) {
-            throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
-        }
-
-        $result = $stmt->get_result();
-        if (!$result) {
-            throw new Exception("Błąd pobierania wyniku: " . $stmt->error);
-        }
-
-        $stmt->close();
-
-        $article = mysqli_fetch_assoc($result);
-        return $article;
+    
+        // Zapytanie SQL
+        $query = "
+            SELECT a.article_id, a.title, a.content, a.date, u.surname, u.user_id, a.views 
+            FROM articles a 
+            INNER JOIN users u ON a.user_id = u.user_id 
+            WHERE a.article_id = ?
+        ";
+    
+        // Wykonanie zapytania
+        $stmt = $this->executeQuery($query, [$article_id], "i");
+    
+        // Pobranie wyniku jako pojedynczy rekord
+        return $this->fetchSingleResult($stmt);
     }
+    
 
     // Pobranie wszystkich artykułów
     public function getAllArticles() {
-        $stmt = $this->conn->prepare(
-            "SELECT a.article_id, a.title, a.content, a.date, u.surname 
+        // Zapytanie SQL
+        $query = "
+            SELECT a.article_id, a.title, a.content, a.date, u.surname 
             FROM articles a 
             INNER JOIN users u ON a.user_id = u.user_id 
             WHERE a.stan = 1 
-            ORDER BY a.date DESC;"
-        );
-
-        if (!$stmt) {
-            throw new Exception("Błąd przygotowania zapytania: " . $this->conn->error);
-        }
-
-        if (!$stmt->execute()) {
-            throw new Exception("Błąd wykonania zapytania: " . $stmt->error);
-        }
-
-        $result = $stmt->get_result();
-        if (!$result) {
-            throw new Exception("Błąd pobierania wyniku: " . $stmt->error);
-        }
-
-        $stmt->close();
-
-        return $result->fetch_all(MYSQLI_ASSOC);       
+            ORDER BY a.date DESC;
+        ";
+    
+        // Wykonanie zapytania
+        $stmt = $this->executeQuery($query, [], "");
+    
+        // Pobranie wyników jako tablica asocjacyjna
+        return $this->fetchAllResults($stmt);
     }
+    
 }
 
 ?>

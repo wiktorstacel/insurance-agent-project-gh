@@ -73,6 +73,8 @@ abstract class Model
     protected function fetchSingleColumnResult($stmt)
     {
         try {
+            $result = null;
+            
             $stmt->bind_result($result);
             if (!$stmt->fetch()) {
                 throw new \Exception("Błąd podczas pobierania wyniku.");
