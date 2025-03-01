@@ -2,7 +2,7 @@
 
 namespace Wikto\InsuranceAgentProjectGh\models;
 
-class Register extends Model{
+class User extends Model{
     protected $login;
     protected $email;
     protected $haslo;
@@ -88,7 +88,8 @@ class Register extends Model{
         return true;
     }
 
-    public function updateUser(int $userId, array $data): bool {
+    public function updateUser(int $userId, array $data): bool 
+    {
         if (empty($data)) {
             return false; // Nic do aktualizacji
         }
@@ -107,15 +108,13 @@ class Register extends Model{
         return $stmt !== false; // Zwrot `true` jeśli `executeQuery()` działa, `false` jeśli błąd
     }
     
-    
-
-    public function getUserById($id) {
+    public function getUserById($id) 
+    {
         $query = "SELECT * FROM users WHERE user_id = ?";
         $stmt = $this->executeQuery($query, [$id], "i");    
         return $this->fetchSingleResult($stmt);
     }
     
-
     //Sprawdza, że login podany w rejestracji jest unikalny
     public function isLoginUnique($login)
     {
