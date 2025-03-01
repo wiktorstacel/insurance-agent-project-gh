@@ -3,8 +3,8 @@
 require ('strona_kokpit_stage.php');
 require_once 'vendor/autoload.php';
 
-use Wikto\InsuranceAgentProjectGh\models\Register;
-use Wikto\InsuranceAgentProjectGh\validators\Register_Validator;
+use Wikto\InsuranceAgentProjectGh\models\User;
+use Wikto\InsuranceAgentProjectGh\validators\User_Validator;
 
 class kokpit_editProfile extends kokpit_stage
 {
@@ -12,7 +12,7 @@ class kokpit_editProfile extends kokpit_stage
     public function WyswietlPage()
     {
         include 'config_db.php';
-        $userModel = new Register($conn);
+        $userModel = new User($conn);
         //$userProfile = $userModel->getUserById($_SESSION['user_id']);
         $userModel->loadData($userModel->getUserById($_SESSION['user_id']));// przypisanie danych do składowych modelu i potem korzystanie z tych składowych w widoku
         $this->render('views/kokpit/edit_profile.php', ['userProfile' => $userModel]);
@@ -27,10 +27,10 @@ class kokpit_editProfile extends kokpit_stage
         }
         //UWAGA w przypadku Regulamin - boolean FILTER_SANITIZE_SPECIAL_CHARS przerobi na string "false", które w if("false") zwraca true - niepusty string traktowany jest jako prawda w warunkach logicznych
         include 'config_db.php';
-        $profileModel = new Register($conn); //Dyskusyjne: korzystanie z modelu do rejestracji
+        $profileModel = new User($conn); //Dyskusyjne: korzystanie z modelu do rejestracji
         $profileModel->loadData($body);
 
-        $profileValidator = new Register_Validator($profileModel); //Dyskusyjne: korzystanie z walidatora do rejestracji
+        $profileValidator = new User_Validator($profileModel); //Dyskusyjne: korzystanie z walidatora do rejestracji
  
         if (!$profileValidator->validate()) 
         {

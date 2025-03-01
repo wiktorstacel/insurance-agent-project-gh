@@ -3,8 +3,8 @@
 require ('strona_stage.php');
 require_once 'vendor/autoload.php';
 
-use Wikto\InsuranceAgentProjectGh\models\Register;
-use Wikto\InsuranceAgentProjectGh\validators\Register_Validator;
+use Wikto\InsuranceAgentProjectGh\models\User;
+use Wikto\InsuranceAgentProjectGh\validators\User_Validator;
 
 //use PHPMailer\PHPMailer\PHPMailer;
 
@@ -74,11 +74,11 @@ class register_page extends Strona2
         }
         
         include 'config_db.php';
-        $registerModel = new Register($conn);
+        $registerModel = new User($conn);
         $registerModel->loadData($data);
         //$registerModel->setRegisterData($login, $email, $haslo, $haslo2, $gender, $languages, $regulamin);
 
-        $registerValidator = new Register_Validator($registerModel);
+        $registerValidator = new User_Validator($registerModel);
  
         if (!$registerValidator->validate()) 
         {
